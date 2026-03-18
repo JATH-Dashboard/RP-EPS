@@ -3640,7 +3640,7 @@ onDragOver={handleDragOver}
 
                     {/* FDR - full width card */}
                     <div className="grid grid-cols-1 gap-6 mb-6">
-  <div className={`bg-white rounded-xl shadow-sm border border-gray-200 netflix-card ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+  <div className={`bg-white rounded-xl shadow-sm border border-gray-200 netflix-card jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
   <h3 className="text-lg font-bold text-gray-800 mb-4">
   {FDR_LINE_LABELS[lang]?.fdrTitle}
 </h3>
@@ -3649,8 +3649,7 @@ onDragOver={handleDragOver}
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={fdrByMonth}
 margin={{ top: 20, right: isMobile ? 36 : 20, bottom: 10, left: isMobile ? 6 : -10 }}
-style={{ cursor: 'pointer' }}
-onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); }}>
+style={{ cursor: 'pointer' }}>
         <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
         <XAxis
           dataKey="month"
@@ -3669,7 +3668,8 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
         <Legend
           verticalAlign="bottom"
           align="center"
-          wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13 }}
+          wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
+          onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
         />
 
         {(
@@ -3682,9 +3682,12 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
             dataKey={line}
             stroke={getLineColorMap(isLightMode)[line]}
             color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={3}
+            strokeWidth={chartClickLine === line ? 4 : 2.5}
             dot={false}
-            activeDot={{ r: 5 }}
+            activeDot={{ r: 6 }}
+            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
+            style={{ cursor: 'pointer' }}
+            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
           />
         ))}
       </LineChart>
@@ -3696,7 +3699,7 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
                     {/* MTBF + MTTR */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 {/* MTBF */}
-<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
   <h3 className="text-lg font-bold text-gray-800 mb-4">
     {t.mtbfTitle}
   </h3>
@@ -3708,11 +3711,9 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
         data={(() => {
           let d = mtbfByMonth;
           if (selectedMonths.length > 0) d = d.filter(r => selectedMonths.includes(r.month));
-          if (chartClickMonth) d = d.filter(r => r.month === chartClickMonth);
           return d;
         })()}
         style={{ cursor: 'pointer' }}
-        onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); }}
       >
         <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
         <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
@@ -3723,7 +3724,7 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
 />
          <RechartsTooltip content={makeTooltip(isLightMode, 'hr', lang)} cursor={{ fill: 'transparent' }} />
 
-        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13 }} />
+        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
         {(
           selectedLines.length > 0
             ? selectedLines.filter(l =>
@@ -3750,11 +3751,14 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
             dataKey={line}
             stroke={getLineColorMap(isLightMode)[line]}
             color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={3}
+            strokeWidth={chartClickLine === line ? 4 : 2.5}
             dot={false}
-            activeDot={{ r: 5 }}
+            activeDot={{ r: 6 }}
             type="linear"
             connectNulls
+            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
+            style={{ cursor: 'pointer' }}
+            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
           />
         ))}
       </LineChart>
@@ -3765,7 +3769,7 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
 
 
 {/* MTTR */}
-<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
   <h3 className="text-lg font-bold text-gray-800 mb-4">
     {t.mttrTitle}
   </h3>
@@ -3775,8 +3779,7 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
       <LineChart 
        margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
        data={mttrByMonth}
-       style={{ cursor: 'pointer' }}
-       onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); }}>
+       style={{ cursor: 'pointer' }}>
         <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
         <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
         <YAxis
@@ -3786,7 +3789,7 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
 />
        <RechartsTooltip content={makeTooltip(isLightMode, 'hr', lang)} cursor={{ fill: 'transparent' }} />
 
-        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13 }} />
+        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
 
         {(
           selectedLines.length > 0
@@ -3814,11 +3817,14 @@ onClick={(e) => { if (e && e.activeLabel) toggleChartFilter(setChartClickMonth, 
             dataKey={line}
             stroke={getLineColorMap(isLightMode)[line]}
             color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={3}
+            strokeWidth={chartClickLine === line ? 4 : 2.5}
             dot={false}
-            activeDot={{ r: 5 }}
+            activeDot={{ r: 6 }}
             type="linear"
             connectNulls
+            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
+            style={{ cursor: 'pointer' }}
+            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
           />
         ))}
       </LineChart>
