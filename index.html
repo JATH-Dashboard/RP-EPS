@@ -1072,7 +1072,7 @@ body.jath-mode .critical-card::after {
             type: "ประเภท (M/E)",
             paretoTitle: "Pareto Analysis: ปัญหาหลักตามเวลาซ่อม",
             top5Title: "Top 5 เครื่องจักรที่เสียบ่อย (เวลา)",
-            lineAnalysisTitle: "เวลาหยุดเครื่องแยกตามไลน์ & สถานะ & การเกิดซ้ำ (ครั้ง)",
+            lineAnalysisTitle: "เวลาหยุดเครื่องแยกตามไลน์ & สถานะ & จำนวนการเกิดซ้ำ",
                         recurrentTitle: "ปัญหาที่เกิดซ้ำ",
             reasonTitle: "สาเหตุที่ใช้เวลาซ่อมนาน",
             failureCategoryTitle: "หมวดหมู่ความล้มเหลว",
@@ -1085,7 +1085,7 @@ body.jath-mode .critical-card::after {
             colMachine: "Machine No.",
             colDate: "Start Date",
             colLine: "Line Name",
-            colTime: "เวลาหยุดเครื่อง",
+            colTime: "เวลาที่เครื่องจักรเสีย",
             colRepair: "Repair Detail",
             colImplement: "Implementation",
             colRoot: "Root Cause",
@@ -1129,7 +1129,7 @@ body.jath-mode .critical-card::after {
             type: "Type (M/E)",
             paretoTitle: "Pareto Analysis: Main Problems",
             top5Title: "Top 5 Machine Breakdown (Time)",
-            lineAnalysisTitle: "Downtime by Line & Status with Recurrence (Time)",
+            lineAnalysisTitle: "Downtime by Line & Status with Recurrence Count",
             reasonTitle: "Main Reason for Long Time Repair",
                         recurrentTitle: "Recurrent Problems",
             failureCategoryTitle: "Failure Category",
@@ -1187,7 +1187,7 @@ body.jath-mode .critical-card::after {
             type: "タイプ (M/E)",
             paretoTitle: "パレート分析：主な問題",
             top5Title: "ワースト5 機械故障 (時間)",
-            lineAnalysisTitle: "ライン別ダウンタイム & ステータス & 再発（時間）",
+            lineAnalysisTitle: "ライン別ダウンタイム分析 & ステータス & 再発件数",
             reasonTitle: "長時間修理の主な理由",
                         recurrentTitle: "再発問題（繰り返し発生）",
             failureCategoryTitle: "故障カテゴリ",
@@ -3977,18 +3977,18 @@ style={{ cursor: 'pointer' }}>
       return value;
     }}
   />
-  <Bar yAxisId="left" dataKey="Done" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#6B7280'}>
+  <Bar yAxisId="left" dataKey="Done" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#475569'}>
     {lineDowntime.map((entry, i) => (
       <Cell key={`done-${i}`}
-        fill={isLightMode ? '#34C759' : '#6B7280'}
-        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : isLightMode ? 0.9 : 0.85}
+        fill={isLightMode ? '#34C759' : '#475569'}
+        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : isLightMode ? 0.9 : 0.9}
       />
     ))}
   </Bar>
-  <Bar yAxisId="left" dataKey="Temp" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#FF9500' : '#C2410C'}>
+  <Bar yAxisId="left" dataKey="Temp" stackId="a" barSize={30} radius={[6,6,0,0]} fill={isLightMode ? '#FF9500' : '#E50914'}>
     {lineDowntime.map((entry, i) => (
       <Cell key={`temp-${i}`}
-        fill={isLightMode ? '#FF9500' : '#C2410C'}
+        fill={isLightMode ? '#FF9500' : '#E50914'}
         opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1}
       />
     ))}
@@ -3998,7 +3998,7 @@ style={{ cursor: 'pointer' }}>
     type="monotone"
     dataKey="recurrent"
     name="recurrent"
-    stroke="#EF4444"
+    stroke={isLightMode ? "#EF4444" : "#1D9BF0"}
     strokeWidth={2.5}
     dot={false}
     activeDot={{ r: 6 }}
@@ -4708,8 +4708,12 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
        if (!active || !payload || !payload.length) return null;
        const ct = getChartTheme(isLightMode);
        const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
+       const done  = payload.find(p => p.dataKey === 'Done')?.value || 0;
+       const temp  = payload.find(p => p.dataKey === 'Temp')?.value || 0;
+       const total = done + temp;
+       const lTotal = lang==='TH' ? 'รวม BD ทั้งหมด' : lang==='JP' ? '合計件数' : 'Total Breakdowns';
        return (
-         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 140 }}>
+         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 200 }}>
            <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
            {payload.map((entry, i) => {
              const sc = entry.payload?.color || entry.stroke || entry.color || entry.fill || ct.paretoBars;
@@ -4724,6 +4728,14 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                </div>
              );
            })}
+           {(done > 0 || temp > 0) && (
+             <div style={{ borderTop: `1px solid ${ct.tooltipBorder}`, marginTop: 6, paddingTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
+               <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: ct.labelColor, flexShrink: 0 }}/>
+               <span style={{ color: ct.labelColor, fontWeight: 700 }}>
+                 {lTotal}: <b>{total}{unitSuffix.count}</b>
+               </span>
+             </div>
+           )}
          </div>
        );
      }}
@@ -4740,7 +4752,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     dataKey="Done"
                                     stackId="status"
                                     name={lang==='TH' ? 'เสร็จสิ้น (Completed)' : lang==='JP' ? '完了 (Completed)' : 'Completed'}
-                                    fill={isLightMode ? "#34C759" : "#4B5563"}
+                                    fill={isLightMode ? "#34C759" : "#475569"}
                                     barSize={22}
                                     radius={[0, 0, 0, 0]}
                                   />
@@ -4749,16 +4761,16 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     dataKey="Temp"
                                     stackId="status"
                                     name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temp'}
-                                    fill={isLightMode ? "#FF9500" : "#C2410C"}
+                                    fill={isLightMode ? "#FF9500" : "#E50914"}
                                     barSize={22}
-                                    radius={[3, 3, 0, 0]}
+                                    radius={[6, 6, 0, 0]}
                                   />
                                   <Line
                                     yAxisId="left"
                                     type="monotone"
                                     dataKey="time"
                                     name={t.colTime}
-                                    stroke={isLightMode ? "#FF3B30" : getChartTheme(false).paretoBars}
+                                    stroke={isLightMode ? "#FF3B30" : "#1D9BF0"}
                                     strokeWidth={3}
                                     dot={false}
                                   />
