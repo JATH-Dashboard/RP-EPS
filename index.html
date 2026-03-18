@@ -2462,16 +2462,12 @@ const hasNonZeroValue = (data, lineKey) =>
   data.some(d => Number(d[lineKey]) > 0);
 
 const fdrByMonth = useMemo(() => {
-    const activeFdrLines =
-  selectedLines.length > 0
-    ? selectedLines.filter(l => FDR_LINES.includes(l))
-    : FDR_LINES;
+    // คำนวณทุก line เสมอ — dim ทำที่ render layer ไม่ใช่ data layer
+    const activeFdrLines = FDR_LINES;
 
-// ถ้า filter เหลือ 0 line ที่ FDR รองรับ → ไม่แสดง
-if (activeFdrLines.length === 0) return [];
-
-     if (operationData.length === 0 || filteredData.length === 0) return [];
-    
+  // ใช้ applyAllFilters skip chartLine เพื่อให้ทุก line มีข้อมูลครบ (dim ที่ render ไม่ใช่ data)
+  const fdrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (operationData.length === 0 || fdrSource.length === 0) return [];
 
 // --- FIX FDR CALCULATION (ONLY THIS GRAPH) ---
 
@@ -2486,7 +2482,7 @@ const GEAR_GROUP = [
 const bdMap = {};
 
 // 🔹 Line ปกติ (คำนวณเฉพาะที่เลือก)
-filteredData.forEach(d => {
+fdrSource.forEach(d => {
   if (!activeFdrLines.includes(d.lineName)) return;
   if (d.lineName === 'Gear Assy EPS') return; // เดี๋ยวคิดแยก
 
@@ -2496,7 +2492,7 @@ filteredData.forEach(d => {
 
 // 🔹 Gear Assy EPS (คำนวณเฉพาะเมื่อถูกเลือก)
 if (activeFdrLines.includes('Gear Assy EPS')) {
-  filteredData.forEach(d => {
+  fdrSource.forEach(d => {
     if (selectedMonths.length > 0 && !selectedMonths.includes(d.month)) return;
     if (!GEAR_GROUP.includes(d.lineName)) return;
 
@@ -2552,7 +2548,7 @@ Object.values(monthMap).forEach(m => {
   return Object.values(monthMap).sort(
   (a, b) => parseMonth(a.month) - parseMonth(b.month)
 );
-}, [filteredData, operationData]);
+}, [rawData, applyAllFilters, operationData, selectedLines, selectedMonths, chartClickLine]);
 
 
 const mttrByMonth = useMemo(() => {
@@ -2566,12 +2562,12 @@ const mttrByMonth = useMemo(() => {
   ];
 
 
-  const activeLines =
-    selectedLines.length > 0
-      ? selectedLines.filter(l => MTTR_LINES.includes(l))
-      : MTTR_LINES;
+  // คำนวณทุก line เสมอ — dim ทำที่ render layer ไม่ใช่ data layer
+  const activeLines = MTTR_LINES;
 
-  if (filteredData.length === 0 || activeLines.length === 0) return [];
+  // ใช้ applyAllFilters skip chartLine เพื่อให้ทุก line มีข้อมูลครบ
+  const mttrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (mttrSource.length === 0) return [];
 
   const map = {};
 
@@ -2583,7 +2579,7 @@ const mttrByMonth = useMemo(() => {
   'Pulley Sub-Assy'
 ];
 
-filteredData.forEach(d => {
+mttrSource.forEach(d => {
 
   // ===== CASE 1: Gear Assy EPS (รวม 5 line) =====
   if (
@@ -2657,7 +2653,7 @@ Object.values(monthMap).forEach(m => {
   return Object.values(monthMap).sort(
     (a, b) => parseMonth(a.month) - parseMonth(b.month)
   );
-}, [filteredData, selectedLines, selectedMonths]);
+}, [rawData, applyAllFilters, selectedLines, selectedMonths, chartClickLine]);
 
 const mtbfByMonth = useMemo(() => {
 
@@ -2681,16 +2677,14 @@ const mtbfByMonth = useMemo(() => {
     'Pulley Sub-Assy'
   ];
 
-  const activeLines =
-    selectedLines.length > 0
-      ? selectedLines.filter(l => MTBF_LINES.includes(l))
-      : MTBF_LINES;
+  // คำนวณทุก line เสมอ — dim ทำที่ render layer ไม่ใช่ data layer
+  const activeLines = MTBF_LINES;
 
 if (selectedMachines.length > 0) return [];
 
   // ใช้ข้อมูลที่ skip chartMonth และ month filter เพื่อให้กราฟแสดงทุกเดือน
   // แล้วค่อย filter ที่ render level (เหมือนกราฟ FDR ใน reference)
-  const mtbfSource = applyAllFilters(rawData, { skip: ['month', 'chartMonth'] });
+  const mtbfSource = applyAllFilters(rawData, { skip: ['month', 'chartMonth', 'chartLine', 'line'] });
 
   if (
     mtbfSource.length === 0 ||
@@ -3189,6 +3183,51 @@ const makeTooltip = (isLight, unitKey, lang) => ({ active, payload, label }) => 
   );
 };
 
+
+// Tooltip สำหรับ FDR/MTBF/MTTR — filter เฉพาะ line ที่ถูก select (ถ้ามี)
+const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine) => ({ active, payload, label }) => {
+  if (!active || !payload || !payload.length) return null;
+  const ct = getChartTheme(isLight);
+  const suffix = unitKey && lang ? (UNIT_SUFFIX[lang]?.[unitKey] || '') : '';
+  // กรองเฉพาะ line ที่ select ถ้ามี filter อยู่
+  const filtered = chartClickLine
+    ? payload.filter(e => e.dataKey === chartClickLine)
+    : payload;
+  if (!filtered.length) return null;
+  return (
+    <div data-jath-tooltip="1" style={{
+      background: ct.tooltipBg,
+      backdropFilter: 'blur(16px) saturate(180%)',
+      WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+      border: `1px solid ${ct.tooltipBorder}`,
+      borderRadius: 12,
+      padding: '10px 14px',
+      boxShadow: isLight
+        ? '0 8px 32px rgba(60,100,200,0.13), inset 0 1px 1px rgba(255,255,255,0.7)'
+        : '0 12px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.10)',
+      fontSize: 12,
+      minWidth: 130,
+    }}>
+      {label !== undefined && (
+        <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
+      )}
+      {filtered.map((entry, i) => {
+        const seriesColor = entry.stroke || entry.color || entry.fill || ct.paretoBars;
+        const val = typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value;
+        return (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+            <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: seriesColor, flexShrink: 0 }}/>
+            <span className="jath-tooltip-val" style={{ '--jath-c': isLight ? seriesColor : ct.labelColor, color: isLight ? seriesColor : ct.labelColor, fontWeight: 500 }}>
+              {entry.name && <span className="jath-tooltip-name" style={{ '--jath-c': isLight ? seriesColor : ct.labelColor, color: isLight ? seriesColor : ct.labelColor, fontWeight: 400, marginRight: 4 }}>{entry.name}:</span>}
+              {val}{suffix}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const chartTooltipPareto = ({ active, payload, lang }) => {
   const L = TOOLTIP_I18N[lang] || TOOLTIP_I18N.EN;
   const S = STATUS_LABELS[lang] || STATUS_LABELS.EN;
@@ -3663,7 +3702,7 @@ style={{ cursor: 'pointer' }}>
           tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }}
           tickMargin={8}
         />
-        <RechartsTooltip content={makeTooltip(isLightMode, 'pct', lang)} cursor={{ fill: 'transparent' }} />
+        <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
 
         <Legend
           verticalAlign="bottom"
@@ -3672,24 +3711,25 @@ style={{ cursor: 'pointer' }}>
           onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
         />
 
-        {(
-          selectedLines.length > 0
-            ? selectedLines.filter(l => FDR_LINES.includes(l))
-            : FDR_LINES
-        ).map((line) => (
-          <Line
-            key={line}
-            dataKey={line}
-            stroke={getLineColorMap(isLightMode)[line]}
-            color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={chartClickLine === line ? 4 : 2.5}
-            dot={false}
-            activeDot={{ r: 6 }}
-            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
-            style={{ cursor: 'pointer' }}
-            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-          />
-        ))}
+        {FDR_LINES.map((line) => {
+          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+          const dimmed = !isHighlight;
+          return (
+            <Line
+              key={line}
+              dataKey={line}
+              stroke={getLineColorMap(isLightMode)[line]}
+              color={getLineColorMap(isLightMode)[line]}
+              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+              dot={false}
+              activeDot={{ r: 6 }}
+              strokeOpacity={dimmed ? 0.12 : 1}
+              style={{ cursor: 'pointer' }}
+              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+            />
+          );
+        })}
       </LineChart>
     </ResponsiveContainer>
   </div>
@@ -3722,45 +3762,30 @@ style={{ cursor: 'pointer' }}>
   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }}
   tickMargin={8}
 />
-         <RechartsTooltip content={makeTooltip(isLightMode, 'hr', lang)} cursor={{ fill: 'transparent' }} />
+         <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
 
         <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
-        {(
-          selectedLines.length > 0
-            ? selectedLines.filter(l =>
-                [
-                  'Rack EPS',
-                  'Nut Ball Screw EPS Rack',
-                  'Pinion EPS',
-                  'Sensor Assy EPS',
-                  'Shaft Assy Input',
-                  'Gear Assy EPS'
-                ].includes(l)
-              )
-            : [
-                'Rack EPS',
-                'Nut Ball Screw EPS Rack',
-                'Pinion EPS',
-                'Sensor Assy EPS',
-                'Shaft Assy Input',
-                'Gear Assy EPS'
-              ]
-        ).map(line => (
-          <Line
-            key={line}
-            dataKey={line}
-            stroke={getLineColorMap(isLightMode)[line]}
-            color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={chartClickLine === line ? 4 : 2.5}
-            dot={false}
-            activeDot={{ r: 6 }}
-            type="linear"
-            connectNulls
-            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
-            style={{ cursor: 'pointer' }}
-            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-          />
-        ))}
+        {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map(line => {
+          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+          const dimmed = !isHighlight;
+          return (
+            <Line
+              key={line}
+              dataKey={line}
+              stroke={getLineColorMap(isLightMode)[line]}
+              color={getLineColorMap(isLightMode)[line]}
+              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+              dot={false}
+              activeDot={{ r: 6 }}
+              type="linear"
+              connectNulls
+              strokeOpacity={dimmed ? 0.12 : 1}
+              style={{ cursor: 'pointer' }}
+              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+            />
+          );
+        })}
       </LineChart>
     </ResponsiveContainer>
   </div>
@@ -3787,46 +3812,31 @@ style={{ cursor: 'pointer' }}>
   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }}
   tickMargin={8}
 />
-       <RechartsTooltip content={makeTooltip(isLightMode, 'hr', lang)} cursor={{ fill: 'transparent' }} />
+       <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
 
         <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
 
-        {(
-          selectedLines.length > 0
-            ? selectedLines.filter(l =>
-                [
-                  'Rack EPS',
-                  'Nut Ball Screw EPS Rack',
-                  'Pinion EPS',
-                  'Sensor Assy EPS',
-                  'Shaft Assy Input',
-                  'Gear Assy EPS'
-                ].includes(l)
-              )
-            : [
-                'Rack EPS',
-                'Nut Ball Screw EPS Rack',
-                'Pinion EPS',
-                'Sensor Assy EPS',
-                'Shaft Assy Input',
-                'Gear Assy EPS'
-              ]
-        ).map((line) => (
-          <Line
-            key={line}
-            dataKey={line}
-            stroke={getLineColorMap(isLightMode)[line]}
-            color={getLineColorMap(isLightMode)[line]}
-            strokeWidth={chartClickLine === line ? 4 : 2.5}
-            dot={false}
-            activeDot={{ r: 6 }}
-            type="linear"
-            connectNulls
-            opacity={chartClickLine && chartClickLine !== line ? 0.15 : 1}
-            style={{ cursor: 'pointer' }}
-            onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-          />
-        ))}
+        {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map((line) => {
+          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+          const dimmed = !isHighlight;
+          return (
+            <Line
+              key={line}
+              dataKey={line}
+              stroke={getLineColorMap(isLightMode)[line]}
+              color={getLineColorMap(isLightMode)[line]}
+              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+              dot={false}
+              activeDot={{ r: 6 }}
+              type="linear"
+              connectNulls
+              strokeOpacity={dimmed ? 0.12 : 1}
+              style={{ cursor: 'pointer' }}
+              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+            />
+          );
+        })}
       </LineChart>
     </ResponsiveContainer>
   </div>
