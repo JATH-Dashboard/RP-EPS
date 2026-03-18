@@ -1059,7 +1059,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้อง RP-EPS อัปเดท 10/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้อง RP-EPS อัปเดท 18/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1072,19 +1072,20 @@ body.jath-mode .critical-card::after {
             type: "ประเภท (M/E)",
             paretoTitle: "Pareto Analysis: ปัญหาหลักตามเวลาซ่อม",
             top5Title: "Top 5 เครื่องจักรที่เสียบ่อย (เวลา)",
-            lineAnalysisTitle: "Downtime ตามไลน์การผลิต",
+            lineAnalysisTitle: "เวลาหยุดเครื่องแยกตามไลน์ & สถานะ & การเกิดซ้ำ (ครั้ง)",
                         recurrentTitle: "ปัญหาที่เกิดซ้ำ",
             reasonTitle: "สาเหตุที่ใช้เวลาซ่อมนาน",
             failureCategoryTitle: "หมวดหมู่ความล้มเหลว",
             typeTitle: "สัดส่วน Breakdown Type (M/E)",
             scatterTitle: "ความถี่ vs เวลาซ่อม (รายเครื่อง)",
+            trendChartTitle: "การขัดข้อง (จำนวน & เวลา) & สถานะ",
             trendTitle: "แนวโน้มประจำวัน (เวลา & จำนวนครั้ง)",
             distTitle: "การกระจายตัวของเวลาซ่อม",
             tableTitle: "ข้อมูลรายละเอียด Breakdown",
             colMachine: "Machine No.",
             colDate: "Start Date",
             colLine: "Line Name",
-            colTime: "BD. Time",
+            colTime: "เวลาหยุดเครื่อง",
             colRepair: "Repair Detail",
             colImplement: "Implementation",
             colRoot: "Root Cause",
@@ -1102,7 +1103,7 @@ body.jath-mode .critical-card::after {
             loading: "กำลังประมวลผล...",
             resetFilters: "ล้างตัวกรอง",
             status: "สถานะ",
-            statusDone: "เสร็จสิ้น",
+            statusDone: "เสร็จสิ้น (Completed)",
             statusTemp: "แก้ไขชั่วคราว",
             jathTitle: "JATH Focus – โหมดโฟกัส",
             jathTop3: "3 เครื่องหลัก",
@@ -1115,12 +1116,12 @@ body.jath-mode .critical-card::after {
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 10/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 18/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
-            totalTime: "Total BD. Time (min)",
-            avgTime: "Avg. BD. Time (min)",
+            totalTime: "Total Breakdown Time (min)",
+            avgTime: "Avg. Breakdown Time (min)",
             machine: "Machine No.",
             line: "Line Name",
             duration: "Duration",
@@ -1128,19 +1129,20 @@ body.jath-mode .critical-card::after {
             type: "Type (M/E)",
             paretoTitle: "Pareto Analysis: Main Problems",
             top5Title: "Top 5 Machine Breakdown (Time)",
-            lineAnalysisTitle: "Downtime by Line",
+            lineAnalysisTitle: "Downtime by Line & Status with Recurrence (Time)",
             reasonTitle: "Main Reason for Long Time Repair",
                         recurrentTitle: "Recurrent Problems",
             failureCategoryTitle: "Failure Category",
             typeTitle: "Breakdown Type Analysis (M/E)",
-            scatterTitle: "Frequency vs BD. Time",
+            scatterTitle: "Frequency vs Breakdown Time",
+            trendChartTitle: "Breakdown (Count & Time) & Status",
             trendTitle: "Daily Breakdown Trend",
             distTitle: "Breakdown Time Distribution",
             tableTitle: "Detailed Breakdown Data",
             colMachine: "Machine No.",
             colDate: "Start Date",
             colLine: "Line Name",
-            colTime: "BD. Time",
+            colTime: "Breakdown Time",
             colRepair: "Repair Detail",
             colImplement: "Implementation",
             colRoot: "Root Cause",
@@ -1158,7 +1160,7 @@ body.jath-mode .critical-card::after {
             loading: "Processing...",
             resetFilters: "Reset Filters",
             status: "Status",
-            statusDone: "Done",
+            statusDone: "Completed",
             statusTemp: "Temp",
             jathTitle: "JATH Focus Mode",
             jathTop3: "Top 3 Machines",
@@ -1172,7 +1174,7 @@ body.jath-mode .critical-card::after {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年10月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年18月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1185,12 +1187,13 @@ body.jath-mode .critical-card::after {
             type: "タイプ (M/E)",
             paretoTitle: "パレート分析：主な問題",
             top5Title: "ワースト5 機械故障 (時間)",
-            lineAnalysisTitle: "ライン別ダウンタイム",
+            lineAnalysisTitle: "ライン別ダウンタイム & ステータス & 再発（時間）",
             reasonTitle: "長時間修理の主な理由",
                         recurrentTitle: "再発問題（繰り返し発生）",
             failureCategoryTitle: "故障カテゴリ",
             typeTitle: "故障タイプ分析 (M/E)",
             scatterTitle: "頻度 vs 故障時間",
+            trendChartTitle: "故障（件数 & 時間）& ステータス",
             trendTitle: "日次故障トレンド",
             distTitle: "故障時間の分布",
             tableTitle: "詳細データ一覧",
@@ -1215,7 +1218,7 @@ body.jath-mode .critical-card::after {
             loading: "処理中...",
             resetFilters: "フィルターをリセット",
             status: "ステータス",
-            statusDone: "完了",
+            statusDone: "完了 (Completed)",
             statusTemp: "一時対応",
             jathTitle: "JATH フォーカスモード",
             jathTop3: "重点設備トップ3",
@@ -1258,17 +1261,17 @@ const TOOLTIP_I18N = {
             const STATUS_LABELS = {
   TH: {
     title: 'สถานะ',
-    done: 'เสร็จสิ้น',
+    done: 'เสร็จสิ้น (Completed)',
     temp: 'แก้ไขชั่วคราว'
   },
   EN: {
     title: 'Status',
-    done: 'Done (Completed)',
+    done: 'Completed',
     temp: 'Temp (Temporary)'
   },
   JP: {
     title: 'ステータス',
-    done: '完了 (対応済み)',
+    done: '完了 (Completed)',
     temp: '一時対応'
   }
 };
@@ -1625,17 +1628,17 @@ const StatusLegend = ({ lang }) => {
   const STATUS_LABELS = {
     TH: {
       title: 'สถานะ',
-      done: 'เสร็จสิ้น',
+      done: 'เสร็จสิ้น (Completed)',
       temp: 'แก้ไขชั่วคราว'
     },
     EN: {
       title: 'Status',
-      done: 'Done (Completed)',
+      done: 'Completed',
       temp: 'Temp (Temporary)'
     },
     JP: {
       title: 'ステータス',
-      done: '完了 (対応済み)',
+      done: '完了 (Completed)',
       temp: '一時対応'
     }
   };
@@ -2980,16 +2983,52 @@ const top3FocusMachines = useMemo(() => {
             const lineDowntime = useMemo(() => {
                 const groups = {};
                 filteredData.forEach(d => {
-                if (!groups[d.lineName]) groups[d.lineName] = 0;
-                groups[d.lineName] += d.bdTime;
+                    if (!groups[d.lineName]) groups[d.lineName] = { Done: 0, Temp: 0 };
+                    if (d.status === 'Done') groups[d.lineName].Done += 1;
+                    else groups[d.lineName].Temp += 1;
                 });
-                const palette = getChartTheme(isLightMode).palettePrimary;
+                // นับ recurrent ต่อ line
+                const pairCount = {};
+                filteredData.forEach(d => {
+                    const key = `${d.lineName}|${d.machineNo}|${d.repairDetail}`;
+                    pairCount[key] = (pairCount[key] || 0) + 1;
+                });
+                const recMap = {};
+                Object.entries(pairCount).forEach(([key, cnt]) => {
+                    if (cnt > 1) {
+                        const line = key.split('|')[0];
+                        recMap[line] = (recMap[line] || 0) + (cnt - 1);
+                    }
+                });
                 return Object.keys(groups)
-                .map((k, i) => ({ name: k, value: groups[k], color: palette[i % 8] }))
-                .sort((a, b) => b.value - a.value)
-                .slice(0, 10)
-                .map((d, i) => ({ ...d, color: palette[i % 8] }));
-            }, [filteredData, isLightMode]);
+                    .map(k => ({
+                        name: k,
+                        Done: groups[k].Done,
+                        Temp: groups[k].Temp,
+                        value: groups[k].Done + groups[k].Temp,
+                        recurrent: recMap[k] || 0
+                    }))
+                    .sort((a, b) => b.value - a.value)
+                    .slice(0, 10);
+            }, [filteredData]);
+
+            // recurrent count per line (สำหรับ second axis ใน Downtime by Line)
+            const lineRecurrentCount = useMemo(() => {
+                const map = {};
+                // นับ machine+repair key ที่เกิดซ้ำ (>1 ครั้ง) ต่อ line
+                const pairCount = {};
+                filteredData.forEach(d => {
+                    const key = `${d.lineName}|${d.machineNo}|${d.repairDetail}`;
+                    pairCount[key] = (pairCount[key] || 0) + 1;
+                });
+                Object.entries(pairCount).forEach(([key, cnt]) => {
+                    if (cnt > 1) {
+                        const line = key.split('|')[0];
+                        map[line] = (map[line] || 0) + (cnt - 1);
+                    }
+                });
+                return map; // { lineName: recurrentCount }
+            }, [filteredData]);
 
             const typeAnalysis = useMemo(() => {
                 const groups = { M: 0, E: 0 };
@@ -3125,7 +3164,7 @@ const renderStatusOnLine = ({ cx, cy, payload }) => {
         fontWeight="600"
         fill={isDone ? '#16A34A' : '#F59E0B'}
       >
-        {payload.status}
+        {payload.status === 'Done' ? 'Completed' : payload.status}
       </text>
     </g>
   );
@@ -3297,9 +3336,11 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
                 const groups = {};
                 filteredData.forEach(d => {
                     const key = d.month;
-                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0 };
+                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0, Done: 0, Temp: 0 };
                     groups[key].time += d.bdTime;
                     groups[key].count += 1;
+                    if (d.status === 'Done') groups[key].Done += 1;
+                    else groups[key].Temp += 1;
                 });
                 return Object.values(groups).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
             }, [filteredData]);
@@ -3850,16 +3891,13 @@ style={{ cursor: 'pointer' }}>
                         <h3 className="text-lg font-bold text-gray-800 mb-4">{t.lineAnalysisTitle}</h3>
                         <div className="h-[320px]">
                             <ResponsiveContainer width="100%" height="100%">
-<BarChart
-  data={[...lineDowntime].sort((a, b) => b.value - a.value)}
-  margin={{ top: 20, right: isMobile ? 8 : 45, bottom: 20, left: isMobile ? 16 : 10 }}
+<ComposedChart
+  data={lineDowntime}
+  margin={{ top: 20, right: isMobile ? 36 : 50, bottom: 20, left: isMobile ? 16 : 10 }}
   style={{ cursor: 'pointer' }}
   onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickLine, chartClickLine, v); } }}
 >
-  <CartesianGrid
-    stroke={getChartTheme(isLightMode).grid}
-    vertical={false}
-  />
+  <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} />
   <XAxis
     dataKey="name"
     interval={0}
@@ -3872,30 +3910,100 @@ style={{ cursor: 'pointer' }}>
     tickLine={false}
   />
   <YAxis
+    yAxisId="left"
+    orientation="left"
     domain={[0, 'dataMax']}
     allowDecimals={false}
     tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
     tickLine={false}
     width={isMobile ? 28 : 40}
-    tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
   />
-  <RechartsTooltip content={makeTooltip(isLightMode, 'time', lang)} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-
-  <Bar
-    dataKey="value"
-    radius={[6, 6, 0, 0]}
-    barSize={30}
-  >
-    {[...lineDowntime].sort((a, b) => b.value - a.value).map((entry, index) => (
-      <Cell
-        key={`cell-${index}`}
-        fill={entry.color || getChartTheme(isLightMode).palettePrimary[index % 8]}
-        opacity={chartClickLine && chartClickLine !== entry.name ? 0.3 : 1}
+  <YAxis
+    yAxisId="right"
+    orientation="right"
+    domain={[0, 'dataMax']}
+    allowDecimals={false}
+    tick={{ fill: '#ffffff', fontSize: isMobile ? 9 : 11 }}
+    axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+    tickLine={false}
+    width={isMobile ? 28 : 36}
+  />
+  <RechartsTooltip
+    cursor={{ fill: 'rgba(255,255,255,0.06)' }}
+    content={({ active, payload, label }) => {
+      if (!active || !payload || !payload.length) return null;
+      const ct = getChartTheme(isLightMode);
+      const done = payload.find(p => p.dataKey === 'Done')?.value || 0;
+      const temp = payload.find(p => p.dataKey === 'Temp')?.value || 0;
+      const recur = payload.find(p => p.dataKey === 'recurrent')?.value || 0;
+      const lDone  = lang==='TH' ? 'เสร็จสิ้น (Completed)' : lang==='JP' ? '完了 (Completed)' : 'Completed';
+      const lTemp  = lang==='TH' ? 'แก้ไขชั่วคราว'    : lang==='JP' ? '一時対応'   : 'Temp';
+      const lTotal = lang==='TH' ? 'รวม'              : lang==='JP' ? '合計'       : 'Total';
+      const lRecur = lang==='TH' ? 'ปัญหาซ้ำ'         : lang==='JP' ? '再発問題'   : 'Recurrent';
+      const lTimes = lang==='TH' ? ' ครั้ง'           : lang==='JP' ? ' 回'        : ' times';
+      const doneFill = isLightMode ? '#34C759' : '#6B7280';
+      const tempFill = isLightMode ? '#FF9500' : '#C2410C';
+      return (
+        <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:150, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
+          <div style={{ fontWeight:700, marginBottom:6, color:ct.labelColor }}>{label}</div>
+          <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:doneFill, flexShrink:0 }}/>
+            <span style={{ color:ct.itemColor }}>{lDone}: <b>{done}{lTimes}</b></span>
+          </div>
+          <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
+            <span style={{ color:ct.itemColor }}>{lTemp}: <b>{temp}{lTimes}</b></span>
+          </div>
+          <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, marginBottom:4, color:ct.labelColor, fontWeight:700 }}>
+            {lTotal}: {done + temp}{lTimes}
+          </div>
+          <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:'#EF4444', flexShrink:0 }}/>
+            <span style={{ color:'#EF4444', fontWeight:600 }}>{lRecur}: <b>{recur}{lTimes}</b></span>
+          </div>
+        </div>
+      );
+    }}
+  />
+  <Legend
+    verticalAlign="bottom"
+    align="center"
+    wrapperStyle={{ fontSize: isMobile ? 10 : 12, paddingTop: 8 }}
+    formatter={(value) => {
+      if (value === 'Done')      return lang==='TH' ? 'เสร็จสิ้น (Completed)' : lang==='JP' ? '完了 (Completed)' : 'Completed';
+      if (value === 'Temp')      return lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temp';
+      if (value === 'recurrent') return lang==='TH' ? 'ปัญหาซ้ำ'      : lang==='JP' ? '再発問題' : 'Recurrent';
+      return value;
+    }}
+  />
+  <Bar yAxisId="left" dataKey="Done" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#6B7280'}>
+    {lineDowntime.map((entry, i) => (
+      <Cell key={`done-${i}`}
+        fill={isLightMode ? '#34C759' : '#6B7280'}
+        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : isLightMode ? 0.9 : 0.85}
       />
     ))}
   </Bar>
-</BarChart>
+  <Bar yAxisId="left" dataKey="Temp" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#FF9500' : '#C2410C'}>
+    {lineDowntime.map((entry, i) => (
+      <Cell key={`temp-${i}`}
+        fill={isLightMode ? '#FF9500' : '#C2410C'}
+        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1}
+      />
+    ))}
+  </Bar>
+  <Line
+    yAxisId="right"
+    type="monotone"
+    dataKey="recurrent"
+    name="recurrent"
+    stroke="#EF4444"
+    strokeWidth={2.5}
+    dot={false}
+    activeDot={{ r: 6 }}
+  />
+</ComposedChart>
                             </ResponsiveContainer>
                         </div>
                     </div>
@@ -3903,90 +4011,74 @@ style={{ cursor: 'pointer' }}>
                     {/* Top 5 Machine */}
                     <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickMachine ? ' jath-chart-active-filter' : ''}`}>
                         <h3 className="text-lg font-bold text-gray-800 mb-4">{t.top5Title}</h3>
-                        <div style={{height: isMobile ? 340 : 320}}>
-                            <ResponsiveContainer>
-
+                        <div className="h-[320px]">
+                            <ResponsiveContainer width="100%" height="100%">
                                 <BarChart
-                                 data={top5Machines}
-                                    margin={isMobile
-                                      ? { top: 20, left: 0, right: 10, bottom: 0 }
-                                      : { top: 20, left: 10, right: 30 }
-                                    }
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.machineNo; toggleChartFilter(setChartClickMachine, chartClickMachine, v); } }}
-                                     >
+                                  data={top5Machines}
+                                  margin={{ top: 20, right: isMobile ? 8 : 45, bottom: 20, left: isMobile ? 16 : 10 }}
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.machineNo; toggleChartFilter(setChartClickMachine, chartClickMachine, v); } }}
+                                >
                                   <CartesianGrid
-                                    vertical={false}
                                     stroke={getChartTheme(isLightMode).grid}
-                                    strokeDasharray="2 6"
+                                    vertical={false}
                                   />
                                   <XAxis
                                     dataKey="machineNo"
                                     interval={0}
-                                    height={isMobile ? 90 : 70}
-                                    tick={isMobile
-                                      ? ({ x, y, payload }) => {
-                                          const item = top5Machines.find(d => d.machineNo === payload.value);
-                                          const machineName = item?.machineName || '';
-                                          // Shorten machine name: first 2 words only
-                                          const shortName = machineName.split(' ').slice(0, 2).join(' ');
-                                          const isLt = document.body.classList.contains('light-mode');
-                                          const color = getChartTheme(isLt).axis;
-                                          return (
-                                            <g transform={`translate(${x},${y})`}>
-                                              <text x={0} y={0} dy={10} textAnchor="end" fontSize={11} fontWeight="600" fill={color} transform="rotate(-35)">{payload.value}</text>
-                                              <text x={0} y={0} dy={26} textAnchor="end" fontSize={9} fill={color} transform="rotate(-35)">{shortName}</text>
-                                            </g>
-                                          );
-                                        }
-                                      : ({ x, y, payload }) => {
-                                          const item = top5Machines.find(d => d.machineNo === payload.value);
-                                          const wrapText = (text, maxLen = 18) => {
-                                            if (!text) return [];
-                                            const words = text.split(' ');
-                                            const lines = [];
-                                            let current = '';
-                                            words.forEach(w => {
-                                              if ((current + ' ' + w).length <= maxLen) {
-                                                current = current ? current + ' ' + w : w;
-                                              } else {
-                                                lines.push(current);
-                                                current = w;
-                                              }
-                                            });
-                                            if (current) lines.push(current);
-                                            return lines.slice(0, 2);
-                                          };
-                                          return (
-                                            <g transform={`translate(${x},${y})`}>
-                                              <text x={0} y={0} dy={10} textAnchor="middle" fontSize={12} fontWeight="600" fill={getChartTheme(isLightMode).axis}>{payload.value}</text>
-                                              <text x={0} y={0} textAnchor="middle" fontSize={10} fill={getChartTheme(isLightMode).axis}>
-                                                {wrapText(item?.machineName).map((line, i) => (
-                                                  <tspan key={i} x="0" dy={i === 0 ? 26 : 12}>{line}</tspan>
-                                                ))}
-                                              </text>
-                                            </g>
-                                          );
-                                        }
-                                    }
+                                    height={isMobile ? 75 : 90}
+                                    tick={({ x, y, payload }) => {
+                                      const item = top5Machines.find(d => d.machineNo === payload.value);
+                                      const ct = getChartTheme(isLightMode);
+                                      const name = item?.machineName || '';
+                                      const wrapText = (text, maxLen = 14) => {
+                                        const words = text.split(' ');
+                                        const lines = [];
+                                        let cur = '';
+                                        words.forEach(w => {
+                                          if ((cur + ' ' + w).trim().length <= maxLen) { cur = cur ? cur + ' ' + w : w; }
+                                          else { if (cur) lines.push(cur); cur = w; }
+                                        });
+                                        if (cur) lines.push(cur);
+                                        return lines.slice(0, 3);
+                                      };
+                                      const nameLines = wrapText(name);
+                                      const accentColor = isLightMode ? '#007AFF' : '#60A5FA';
+                                      return (
+                                        <g transform={`translate(${x},${y + 6})`}>
+                                          <text x={0} y={0} textAnchor="middle" fontSize={isMobile ? 10 : 12} fontWeight="700" fill={accentColor}>
+                                            {payload.value}
+                                          </text>
+                                          {nameLines.map((line, i) => (
+                                            <text key={i} x={0} y={0} dy={14 + i * 12} textAnchor="middle" fontSize={isMobile ? 8 : 10} fill={ct.axis}>
+                                              {line}
+                                            </text>
+                                          ))}
+                                        </g>
+                                      );
+                                    }}
+                                    axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+                                    tickLine={false}
                                   />
                                   <YAxis
-                                    type="number"
-                                    domain={[0, 'dataMax + 500']}
-                                    width={isMobile ? 38 : 60}
-                                    tick={{ fontSize: 10, fill: getChartTheme(isLightMode).axis }}
+                                    domain={[0, 'dataMax']}
+                                    allowDecimals={false}
+                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
                                     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-                                    tickLine={{ stroke: '#374151' }}
+                                    tickLine={false}
+                                    width={isMobile ? 28 : 40}
                                     tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
                                   />
                                   <RechartsTooltip content={makeTooltip(isLightMode, 'time', lang)} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-
-                                  />
-                                  <Bar dataKey="value" fill={getChartTheme(isLightMode).paletteTop5[0]} radius={[0, 4, 4, 0]} barSize={isMobile ? 28 : 20}>
+                                  <Bar
+                                    dataKey="value"
+                                    radius={[6, 6, 0, 0]}
+                                    barSize={30}
+                                  >
                                     {top5Machines.map((entry, index) => (
                                       <Cell
                                         key={`cell-${index}`}
-                                        fill={entry.color || getChartTheme(isLightMode).paletteTop5[index]}
+                                        fill={getChartTheme(isLightMode).palettePrimary[index % 8]}
                                         opacity={chartClickMachine && chartClickMachine !== entry.machineNo ? 0.3 : 1}
                                       />
                                     ))}
@@ -4578,7 +4670,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
            
                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.scatterTitle}</h3>
+                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.trendChartTitle}</h3>
                         <div className="h-80">
                             
                             <ResponsiveContainer width="100%" height="100%">
@@ -4643,17 +4735,21 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                       <span style={{color: isLightMode ? "#1c3a5e" : "#e5e7eb"}}>{value}</span>
                                     )}
                                   />
-                                  <defs>
-                                    <linearGradient id="dailyBarGrad" x1="0" y1="0" x2="0" y2="1">
-                                      <stop offset="0%" stopColor="#5AC8FA" stopOpacity={0.95}/>
-                                      <stop offset="100%" stopColor="#007AFF" stopOpacity={0.65}/>
-                                    </linearGradient>
-                                  </defs>
                                   <Bar
                                     yAxisId="right"
-                                    dataKey="count"
-                                    name={t.times}
-                                    fill={isLightMode ? "url(#dailyBarGrad)" : getChartTheme(false).barCount}
+                                    dataKey="Done"
+                                    stackId="status"
+                                    name={lang==='TH' ? 'เสร็จสิ้น (Completed)' : lang==='JP' ? '完了 (Completed)' : 'Completed'}
+                                    fill={isLightMode ? "#34C759" : "#4B5563"}
+                                    barSize={22}
+                                    radius={[0, 0, 0, 0]}
+                                  />
+                                  <Bar
+                                    yAxisId="right"
+                                    dataKey="Temp"
+                                    stackId="status"
+                                    name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temp'}
+                                    fill={isLightMode ? "#FF9500" : "#C2410C"}
                                     barSize={22}
                                     radius={[3, 3, 0, 0]}
                                   />
@@ -4662,7 +4758,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     type="monotone"
                                     dataKey="time"
                                     name={t.colTime}
-                                    stroke={isLightMode ? "#5856D6" : getChartTheme(false).paretoBars}
+                                    stroke={isLightMode ? "#FF3B30" : getChartTheme(false).paretoBars}
                                     strokeWidth={3}
                                     dot={false}
                                   />
