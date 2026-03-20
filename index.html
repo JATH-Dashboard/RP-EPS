@@ -1059,7 +1059,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 18/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 20/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1086,11 +1086,16 @@ body.jath-mode .critical-card::after {
             colDate: "วันที่",
             colLine: "ชื่อไลน์",
             colTime: "เวลาที่เครื่องจักรเสีย",
-            colRepair: "ข้อมูลการซ่อม",
+            colRepair: "รายละเอียดปัญหา",
             colImplement: "ขั้นตอนที่ได้ดำเนินการ",
             colRoot: "สาเหตุของปัญหา",
-            colOver: "เหตุผลที่เครื่องจักรขัดข้อเกิน 1 ชม.",
-            colAction: "แนวทางการแก้ไข",
+            colCMRC: "มาตรการแก้ไข (Root Cause)",
+            colStatusRC: "สถานะ (Root Cause)",
+            colPicRC: "ผู้รับผิดชอบ (Root Cause)",
+            colOver: "สาเหตุหลักที่ใช้เวลาซ่อมนาน",
+            colAction: "มาตรการแก้ไข(Long Time BD)",
+            colStatusLT: "สถานะ (Long Time BD)",
+            colPicLT: "ผู้รับผิดชอบ (Long Time BD)",
             mtbfTitle: "แนวโน้ม MTBF (ชั่วโมง)",
             mttrTitle: "แนวโน้ม MTTR (ชั่วโมง)",
             min: "นาที",
@@ -1102,7 +1107,7 @@ body.jath-mode .critical-card::after {
             noData: "ไม่พบข้อมูล",
             loading: "กำลังประมวลผล...",
             resetFilters: "ล้างตัวกรอง",
-            status: "สถานะ",
+            status: "สถานะ (Root cause)",
             statusDone: "เสร็จสิ้น",
             statusTemp: "แก้ไขชั่วคราว",
             jathTitle: "JATH Focus – โหมดโฟกัส",
@@ -1116,7 +1121,7 @@ body.jath-mode .critical-card::after {
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 18/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 20/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1143,11 +1148,16 @@ body.jath-mode .critical-card::after {
             colDate: "Start Date",
             colLine: "Line Name",
             colTime: "Breakdown Time",
-            colRepair: "Repair Detail",
+            colRepair: "Problem Detail",
             colImplement: "Implementation",
             colRoot: "Root Cause",
-            colOver: "1H Over Reason",
-            colAction: "Corrective Action",
+            colCMRC: "Countermeasure (Root cause)",
+            colStatusRC: "Status (Root Cause)",
+            colPicRC: "P.I.C (Root Cause)",
+            colOver: "Main Reason (Long Time BD)",
+            colAction: "Countermeasure (Long Time BD)",
+            colStatusLT: "Status (Long Time BD)",
+            colPicLT: "P.I.C (Long Time BD)",
             mtbfTitle: "MTBF Trend (hr)",
             mttrTitle: "MTTR Trend (hr)",
             min: "min",
@@ -1159,7 +1169,7 @@ body.jath-mode .critical-card::after {
             noData: "No Data Found",
             loading: "Processing...",
             resetFilters: "Reset Filters",
-            status: "Status",
+            status: "Status (Root cause)",
             statusDone: "Completed",
             statusTemp: "Temporary",
             jathTitle: "JATH Focus Mode",
@@ -1174,7 +1184,7 @@ body.jath-mode .critical-card::after {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年18月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年20月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1201,11 +1211,16 @@ body.jath-mode .critical-card::after {
             colDate: "開始日",
             colLine: "ライン名",
             colTime: "故障時間",
-            colRepair: "修理詳細",
+            colRepair: "問題詳細",
             colImplement: "処置内容",
             colRoot: "根本原因",
-            colOver: "1H超過理由",
-            colAction: "是正処置",
+            colCMRC: "対策（根本原因）",
+            colStatusRC: "ステータス（根本原因）",
+            colPicRC: "担当者（根本原因）",
+            colOver: "主な理由（長時間故障）",
+            colAction: "対策（長時間故障）",
+            colStatusLT: "ステータス（長時間故障）",
+            colPicLT: "担当者（長時間故障）",
              mtbfTitle: "MTBF 推移（時間）",
             mttrTitle: "MTTR 推移（時間）",
             min: "分",
@@ -1217,7 +1232,7 @@ body.jath-mode .critical-card::after {
             noData: "データが見つかりません",
             loading: "処理中...",
             resetFilters: "フィルターをリセット",
-            status: "ステータス",
+            status: "ステータス (Root cause)",
             statusDone: "完了",
             statusTemp: "一時対応",
             jathTitle: "JATH フォーカスモード",
@@ -1823,15 +1838,20 @@ const handleDropOP = async (e) => {
                         lineName:        getIdx(['line name', 'line_name']),
                         startDate:       getIdx(['start date', 'date']),
                         bdTime:          getIdx(['bd.time', 'bd time', 'breakdown time']),
-                        repairDetail:    getIdx(['repair detail']),
+                        repairDetail:    getIdx(['problem detail', 'repair detail']),
                         implementDetail: getIdx(['implementation detail', 'implementation', 'implement']),
                         rootCause:       getIdx(['root cause']),
-                        over1H:          getIdx(['1h over', 'over reason']),
-                        corrective:      getIdx(['corrective']),
-                        type:            getIdx(['m/e', 'breakdown type', 'category']),
+                        countermeasureRC:getIdx(['countermeasure root']),
+                        statusRC:        getIdx(['status (root']),
+                        picRC:           getIdx(['p.i.c (rc)', 'pic (rc)']),
+                        over1H:          getIdx(['countermeasure long time', '1h over', 'over reason']),
+                        corrective:      getIdx(['countermeasure root', 'corrective']),
                         longReason:      getIdx(['main reason', 'long time repair']),
+                        statusLT:        getIdx(['status (long time)']),
+                        picLT:           getIdx(['p.i.c (lt)', 'pic (lt)']),
+                        type:            getIdx(['m/e', 'breakdown type']),
                         failureCategory: getIdx(['failure category']),
-                        status:          getIdx(['status'])
+                        status:          getIdx(['status (root cause)', 'status (root'])
                     };
                     if (mapIdx.bdTime === -1) throw new Error('ไม่พบคอลัมน์ BD.time ในไฟล์');
                     const processed = rows.slice(1).map((row, idx) => {
@@ -1859,23 +1879,26 @@ const handleDropOP = async (e) => {
                             month:        monthStr,
                             bdTime:       bdTimeVal,
                             repairTimeP:  parseFloat((row[15] || '').replace(/,/g, '')) || 0,
-                            'diagnosis':       parseFloat(row[40]) || 0,
-                            'Spare Part':      parseFloat(row[41]) || 0,
-                            'Tools':           parseFloat(row[42]) || 0,
-                            'Work Ability':    parseFloat(row[43]) || 0,
-                            'Setting Ability': parseFloat(row[44]) || 0,
-                            'Back up':         parseFloat(row[45]) || 0,
-                            repairDetail:    row[mapIdx.repairDetail]    || '',
-                            implementation:  row[mapIdx.implementDetail] || '',
-                            rootCause:       row[mapIdx.rootCause]       || '',
-                            over1H:          row[mapIdx.over1H]          || '',
-                            corrective:      row[mapIdx.corrective]       || '',
+                            'diagnosis':       parseFloat(row[32]) || 0,
+                            'Spare Part':      parseFloat(row[33]) || 0,
+                            'Tools':           parseFloat(row[34]) || 0,
+                            'Work Ability':    parseFloat(row[35]) || 0,
+                            'Setting Ability': parseFloat(row[36]) || 0,
+                            'Back up':         parseFloat(row[37]) || 0,
+                            repairDetail:      row[mapIdx.repairDetail]    || '',
+                            implementation:    row[mapIdx.implementDetail] || '',
+                            rootCause:         row[mapIdx.rootCause]       || '',
+                            countermeasureRC:  row[mapIdx.countermeasureRC]|| '',
+                            statusRC:          row[mapIdx.statusRC]        || '',
+                            picRC:             row[mapIdx.picRC]           || '',
+                            over1H:            row[mapIdx.over1H]          || '',
+                            corrective:        row[mapIdx.corrective]      || '',
+                            longReason:        row[mapIdx.longReason]      || 'Others',
+                            statusLT:          row[mapIdx.statusLT]        || '',
+                            picLT:             row[mapIdx.picLT]           || '',
                             type:            typeVal === 'E' ? 'E' : 'M',
-                            longReason:      row[mapIdx.longReason]       || 'Others',
                             failureCategory: row[mapIdx.failureCategory]  || 'Unspecified',
-                            status:          (row[mapIdx.status] || '').toUpperCase() === 'CMP' ? 'Completed'
-                                           : (row[mapIdx.status] || '') === 'Temp' ? 'Temporary'
-                                           : (row[mapIdx.status] || ''),
+                            status:          row[mapIdx.status] || '',
                             durationType:    bdTimeVal < 30  ? '0-29'
                                            : bdTimeVal < 60  ? '30-59'
                                            : bdTimeVal < 120 ? '60-119'
@@ -2023,22 +2046,26 @@ const handleDropOP = async (e) => {
                         const getIdx = (patterns) => headers.findIndex(h => patterns.some(p => h.includes(p)));
 
                         const mapIdx = {
-                            machineNo: getIdx(['machine no',                   'machine_no']), 
-                                                                   machineName: getIdx(['machine name']),
+                            machineNo: getIdx(['machine no', 'machine_no']), 
+                            machineName: getIdx(['machine name']),
                             lineName: getIdx(['line name', 'line_name']),
                             startDate: getIdx(['start date', 'date']),
                             bdTime: getIdx(['bd.time', 'bd time', 'breakdown time']),
-                            repairDetail: getIdx(['repair detail']),
+                            repairDetail: getIdx(['problem detail', 'repair detail']),
                             implementDetail: getIdx(['implementation detail', 'implementation', 'implement']),
                             rootCause: getIdx(['root cause']),
-                            over1H: getIdx(['1h over', 'over reason']),
-                                                        corrective: getIdx(['corrective']), 
-                            preventive: getIdx(['preventive']), // typo handling
-                            type: getIdx(['m/e', 'breakdown type', 'category']),
+                            countermeasureRC: getIdx(['countermeasure root']),
+                            statusRC: getIdx(['status (root']),
+                            picRC: getIdx(['p.i.c (rc)', 'pic (rc)']),
+                            over1H: getIdx(['countermeasure long time', '1h over', 'over reason']),
+                            corrective: getIdx(['countermeasure root', 'corrective']),
+                            preventive: getIdx(['preventive']),
+                            type: getIdx(['m/e', 'breakdown type']),
                             longReason: getIdx(['main reason', 'long time repair']),
+                            statusLT: getIdx(['status (long time)']),
+                            picLT: getIdx(['p.i.c (lt)', 'pic (lt)']),
                             failureCategory: getIdx(['failure category']),
- // ✅ เพิ่ม    
-                            status: getIdx(['status']) 
+                            status: getIdx(['status (root cause)', 'status (root'])
                         };
 if (mapIdx.bdTime === -1) {
   throw new Error('ไม่พบคอลัมน์ BD Time ในไฟล์ CSV');
@@ -2081,23 +2108,28 @@ if (isNaN(dateObj.getTime())) {
 repairTimeP: parseFloat(row[15]?.replace(/,/g, '')) || 0,
 
 // 🔹 Repair time breakdown columns
-"diagnosis": parseFloat(row[40]) || 0,        // AO
-"Spare Part": parseFloat(row[41]) || 0, // AP
-"Tools": parseFloat(row[42]) || 0,      // AQ
-"Work Ability": parseFloat(row[43]) || 0,           // AR
-"Setting Ability": parseFloat(row[44]) || 0,         // AS
-"Back up": parseFloat(row[45]) || 0,       // AT
+"diagnosis": parseFloat(row[32]) || 0,        // AG
+"Spare Part": parseFloat(row[33]) || 0, // AH
+"Tools": parseFloat(row[34]) || 0,      // AI
+"Work Ability": parseFloat(row[35]) || 0,           // AJ
+"Setting Ability": parseFloat(row[36]) || 0,         // AK
+"Back up": parseFloat(row[37]) || 0,       // AL
 
 repairDetail: row[mapIdx.repairDetail] || '',
 
                                 implementation: row[mapIdx.implementDetail] || '',
                                 rootCause: row[mapIdx.rootCause] || '',
+                                countermeasureRC: row[mapIdx.countermeasureRC] || '',
+                                statusRC: row[mapIdx.statusRC] || '',
+                                picRC: row[mapIdx.picRC] || '',
                                 over1H: row[mapIdx.over1H] || '',
                                 corrective: row[mapIdx.corrective] || '',
-                                type: typeVal === 'E' ? 'E' : 'M', // Default to M if unsure, but usually strict
+                                type: typeVal === 'E' ? 'E' : 'M',
                                 longReason: row[mapIdx.longReason] || 'Others',
+                                statusLT: row[mapIdx.statusLT] || '',
+                                picLT: row[mapIdx.picLT] || '',
                                 failureCategory: row[mapIdx.failureCategory] || 'Unspecified', 
-                                status: (row[mapIdx.status] || '').toUpperCase() === 'CMP' ? 'Completed' : ((row[mapIdx.status] || '') === 'Temp' ? 'Temporary' : (row[mapIdx.status] || '')),
+                                status: row[mapIdx.status] || '',
                                 durationType:
   bdTimeVal < 30  ? '0-29'   :
   bdTimeVal < 60  ? '30-59'  :
@@ -2313,12 +2345,11 @@ const uniqueDurationTypes = useMemo(() => {
   return ALL_DURATIONS.filter(d => existing.has(d));
 }, [rawData, applyAllFilters]);
 
-// Status options = ทุก filter ยกเว้น status เอง
-const ALL_STATUSES = ['Done', 'Temp'];
+// Status options = dynamic from actual data (col 26 Status Root cause)
 const uniqueStatuses = useMemo(() => {
   const source = applyAllFilters(rawData, { skip: ['status'] });
-  const existing = new Set(source.map(d => d.status));
-  return ALL_STATUSES.filter(s => existing.has(s));
+  const vals = [...new Set(source.map(d => d.status).filter(Boolean))].sort();
+  return vals;
 }, [rawData, applyAllFilters]);
 
 
@@ -2954,9 +2985,10 @@ const top3FocusMachines = useMemo(() => {
             const lineDowntime = useMemo(() => {
                 const groups = {};
                 filteredData.forEach(d => {
-                    if (!groups[d.lineName]) groups[d.lineName] = { Done: 0, Temp: 0 };
-                    if (d.status === 'Done') groups[d.lineName].Done += 1;
-                    else groups[d.lineName].Temp += 1;
+                    const st = d.status || 'Unknown';
+                    if (!groups[d.lineName]) groups[d.lineName] = { Completed: 0, Temporary: 0 };
+                    if (st === 'Completed') groups[d.lineName].Completed += 1;
+                    else groups[d.lineName].Temporary += 1;
                 });
                 // นับ recurrent ต่อ line
                 const pairCount = {};
@@ -2972,13 +3004,17 @@ const top3FocusMachines = useMemo(() => {
                     }
                 });
                 return Object.keys(groups)
-                    .map(k => ({
-                        name: k,
-                        Done: groups[k].Done,
-                        Temp: groups[k].Temp,
-                        value: groups[k].Done + groups[k].Temp,
-                        recurrent: recMap[k] || 0
-                    }))
+                    .map(k => {
+                        const total = groups[k].Completed + groups[k].Temporary;
+                        return {
+                            name: k,
+                            Completed: groups[k].Completed,
+                            Temporary: groups[k].Temporary,
+                            value: total,
+                            recurrent: recMap[k] || 0,
+                            statusBreakdown: groups[k]
+                        };
+                    })
                     .sort((a, b) => b.value - a.value)
                     .slice(0, 10);
             }, [filteredData]);
@@ -3116,9 +3152,8 @@ const renderPercentLabel = ({
 
 const renderStatusOnLine = ({ cx, cy, payload, isLight }) => {
   if (!payload || !payload.status) return null;
-  const isDone = payload.status === 'Done';
-  // dark: completed=gray, temp=Netflix red  |  light: completed=green, temp=orange
-  const fill = isDone
+  const isComp = payload.status === 'Completed';
+  const fill = isComp
     ? (isLight ? '#34C759' : '#6B7280')
     : (isLight ? '#FF9500' : '#E50914');
   return (
@@ -3265,10 +3300,10 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
             marginTop: 6,
             fontSize: 13,
             fontWeight: 600,
-            color: data.status === 'Done' ? '#16A34A' : '#F59E0B'
+            color: data.status === 'Completed' ? '#16A34A' : '#F59E0B'
           }}
         >
-          {S.title} : {data.status === 'Done' ? S.done : S.temp}
+          {S.title} : {data.status === 'Completed' ? S.done : S.temp}
         </div>
       )}
     </div>
@@ -3294,11 +3329,11 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
                 const groups = {};
                 filteredData.forEach(d => {
                     const key = d.month;
-                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0, Done: 0, Temp: 0 };
+                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0, Completed: 0, Temporary: 0 };
                     groups[key].time += d.bdTime;
                     groups[key].count += 1;
-                    if (d.status === 'Done') groups[key].Done += 1;
-                    else groups[key].Temp += 1;
+                    if (d.status === 'Completed') groups[key].Completed += 1;
+                    else groups[key].Temporary += 1;
                 });
                 return Object.values(groups).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
             }, [filteredData]);
@@ -3592,7 +3627,6 @@ onDragOver={handleDragOver}
                           <MultiSelect
                               label={t.status}
                               options={uniqueStatuses}
-                              optionLabels={{ Done: t.statusDone, Temp: t.statusTemp }}
                               selected={selectedStatuses}
                               setSelected={setSelectedStatuses}
                           />
@@ -3621,7 +3655,7 @@ onDragOver={handleDragOver}
                         {chartClickCategory && <span style={chipStyle(isLightMode)}>Category: <b>{chartClickCategory}</b><span onClick={() => setChartClickCategory(null)} style={closeBtn}>✕</span></span>}
                         {chartClickType     && <span style={chipStyle(isLightMode)}>Type: <b>{chartClickType}</b><span onClick={() => setChartClickType(null)} style={closeBtn}>✕</span></span>}
                         {chartClickStatus   && <span style={chipStyle(isLightMode)}>Status: <b>{chartClickStatus}</b><span onClick={() => setChartClickStatus(null)} style={closeBtn}>✕</span></span>}
-                        {chartClickRepairDetail && <span style={chipStyle(isLightMode)}>Repair Detail: <b>{chartClickRepairDetail.length > 28 ? chartClickRepairDetail.slice(0,28)+'…' : chartClickRepairDetail}</b><span onClick={() => setChartClickRepairDetail(null)} style={closeBtn}>✕</span></span>}
+                        {chartClickRepairDetail && <span style={chipStyle(isLightMode)}>Problem Detail: <b>{chartClickRepairDetail.length > 28 ? chartClickRepairDetail.slice(0,28)+'…' : chartClickRepairDetail}</b><span onClick={() => setChartClickRepairDetail(null)} style={closeBtn}>✕</span></span>}
                         {chartClickDuration && <span style={chipStyle(isLightMode)}>Duration: <b>{chartClickDuration.label} min</b><span onClick={() => { setChartClickDuration(null); }} style={closeBtn}>✕</span></span>}
                         {chartClickDate     && <span style={chipStyle(isLightMode)}>Date: <b>{chartClickDate}</b><span onClick={() => { setChartClickDate(null); }} style={closeBtn}>✕</span></span>}
                         {chartClickReason   && <span style={chipStyle(isLightMode)}>Reason: <b>{chartClickReason}</b><span onClick={() => setChartClickReason(null)} style={closeBtn}>✕</span></span>}
@@ -3892,31 +3926,33 @@ style={{ cursor: 'pointer' }}>
     content={({ active, payload, label }) => {
       if (!active || !payload || !payload.length) return null;
       const ct = getChartTheme(isLightMode);
-      const done = payload.find(p => p.dataKey === 'Done')?.value || 0;
-      const temp = payload.find(p => p.dataKey === 'Temp')?.value || 0;
+      const entry = lineDowntime.find(d => d.name === label) || {};
+      const comp = entry.Completed || 0;
+      const temp = entry.Temporary || 0;
+      const total = entry.value || 0;
       const recur = payload.find(p => p.dataKey === 'recurrent')?.value || 0;
-      const lDone  = lang==='TH' ? 'เสร็จสิ้น' : lang==='JP' ? '完了' : 'Completed';
-      const lTemp  = lang==='TH' ? 'แก้ไขชั่วคราว'    : lang==='JP' ? '一時対応'   : 'Temporary';
-      const lTotal = lang==='TH' ? 'รวม'              : lang==='JP' ? '合計'       : 'Total';
-      const lRecur = lang==='TH' ? 'ปัญหาซ้ำ'         : lang==='JP' ? '再発問題'   : 'Recurrent';
-      const lTimes = lang==='TH' ? ' ครั้ง'           : lang==='JP' ? ' 回'        : ' times';
-      const doneFill = isLightMode ? '#34C759' : '#6B7280';
+      const lComp  = lang==='TH' ? 'เสร็จสิ้น'      : lang==='JP' ? '完了'     : 'Completed';
+      const lTemp  = lang==='TH' ? 'แก้ไขชั่วคราว'  : lang==='JP' ? '一時対応' : 'Temporary';
+      const lTotal = lang==='TH' ? 'รวม'             : lang==='JP' ? '合計'     : 'Total';
+      const lRecur = lang==='TH' ? 'ปัญหาซ้ำ'        : lang==='JP' ? '再発問題' : 'Recurrent';
+      const lTimes = lang==='TH' ? ' ครั้ง'          : lang==='JP' ? ' 回'      : ' times';
+      const compFill = isLightMode ? '#34C759' : '#6B7280';
       const tempFill = isLightMode ? '#FF9500' : '#C2410C';
       return (
-        <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:150, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
+        <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:160, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
           <div style={{ fontWeight:700, marginBottom:6, color:ct.labelColor }}>{label}</div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:doneFill, flexShrink:0 }}/>
-            <span style={{ color:ct.itemColor }}>{lDone}: <b>{done}{lTimes}</b></span>
+            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:compFill, flexShrink:0 }}/>
+            <span style={{ color:ct.itemColor }}>{lComp}: <b>{comp}{lTimes}</b></span>
           </div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
             <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
             <span style={{ color:ct.itemColor }}>{lTemp}: <b>{temp}{lTimes}</b></span>
           </div>
-          <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, marginBottom:4, color:ct.labelColor, fontWeight:700 }}>
-            {lTotal}: {done + temp}{lTimes}
+          <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, color:ct.labelColor, fontWeight:700 }}>
+            {lTotal}: {total}{lTimes}
           </div>
-          <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+          <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:4 }}>
             <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:'#EF4444', flexShrink:0 }}/>
             <span style={{ color:'#EF4444', fontWeight:600 }}>{lRecur}: <b>{recur}{lTimes}</b></span>
           </div>
@@ -3929,21 +3965,21 @@ style={{ cursor: 'pointer' }}>
     align="center"
     wrapperStyle={{ fontSize: isMobile ? 10 : 12, paddingTop: 8 }}
     formatter={(value) => {
-      if (value === 'Done')      return lang==='TH' ? 'เสร็จสิ้น' : lang==='JP' ? '完了' : 'Completed';
-      if (value === 'Temp')      return lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary';
+      if (value === 'Completed') return lang==='TH' ? 'เสร็จสิ้น'     : lang==='JP' ? '完了'     : 'Completed';
+      if (value === 'Temporary') return lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary';
       if (value === 'recurrent') return lang==='TH' ? 'ปัญหาซ้ำ'      : lang==='JP' ? '再発問題' : 'Recurrent';
       return value;
     }}
   />
-  <Bar yAxisId="left" dataKey="Done" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#475569'}>
+  <Bar yAxisId="left" dataKey="Completed" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#475569'} name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}>
     {lineDowntime.map((entry, i) => (
-      <Cell key={`done-${i}`}
+      <Cell key={`comp-${i}`}
         fill={isLightMode ? '#34C759' : '#475569'}
-        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : isLightMode ? 0.9 : 0.9}
+        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 0.9}
       />
     ))}
   </Bar>
-  <Bar yAxisId="left" dataKey="Temp" stackId="a" barSize={30} radius={[6,6,0,0]} fill={isLightMode ? '#FF9500' : '#E50914'}>
+  <Bar yAxisId="left" dataKey="Temporary" stackId="a" barSize={30} radius={[6,6,0,0]} fill={isLightMode ? '#FF9500' : '#E50914'} name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}>
     {lineDowntime.map((entry, i) => (
       <Cell key={`temp-${i}`}
         fill={isLightMode ? '#FF9500' : '#E50914'}
@@ -4132,8 +4168,8 @@ style={{ cursor: 'pointer' }}>
             <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang })} cursor={{ fill: 'transparent' }} />
             <Bar yAxisId="left" dataKey="value" fill={getChartTheme(isLightMode).paretoBars} barSize={32} radius={[6,6,0,0]}>
               {paretoData.map((entry, index) => {
-                const isDone = entry.status === 'Done';
-                const fill = isDone ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
+                const isComp = entry.status === 'Completed';
+                const fill = isComp ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
                 return (
                   <Cell key={`pareto-${index}`} fill={fill}
                     opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
@@ -4204,8 +4240,8 @@ style={{ cursor: 'pointer' }}>
           radius={[6,6,0,0]}
         >
           {paretoData.map((entry, index) => {
-            const isDone = entry.status === 'Done';
-            const fill = isDone ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
+            const isComp = entry.status === 'Completed';
+            const fill = isComp ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
             return (
               <Cell key={`pareto-${index}`} fill={fill}
                 opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
@@ -4667,15 +4703,15 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                   />
                                   <YAxis yAxisId="left" orientation="left"
                                     tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
-                                    width={isMobile ? 42 : 45}
-                                    tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
-                                    label={{ value: t.min, angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                    width={isMobile ? 34 : 50}
+                                    label={{ value: t.times, angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
                                   />
                                   <YAxis 
                                    yAxisId="right" orientation="right"
                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
-                                   width={isMobile ? 34 : 50}
-                                   label={{ value: t.times, angle: 90, position: 'insideRight', offset: isMobile ? -10 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                   width={isMobile ? 42 : 45}
+                                   tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
+                                   label={{ value: t.min, angle: 90, position: 'insideRight', offset: isMobile ? -10 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
                                      />
 
    <RechartsTooltip
@@ -4684,8 +4720,8 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
        if (!active || !payload || !payload.length) return null;
        const ct = getChartTheme(isLightMode);
        const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
-       const done  = payload.find(p => p.dataKey === 'Done')?.value || 0;
-       const temp  = payload.find(p => p.dataKey === 'Temp')?.value || 0;
+       const done  = payload.find(p => p.dataKey === 'Completed')?.value || 0;
+       const temp  = payload.find(p => p.dataKey === 'Temporary')?.value || 0;
        const total = done + temp;
        const lTotal = lang==='TH' ? 'รวม BD ทั้งหมด' : lang==='JP' ? '合計件数' : 'Total Breakdowns';
        return (
@@ -4724,8 +4760,8 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     )}
                                   />
                                   <Bar
-                                    yAxisId="right"
-                                    dataKey="Done"
+                                    yAxisId="left"
+                                    dataKey="Completed"
                                     stackId="status"
                                     name={lang==='TH' ? 'เสร็จสิ้น' : lang==='JP' ? '完了' : 'Completed'}
                                     fill={isLightMode ? "#34C759" : "#475569"}
@@ -4733,8 +4769,8 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     radius={[0, 0, 0, 0]}
                                   />
                                   <Bar
-                                    yAxisId="right"
-                                    dataKey="Temp"
+                                    yAxisId="left"
+                                    dataKey="Temporary"
                                     stackId="status"
                                     name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary'}
                                     fill={isLightMode ? "#FF9500" : "#E50914"}
@@ -4742,11 +4778,11 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     radius={[6, 6, 0, 0]}
                                   />
                                   <Line
-                                    yAxisId="left"
+                                    yAxisId="right"
                                     type="monotone"
                                     dataKey="time"
                                     name={t.colTime}
-                                    stroke={isLightMode ? "#FF3B30" : "#1D9BF0"}
+                                    stroke={isLightMode ? "#FF9500" : "#F59E0B"}
                                     strokeWidth={3}
                                     dot={false}
                                   />
@@ -4852,8 +4888,13 @@ return (
                                 <th className="px-6 py-3 min-w-[200px]">{t.colRepair}</th>
                                 <th className="px-6 py-3 min-w-[200px]">{t.colImplement}</th>
                                 <th className="px-6 py-3 min-w-[200px]">{t.colRoot}</th>
-                                <th className="px-6 py-3 min-w-[150px]">{t.colOver}</th>
+                                <th className="px-6 py-3 min-w-[200px]">{t.colCMRC}</th>
+                                <th className="px-6 py-3 min-w-[130px]">{t.colStatusRC}</th>
+                                <th className="px-6 py-3 min-w-[110px]">{t.colPicRC}</th>
+                                <th className="px-6 py-3 min-w-[200px]">{t.colOver}</th>
                                 <th className="px-6 py-3 min-w-[200px]">{t.colAction}</th>
+                                <th className="px-6 py-3 min-w-[130px]">{t.colStatusLT}</th>
+                                <th className="px-6 py-3 min-w-[110px]">{t.colPicLT}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
@@ -4866,10 +4907,13 @@ return (
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.repairDetail}>{row.repairDetail}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.implementation}>{row.implementation}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.rootCause}>{row.rootCause}</td>
-                                    <td className="px-6 py-4 text-red-500">{row.over1H}</td>
-                                    <td className="px-6 py-4 truncate max-w-xs" title={row.corrective}>
-  {row.corrective}
-</td>
+                                    <td className="px-6 py-4 truncate max-w-xs" title={row.countermeasureRC}>{row.countermeasureRC}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap" style={{color: row.statusRC==='Completed'?'#16A34A':row.statusRC==='Temporary'?'#F59E0B':undefined}}>{row.statusRC}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{row.picRC}</td>
+                                    <td className="px-6 py-4 truncate max-w-xs" title={row.longReason}>{row.longReason}</td>
+                                    <td className="px-6 py-4 truncate max-w-xs" title={row.over1H}>{row.over1H}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap" style={{color: row.statusLT==='Completed'?'#16A34A':row.statusLT==='Temporary'?'#F59E0B':undefined}}>{row.statusLT}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{row.picLT}</td>
                                 </tr>
                                 ))}
                             </tbody>
