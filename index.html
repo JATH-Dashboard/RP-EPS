@@ -19,7 +19,7 @@
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.3/Recharts.min.js"></script>
     
     <!-- Babel -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1059,7 +1059,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 20/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 23/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1071,7 +1071,7 @@ body.jath-mode .critical-card::after {
             month: "เดือน",
             type: "ประเภท (M/E)",
             paretoTitle: "Pareto Analysis: ปัญหาหลักตามเวลาซ่อม",
-            top5Title: "5 อันเดับเครื่องจักรที่ขัดข้องบ่อย (เวลา)",
+            top5Title: "5 อันเดับเครื่องจักรที่ขัดข้องบ่อย (ครั้ง)",
             lineAnalysisTitle: "เวลาเครื่องจักรขัดข้องแยกตามไลน์ & สถานะ & จำนวนการเกิดซ้ำ",
             recurrentTitle: "ปัญหาที่เกิดซ้ำ",
             reasonTitle: "สาเหตุที่ใช้เวลาซ่อมนาน",
@@ -1121,7 +1121,7 @@ body.jath-mode .critical-card::after {
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 20/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 23/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1133,7 +1133,7 @@ body.jath-mode .critical-card::after {
             month: "Month",
             type: "Type (M/E)",
             paretoTitle: "Pareto Analysis: Main Problems",
-            top5Title: "Top 5 Machine Breakdown (Time)",
+            top5Title: "Top 5 Machine Breakdown (Count)",
             lineAnalysisTitle: "Downtime by Line & Status with Recurrence Count",
             reasonTitle: "Main Reason for Long Time Repair",
             recurrentTitle: "Recurrent Problems",
@@ -1184,7 +1184,7 @@ body.jath-mode .critical-card::after {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年20月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年23月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1196,7 +1196,7 @@ body.jath-mode .critical-card::after {
             month: "月",
             type: "タイプ (M/E)",
             paretoTitle: "パレート分析：主な問題",
-            top5Title: "ワースト5 機械故障 (時間)",
+            top5Title: "ワースト5 機械故障 (件数)",
             lineAnalysisTitle: "ライン別ダウンタイム分析 & ステータス & 再発件数",
             reasonTitle: "長時間修理の主な理由",
             recurrentTitle: "再発問題（繰り返し発生）",
@@ -1252,7 +1252,7 @@ const TOOLTIP_I18N = {
     count: 'จำนวนครั้ง (ครั้ง)',
     time: 'เวลา (นาที)',
     value: 'เวลาเสีย (นาที)',
-    cumulative: 'สะสม (นาที)',
+    cumulative: 'สะสม (%)',
     machine: 'เครื่อง'
   },
   EN: {
@@ -2409,6 +2409,30 @@ const repairTimeBreakdown = useMemo(() => {
 
 }, [filteredData, isLightMode]);
 
+// ── Status Longtime Breakdown by Department (P.I.C) ──────────────────────
+const statusByDeptData = useMemo(() => {
+  const DEPTS = ['MT', 'PE', 'PDT', 'QC'];
+  const groups = {};
+  DEPTS.forEach(d => { groups[d] = { dept: d, Completed: 0, Temporary: 0, completedTime: 0, temporaryTime: 0 }; });
+
+  filteredData.forEach(d => {
+    const pic = (d.picLT || '').toString().trim().toUpperCase();
+    const matched = DEPTS.find(dep => pic.includes(dep));
+    if (!matched) return;
+    const isComp = (d.statusLT || '').trim().toLowerCase() === 'completed';
+    if (isComp) {
+      groups[matched].Completed += 1;
+      groups[matched].completedTime += d.bdTime || 0;
+    } else {
+      groups[matched].Temporary += 1;
+      groups[matched].temporaryTime += d.bdTime || 0;
+    }
+  });
+
+  return DEPTS.map(d => groups[d])
+    .sort((a, b) => (b.Completed + b.Temporary) - (a.Completed + a.Temporary));
+}, [filteredData]);
+
 // ── Power BI chip style helpers ───────────────────────────────────────────
 const chipStyle = (light) => ({
   display: 'inline-flex', alignItems: 'center', gap: 5,
@@ -2585,6 +2609,30 @@ Object.values(monthMap).forEach(m => {
 );
 }, [rawData, applyAllFilters, operationData, selectedLines, selectedMonths, chartClickLine]);
 
+// FDR total (all lines combined) per month — used for bar chart when no line filter
+const fdrTotalByMonth = useMemo(() => {
+  const fdrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (operationData.length === 0 || fdrSource.length === 0) return [];
+
+  const bdMap = {};
+  const opMap = {};
+
+  fdrSource.forEach(d => {
+    if (!d.month) return;
+    bdMap[d.month] = (bdMap[d.month] || 0) + d.bdTime;
+  });
+
+  operationData.forEach(o => {
+    if (!o.month) return;
+    opMap[o.month] = (opMap[o.month] || 0) + o.opTime1X2;
+  });
+
+  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  return allMonths.map(month => ({
+    month,
+    fdrTotal: opMap[month] > 0 ? +((bdMap[month] || 0) / opMap[month] * 100).toFixed(2) : 0
+  })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
+}, [rawData, applyAllFilters, operationData, selectedLines, selectedMonths]);
 
 const mttrByMonth = useMemo(() => {
   const MTTR_LINES = [
@@ -2689,6 +2737,28 @@ Object.values(monthMap).forEach(m => {
     (a, b) => parseMonth(a.month) - parseMonth(b.month)
   );
 }, [rawData, applyAllFilters, selectedLines, selectedMonths, chartClickLine]);
+
+// MTTR total (avg all lines combined) per month — used for bar chart when no line filter
+const mttrTotalByMonth = useMemo(() => {
+  const mttrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (mttrSource.length === 0) return [];
+
+  const map = {};
+  mttrSource.forEach(d => {
+    if (!d.month) return;
+    if (!map[d.month]) map[d.month] = { repairTime: 0, count: 0 };
+    map[d.month].repairTime += d.repairTimeP || 0;
+    map[d.month].count += 1;
+  });
+
+  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  return allMonths.map(month => ({
+    month,
+    mttrTotal: map[month] && map[month].count > 0
+      ? +((map[month].repairTime / map[month].count) / 60).toFixed(2)
+      : 0
+  })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
+}, [rawData, applyAllFilters, selectedMonths]);
 
 const mtbfByMonth = useMemo(() => {
 
@@ -2937,10 +3007,12 @@ const recurrentData = useMemo(() => {
     if (!groups[d.machineNo]) {
       groups[d.machineNo] = {
         value: 0,
+        count: 0,
         machineName: d.machineName // 👈 มาจาก column D
       };
     }
     groups[d.machineNo].value += d.bdTime;
+    groups[d.machineNo].count += 1;
   });
 
   const pal5 = getChartTheme(isLightMode).paletteTop5;
@@ -2948,9 +3020,10 @@ const recurrentData = useMemo(() => {
     .map(k => ({
       machineNo: k,
       machineName: groups[k].machineName,
-      value: groups[k].value
+      value: groups[k].value,
+      count: groups[k].count
     }))
-    .sort((a, b) => b.value - a.value)
+    .sort((a, b) => b.count - a.count)
     .slice(0, 5)
     .map((d, i) => ({ ...d, color: pal5[i % 5] }));
 }, [filteredData, isLightMode]);
@@ -3044,8 +3117,8 @@ const top3FocusMachines = useMemo(() => {
                 else groups.M++;
                 });
                 return [
-                { name: 'M', value: groups.M, color: isLightMode ? '#FF9500' : '#374151' },
-                { name: 'E', value: groups.E, color: isLightMode ? '#007AFF' : '#E50914' }
+                { name: 'M', value: groups.M, color: isLightMode ? '#FF9500' : '#F59E0B' },
+                { name: 'E', value: groups.E, color: isLightMode ? '#007AFF' : '#3B82F6' }
                 ];
             }, [filteredData, isLightMode]);
 
@@ -3260,7 +3333,7 @@ const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine) => ({ active, 
   );
 };
 
-const chartTooltipPareto = ({ active, payload, lang }) => {
+const chartTooltipPareto = ({ active, payload, lang, isLightMode }) => {
   const L = TOOLTIP_I18N[lang] || TOOLTIP_I18N.EN;
   const S = STATUS_LABELS[lang] || STATUS_LABELS.EN;
 
@@ -3285,7 +3358,7 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
 
       {/* 🔹 Breakdown Time */}
       <div style={{ color: isLightMode ? '#1d4ed8' : '#93C5FD', fontSize: 13 }}>
-        {L.value} : <b>{data.value}</b>
+        {lang==='TH'?'เวลา (ชม.)':lang==='JP'?'時間 (時間)':'Time (hr)'} : <b>{(data.value / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</b>
       </div>
 
       {/* 🔹 Cumulative */}
@@ -3294,18 +3367,10 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
       </div>
 
       {/* 🔹 Status */}
-      {data.status && (
-        <div
-          style={{
-            marginTop: 6,
-            fontSize: 13,
-            fontWeight: 600,
-            color: data.status === 'Completed' ? '#16A34A' : '#F59E0B'
-          }}
-        >
-          {S.title} : {data.status === 'Completed' ? S.done : S.temp}
-        </div>
-      )}
+      <div style={{ marginTop: 6, fontSize: 13, fontWeight: 600,
+        color: (data.status || '').toLowerCase() === 'completed' ? '#16A34A' : '#F59E0B' }}>
+        {S.title} : {(data.status || '').toLowerCase() === 'completed' ? S.done : (data.status || '').toLowerCase() === 'temporary' ? S.temp : (data.status || 'N/A')}
+      </div>
     </div>
   );
 };
@@ -3340,15 +3405,18 @@ const chartTooltipPareto = ({ active, payload, lang }) => {
 
             const distData = useMemo(() => {
   const buckets = [
-    { name: '0-29',   min: 0,   max: 29,  count: 0 },
-    { name: '30-59',  min: 30,  max: 59,  count: 0 },
-    { name: '60-119', min: 60,  max: 119, count: 0 },
-    { name: '≥ 120',  min: 120, max: Infinity, count: 0 },
+    { name: '0-29',   min: 0,   max: 29,  count: 0, countM: 0, countE: 0 },
+    { name: '30-59',  min: 30,  max: 59,  count: 0, countM: 0, countE: 0 },
+    { name: '60-119', min: 60,  max: 119, count: 0, countM: 0, countE: 0 },
+    { name: '≥ 120',  min: 120, max: Infinity, count: 0, countM: 0, countE: 0 },
   ];
 
   filteredData.forEach(d => {
     const b = buckets.find(b => d.bdTime >= b.min && d.bdTime <= b.max);
-    if (b) b.count++;
+    if (b) {
+      b.count++;
+      if (d.type === 'E') b.countE++; else b.countM++;
+    }
   });
 
   const palD = getChartTheme(isLightMode).paletteDist;
@@ -3704,8 +3772,8 @@ onDragOver={handleDragOver}
                         </div>
                         <div className="min-w-0">
                           <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-sm'}`}>{t.avgTime}</p>
-                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-3xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{Math.round(kpi.avgTime)}</h3>
-                          <span className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{t.min}</span>
+                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-3xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{(kpi.avgTime / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</h3>
+                          <span className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{lang === 'TH' ? 'ชม.' : lang === 'JP' ? '時間' : 'hr.'}</span>
                         </div>
                       </div>
                     </div>
@@ -3717,53 +3785,63 @@ onDragOver={handleDragOver}
   {FDR_LINE_LABELS[lang]?.fdrTitle}
 </h3>
 
-  <div className="h-72">
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={fdrByMonth}
-margin={{ top: 20, right: isMobile ? 36 : 20, bottom: 10, left: isMobile ? 6 : -10 }}
-style={{ cursor: 'pointer' }}>
-        <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
-        <XAxis
-          dataKey="month"
-          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }}
-          interval={0}
-          minTickGap={isMobile ? 30 : 0}
-        />
-        <YAxis
-          unit="%"
-          width={isMobile ? 38 : 50}
-          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }}
-          tickMargin={8}
-        />
-        <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
-
-        <Legend
-          verticalAlign="bottom"
-          align="center"
-          wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
-          onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
-        />
-
-        {FDR_LINES.map((line) => {
-          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
-          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
-          const dimmed = !isHighlight;
-          return (
-            <Line
-              key={line}
-              dataKey={line}
-              stroke={getLineColorMap(isLightMode)[line]}
-              color={getLineColorMap(isLightMode)[line]}
-              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
-              dot={false}
-              activeDot={{ r: 6 }}
-              strokeOpacity={dimmed ? 0.12 : 1}
-              style={{ cursor: 'pointer' }}
-              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-            />
-          );
-        })}
-      </LineChart>
+  <div style={{height: '274px'}}>
+    <ResponsiveContainer width="95%" height="100%">
+      {(selectedLines.length === 0 && !chartClickLine) ? (
+        <BarChart data={fdrTotalByMonth}
+          margin={{ top: 20, right: isMobile ? 36 : 20, bottom: 10, left: isMobile ? 6 : 30 }}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis unit="%" width={isMobile ? 38 : 52} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8} />
+          <RechartsTooltip content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const val = payload[0]?.value ?? 0;
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:140,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:4,color:ct.labelColor}}>{label}</div>
+                <div style={{color:ct.itemColor}}>FDR: <b style={{color: isLightMode ? '#1d4ed8' : '#93C5FD'}}>{val.toFixed(2)}%</b></div>
+              </div>
+            );
+          }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+          <Bar dataKey="fdrTotal" name="FDR (%)" barSize={28} radius={[6,6,0,0]}>
+            {fdrTotalByMonth.map((entry, i) => (
+              <Cell key={i} fill={isLightMode ? '#007AFF' : '#E50914'} opacity={0.85} />
+            ))}
+            <LabelList dataKey="fdrTotal" position="top" formatter={(v) => v > 0 ? v.toFixed(2) + '%' : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      ) : (
+        <LineChart data={fdrByMonth}
+          margin={{ top: 20, right: isMobile ? 36 : 20, bottom: 10, left: isMobile ? 6 : 30 }}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis unit="%" width={isMobile ? 38 : 52} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <Legend verticalAlign="bottom" align="center"
+            wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
+            onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
+          />
+          {FDR_LINES.map((line) => {
+            const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+            const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+            const dimmed = !isHighlight;
+            return (
+              <Line key={line} dataKey={line}
+                stroke={getLineColorMap(isLightMode)[line]}
+                color={getLineColorMap(isLightMode)[line]}
+                strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+                dot={false} activeDot={{ r: 6 }}
+                strokeOpacity={dimmed ? 0.12 : 1}
+                style={{ cursor: 'pointer' }}
+                onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+              />
+            );
+          })}
+        </LineChart>
+      )}
     </ResponsiveContainer>
   </div>
 </div>
@@ -3791,9 +3869,10 @@ style={{ cursor: 'pointer' }}>
         <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
         <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
         <YAxis
-  width={isMobile ? 38 : 50}
+  width={isMobile ? 38 : 55}
   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }}
   tickMargin={8}
+  label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
 />
          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
 
@@ -3834,54 +3913,186 @@ style={{ cursor: 'pointer' }}>
 
   <div className="h-72">
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart 
-       margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
-       data={mttrByMonth}
-       style={{ cursor: 'pointer' }}>
-        <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
-        <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
-        <YAxis
-  width={isMobile ? 38 : 50}
-  tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }}
-  tickMargin={8}
-/>
-       <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
-
-        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
-
-        {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map((line) => {
-          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
-          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
-          const dimmed = !isHighlight;
-          return (
-            <Line
-              key={line}
-              dataKey={line}
-              stroke={getLineColorMap(isLightMode)[line]}
-              color={getLineColorMap(isLightMode)[line]}
-              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
-              dot={false}
-              activeDot={{ r: 6 }}
-              type="linear"
-              connectNulls
-              strokeOpacity={dimmed ? 0.12 : 1}
-              style={{ cursor: 'pointer' }}
-              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-            />
-          );
-        })}
-      </LineChart>
+      {(selectedLines.length === 0 && !chartClickLine) ? (
+        <BarChart data={mttrTotalByMonth}
+          margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const val = payload[0]?.value ?? 0;
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:140,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:4,color:ct.labelColor}}>{label}</div>
+                <div style={{color:ct.itemColor}}>MTTR: <b style={{color: isLightMode ? '#1d4ed8' : '#93C5FD'}}>{val.toFixed(2)} {lang==='TH'?'ชม.':lang==='JP'?'時間':'hr'}</b></div>
+              </div>
+            );
+          }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+          <Bar dataKey="mttrTotal" name="MTTR" barSize={28} radius={[6,6,0,0]}>
+            {mttrTotalByMonth.map((entry, i) => (
+              <Cell key={i} fill={isLightMode ? '#007AFF' : '#E50914'} opacity={0.85} />
+            ))}
+            <LabelList dataKey="mttrTotal" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      ) : (
+        <LineChart
+          margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
+          data={mttrByMonth}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
+            onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
+          {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map((line) => {
+            const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+            const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+            const dimmed = !isHighlight;
+            return (
+              <Line key={line} dataKey={line}
+                stroke={getLineColorMap(isLightMode)[line]} color={getLineColorMap(isLightMode)[line]}
+                strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+                dot={false} activeDot={{ r: 6 }} type="linear" connectNulls
+                strokeOpacity={dimmed ? 0.12 : 1} style={{ cursor: 'pointer' }}
+                onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+              />
+            );
+          })}
+        </LineChart>
+      )}
     </ResponsiveContainer>
   </div>
 </div>
 </div>
 
-                    {/* Line Analysis + Top 5 */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+{/* === ROW 3: Breakdown (Count & Time) & Status + Downtime by Line === */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                   <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.trendChartTitle}</h3>
+                        <div className="h-80">
+                            
+                            <ResponsiveContainer width="100%" height="100%">
+                                <ComposedChart
+                                  data={monthlyTrend}
+                                  margin={{ top: 16, right: isMobile ? 38 : 25, bottom: 40, left: isMobile ? 6 : 35 }}
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={(e) => { if (e && e.activeLabel) { toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); } }}
+                                >
+                                  <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} />
+                                  <XAxis
+                                    dataKey="month"
+                                    interval={0}
+                                    minTickGap={isMobile ? 30 : 0}
+                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 12 }}
+                                    axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+                                    tickLine={false}
+                                  />
+                                  <YAxis yAxisId="left" orientation="left"
+                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
+                                    width={isMobile ? 34 : 52}
+                                    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                  />
+                                  <YAxis 
+                                   yAxisId="right" orientation="right"
+                                   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
+                                   width={isMobile ? 42 : 45}
+                                   tickFormatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}
+                                   label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: 90, position: 'insideRight', offset: isMobile ? -10 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                     />
+
+   <RechartsTooltip
+     cursor={{ fill: 'transparent' }}
+     content={({ active, payload, label }) => {
+       if (!active || !payload || !payload.length) return null;
+       const ct = getChartTheme(isLightMode);
+       const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
+       const done  = payload.find(p => p.dataKey === 'Completed')?.value || 0;
+       const temp  = payload.find(p => p.dataKey === 'Temporary')?.value || 0;
+       const total = done + temp;
+       const lTotal = lang==='TH' ? 'รวม BD ทั้งหมด' : lang==='JP' ? '合計件数' : 'Total Breakdowns';
+       return (
+         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 200 }}>
+           <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
+           {payload.map((entry, i) => {
+             const sc = entry.payload?.color || entry.stroke || entry.color || entry.fill || ct.paretoBars;
+             const isTimeVal = entry.dataKey === 'time';
+             const unit = isTimeVal ? unitSuffix.hr : unitSuffix.count;
+             const displayVal = isTimeVal
+               ? (entry.value / 60).toLocaleString(undefined, {maximumFractionDigits: 1})
+               : (typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value);
+             return (
+               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+                 <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
+                 <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
+                   <span className="jath-tooltip-name" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 400, marginRight: 4 }}>{entry.name}:</span>
+                   {displayVal}{unit}
+                 </span>
+               </div>
+             );
+           })}
+           {(done > 0 || temp > 0) && (
+             <div style={{ borderTop: `1px solid ${ct.tooltipBorder}`, marginTop: 6, paddingTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
+               <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: ct.labelColor, flexShrink: 0 }}/>
+               <span style={{ color: ct.labelColor, fontWeight: 700 }}>
+                 {lTotal}: <b>{total}{unitSuffix.count}</b>
+               </span>
+             </div>
+           )}
+         </div>
+       );
+     }}
+   />
+
+                                  <Legend
+                                    wrapperStyle={{ fontSize: 12, fontWeight: 500 }}
+                                    formatter={(value) => (
+                                      <span style={{color: isLightMode ? "#1c3a5e" : "#e5e7eb"}}>{value}</span>
+                                    )}
+                                  />
+                                  <Bar
+                                    yAxisId="left"
+                                    dataKey="Completed"
+                                    stackId="status"
+                                    name={lang==='TH' ? 'เสร็จสิ้น' : lang==='JP' ? '完了' : 'Completed'}
+                                    fill={isLightMode ? "#34C759" : "#475569"}
+                                    barSize={22}
+                                    radius={[0, 0, 0, 0]}
+                                  />
+                                  <Bar
+                                    yAxisId="left"
+                                    dataKey="Temporary"
+                                    stackId="status"
+                                    name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary'}
+                                    fill={isLightMode ? "#FF9500" : "#E50914"}
+                                    barSize={22}
+                                    radius={[6, 6, 0, 0]}
+                                  />
+                                  <Line
+                                    yAxisId="right"
+                                    type="monotone"
+                                    dataKey="time"
+                                    name={t.colTime}
+                                    stroke={isLightMode ? "#5856D6" : "#F59E0B"}
+                                    strokeWidth={3}
+                                    dot={false}
+                                  />
+                                </ComposedChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+
+
                     {/* Line Analysis */}
-                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.lineAnalysisTitle}</h3>
-                        <div className="h-[320px]">
+                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                        <h3 className="text-lg font-bold text-gray-800 mb-4" style={{alignSelf:'flex-start'}}>{t.lineAnalysisTitle}</h3>
+                        <div style={{height:'336px', width:'100%'}}>
                             <ResponsiveContainer width="100%" height="100%">
 <ComposedChart
   data={lineDowntime}
@@ -3909,17 +4120,25 @@ style={{ cursor: 'pointer' }}>
     tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
     tickLine={false}
-    width={isMobile ? 28 : 40}
+    width={isMobile ? 36 : 52}
+    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
   />
   <YAxis
     yAxisId="right"
     orientation="right"
     domain={[0, 'dataMax']}
     allowDecimals={false}
-    tick={{ fill: '#ffffff', fontSize: isMobile ? 9 : 11 }}
+    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
     tickLine={false}
-    width={isMobile ? 28 : 36}
+    width={isMobile ? 36 : 48}
+    label={({ viewBox }) => {
+      const { x, y, height } = viewBox;
+      const cx = x + (viewBox.width || 0) + 14;
+      const cy = y + height / 2;
+      const txt = lang==='TH'?'ครั้ง (ซ้ำ)':lang==='JP'?'件 (再発)':'Count (Recurrent)';
+      return <text x={cx} y={cy} textAnchor="middle" fontSize={10} fill={getChartTheme(isLightMode).axis} transform={`rotate(90,${cx},${cy})`}>{txt}</text>;
+    }}
   />
   <RechartsTooltip
     cursor={{ fill: 'rgba(255,255,255,0.06)' }}
@@ -3942,19 +4161,19 @@ style={{ cursor: 'pointer' }}>
         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:160, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
           <div style={{ fontWeight:700, marginBottom:6, color:ct.labelColor }}>{label}</div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:compFill, flexShrink:0 }}/>
-            <span style={{ color:ct.itemColor }}>{lComp}: <b>{comp}{lTimes}</b></span>
+            <div style={{ width:8, height:8, borderRadius:'50%', background:compFill, flexShrink:0 }}/>
+            <div style={{ color:ct.itemColor }}>{lComp}: <b style={{color:ct.itemColor}}>{comp}{lTimes}</b></div>
           </div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
-            <span style={{ color:ct.itemColor }}>{lTemp}: <b>{temp}{lTimes}</b></span>
+            <div style={{ width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
+            <div style={{ color:ct.itemColor }}>{lTemp}: <b style={{color:ct.itemColor}}>{temp}{lTimes}</b></div>
           </div>
           <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, color:ct.labelColor, fontWeight:700 }}>
-            {lTotal}: {total}{lTimes}
+            {lTotal}: <b style={{color:ct.labelColor}}>{total}{lTimes}</b>
           </div>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:4 }}>
-            <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:'#EF4444', flexShrink:0 }}/>
-            <span style={{ color:'#EF4444', fontWeight:600 }}>{lRecur}: <b>{recur}{lTimes}</b></span>
+            <div style={{ width:8, height:8, borderRadius:'50%', background:'#EF4444', flexShrink:0 }}/>
+            <div style={{ color:'#EF4444', fontWeight:600 }}>{lRecur}: <b style={{color:'#EF4444'}}>{recur}{lTimes}</b></div>
           </div>
         </div>
       );
@@ -4001,6 +4220,245 @@ style={{ cursor: 'pointer' }}>
                             </ResponsiveContainer>
                         </div>
                     </div>
+
+</div>
+
+{/* === ROW 4: Breakdown Type M/E + Breakdown Time Distribution === */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+     {/* Breakdown Type */}
+                     <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickType ? ' jath-chart-active-filter' : ''}`} style={{display:'flex', flexDirection:'column', minHeight:'360px'}}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+      {t.typeTitle}
+    </h3>
+
+    <div style={{flex:1, display:'flex', alignItems:'center', justifyContent:'center'}}>
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie
+            data={typeAnalysis}
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            outerRadius={90}
+            paddingAngle={4}
+            label={renderCountLabel}
+            labelLine={false}
+            dataKey="value"
+            stroke="none"
+            style={{ cursor: 'pointer' }}
+            onClick={(entry) => { if (entry && entry.name) toggleChartFilter(setChartClickType, chartClickType, entry.name); }}
+          >
+            {typeAnalysis.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} opacity={chartClickType && chartClickType !== entry.name ? 0.3 : 1} />
+            ))}
+          </Pie>
+          <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
+          <Legend verticalAlign="bottom" height={36}/>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+   
+
+
+{/* Breakdown Time Distribution */}
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+      {t.distTitle}
+    </h3>
+
+    <div style={{height: '304px'}}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart 
+           margin={{ top: 15, right: isMobile ? 8 : 55, bottom: 24, left: isMobile ? 0 : 0 }}
+           data={distData}
+           style={{ cursor: 'pointer' }}
+           onClick={(e) => {
+             if (e && e.activePayload && e.activePayload[0]) {
+               const payload = e.activePayload[0].payload;
+               const bucket = { label: payload.name, min: payload.min, max: payload.max };
+               if (chartClickDuration && chartClickDuration.label === payload.name) {
+                 setChartClickDuration(null);
+               } else {
+                 setChartClickDuration(bucket);
+               }
+             }
+           }}
+           >
+          <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} />
+          <XAxis dataKey="name" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }} label={{ value: lang==='TH'?'นาที':lang==='JP'?'分':'min', position: 'insideBottom', offset: -4, style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} height={30} />
+          <YAxis tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }} width={isMobile ? 38 : 52} label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+            const mColor = isLightMode ? '#FF9500' : '#F59E0B';
+            const eColor = isLightMode ? '#007AFF' : '#3B82F6';
+            const mVal = payload.find(p => p.dataKey === 'countM')?.value || 0;
+            const eVal = payload.find(p => p.dataKey === 'countE')?.value || 0;
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:150,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:mColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>M: <b style={{color:ct.itemColor}}>{mVal}{cntSuffix}</b></div>
+                </div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:eColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>E: <b style={{color:ct.itemColor}}>{eVal}{cntSuffix}</b></div>
+                </div>
+                <div style={{borderTop:`1px solid ${ct.tooltipBorder}`,marginTop:4,paddingTop:4,color:ct.labelColor,fontWeight:700}}>
+                  Total: <b>{mVal+eVal}{cntSuffix}</b>
+                </div>
+              </div>
+            );
+          }} />
+
+          <Bar dataKey="countM" name="M" stackId="me" barSize={36} radius={[0,0,0,0]}
+            fill={isLightMode ? '#FF9500' : '#F59E0B'}
+            opacity={1}
+          >
+            {distData.map((entry, i) => (
+              <Cell key={i}
+                fill={isLightMode ? '#FF9500' : '#F59E0B'}
+                opacity={chartClickDuration && chartClickDuration.label !== entry.name ? 0.25 : 1}
+              />
+            ))}
+          </Bar>
+          <Bar dataKey="countE" name="E" stackId="me" barSize={36} radius={[6,6,0,0]}
+            fill={isLightMode ? '#007AFF' : '#3B82F6'}
+          >
+            {distData.map((entry, i) => (
+              <Cell key={i}
+                fill={isLightMode ? '#007AFF' : '#3B82F6'}
+                opacity={chartClickDuration && chartClickDuration.label !== entry.name ? 0.25 : 1}
+              />
+            ))}
+            <LabelList content={({ x, y, width, index }) => {
+              const row = distData[index] || {};
+              const total = (row.countM || 0) + (row.countE || 0);
+              if (total === 0) return null;
+              return <text x={x + width / 2} y={y - 5} textAnchor="middle" fontSize={11} fontWeight={700} fill={getChartTheme(isLightMode).axis}>{total}</text>;
+            }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+</div>
+
+{/* === ROW 5: Frequency vs Breakdown Time + Top 5 Machine === */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    {/* Scatter Plot */}
+
+                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickMachine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.scatterTitle}</h3>
+                        <div className="h-80">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <ScatterChart 
+margin={{ top: 10, right: isMobile ? 16 : 35, bottom: 30, left: isMobile ? 0 : 15 }}>
+                                    <CartesianGrid stroke={getChartTheme(isLightMode).grid} strokeDasharray="2 6" />
+                                    <XAxis
+                                      type="number"
+                                      dataKey="count"
+                                      name={t.times}
+                                      tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+                                      axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+                                      tickLine={{ stroke: '#374151' }}
+                                      tickMargin={10}
+                                      label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', position: 'insideBottom', offset: -8, style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                    />
+                                    <YAxis
+                                      type="number"
+                                      dataKey="time"
+                                      name={t.min}
+                                      tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+                                      axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+                                      tickLine={{ stroke: '#374151' }}
+                                      tickMargin={10}
+                                      width={isMobile ? 46 : 60}
+                                      tickFormatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}
+                                      label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                    />
+  <RechartsTooltip
+  
+  cursor={{ fill: 'transparent' }}
+  content={({ active, payload }) => {
+    if (!active || !payload || !payload.length) return null;
+
+    const d = payload[0].payload;
+
+    return (
+      <div
+        data-jath-tooltip='1'
+        style={{
+          backgroundColor: getChartTheme(isLightMode).tooltipBg,
+          backdropFilter: 'blur(16px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+    boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13), inset 0 1px 1px rgba(255,255,255,0.7)' : '0 8px 32px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.08)',
+          border: `1px solid ${getChartTheme(isLightMode).tooltipBorder}`,
+          borderRadius: 12,
+          padding: '8px 10px',
+                 fontSize: '12px',
+          color: getChartTheme(isLightMode).tooltipColor
+        }}
+      >
+        <div className="font-semibold mb-1" style={{color: getChartTheme(isLightMode).labelColor}}>
+  {lang === "TH" ? "เครื่องจักร" :
+   lang === "JP" ? "設備" :
+   "Machine"} : {d.id}
+</div>
+
+<div className="jath-tooltip-val" style={{color: getChartTheme(isLightMode).itemColor}}>
+  {lang === "TH" ? "จำนวนครั้ง" :
+   lang === "JP" ? "回数" :
+   "Frequency"} : <b>{d.count}</b>
+</div>
+
+<div className="jath-tooltip-val" style={{color: getChartTheme(isLightMode).itemColor}}>
+  {lang === "TH" ? "เวลาซ่อม (ชม.)" :
+   lang === "JP" ? "修理時間 (時間)" :
+   "Repair Time (hr)"} : <b>{(d.time / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</b>
+</div>
+      </div>
+    );
+  }}
+/>
+
+
+                                    <Scatter
+                                      name="Machine Breakdown"
+                                      data={scatterData}
+                                      fillOpacity={isLightMode ? 0.92 : 0.85}
+                                      strokeWidth={isLightMode ? 1.5 : 0}
+                                      stroke={getChartTheme(isLightMode).scatterStroke}
+                                      onClick={(data) => { if (data && data.id) { toggleChartFilter(setChartClickMachine, chartClickMachine, data.id); } }}
+                                      style={{ cursor: 'pointer' }}
+                                    >
+                                        {scatterData.map((entry, index) => (
+                                            <Cell
+                                              key={`cell-${index}`}
+                                              fill={
+  entry.time > 1500 ? getChartTheme(isLightMode).scatterVHigh :
+  entry.time > 500  ? getChartTheme(isLightMode).scatterHigh  :
+  entry.time > 150  ? getChartTheme(isLightMode).scatterMid   :
+                      getChartTheme(isLightMode).scatterLow
+}
+r={
+  entry.time > 1500 ? 10 :
+  entry.time > 500  ? 7  :
+  entry.time > 150  ? 5  : 4
+}
+opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
+                                            />
+                                        ))}
+                                    </Scatter>
+                                </ScatterChart>
+                            </ResponsiveContainer>
+
+                        </div>
+                    </div>
+
 
    {/* Top 5 Machine */}
                     <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickMachine ? ' jath-chart-active-filter' : ''}`}>
@@ -4060,12 +4518,37 @@ style={{ cursor: 'pointer' }}>
                                     tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
                                     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
                                     tickLine={false}
-                                    width={isMobile ? 28 : 40}
-                                    tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
+                                    width={isMobile ? 38 : 55}
+                                    allowDecimals={false}
+                                    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
                                   />
-                                  <RechartsTooltip content={makeTooltip(isLightMode, 'time', lang)} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+                                  <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+  if (!active || !payload || !payload.length) return null;
+  const ct = getChartTheme(isLightMode);
+  const hrSuffix = UNIT_SUFFIX[lang]?.hr || ' hr.';
+  return (
+    <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', fontSize: 12, minWidth: 140, boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)' }}>
+      {label !== undefined && <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>}
+      {payload.map((entry, i) => {
+        const machineIdx = top5Machines.findIndex(m => m.machineNo === label);
+        const sc = machineIdx >= 0
+          ? getChartTheme(isLightMode).palettePrimary[machineIdx % 8]
+          : (entry.color || entry.fill || ct.paretoBars);
+        const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+        return (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+            <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
+            <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
+              {entry.value}{cntSuffix}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}} />
                                   <Bar
-                                    dataKey="value"
+                                    dataKey="count"
                                     radius={[6, 6, 0, 0]}
                                     barSize={30}
                                   >
@@ -4076,11 +4559,110 @@ style={{ cursor: 'pointer' }}>
                                         opacity={chartClickMachine && chartClickMachine !== entry.machineNo ? 0.3 : 1}
                                       />
                                     ))}
+                                    <LabelList dataKey="count" position="top" style={{ fontSize: 11, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
                                   </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
                     </div>
+
+</div>
+
+{/* === Failure Category Full === */}
+<div className="grid grid-cols-1 gap-6 mb-6">
+  {/* 🔹 ซ้าย : Top 10 Failure Category */}
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+  {t.failureCategoryTitle}
+  {chartClickCategory && (() => {
+    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
+    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
+    if (!sel || total === 0) return null;
+    const pct = ((sel.count / total) * 100).toFixed(1);
+    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
+  })()}
+</h3>
+
+    <div className="h-[320px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={failureCategoryCount}
+          margin={{ top: 20, right: isMobile ? 8 : 25, bottom: 20, left: isMobile ? 0 : 15 }}
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
+        >
+          <CartesianGrid
+            vertical={false}
+            stroke={getChartTheme(isLightMode).grid}
+            strokeDasharray="2 6"
+          />
+          <XAxis
+            dataKey="name"
+            interval={0}
+            angle={-35}
+            textAnchor="end"
+            height={70}
+            tickMargin={16}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+            tickLine={false}
+          />
+          <YAxis
+            domain={[0, 'dataMax']}
+            tickCount={6}
+            padding={{ top: 0, bottom: 0 }}
+            allowDecimals={false}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+            tickLine={false}
+            width={isMobile ? 34 : 52}
+            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+          />
+          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+            const mColor = isLightMode ? '#FF9500' : '#F59E0B';
+            const eColor = isLightMode ? '#007AFF' : '#3B82F6';
+            const mVal = payload.find(p => p.dataKey === 'countM')?.value || 0;
+            const eVal = payload.find(p => p.dataKey === 'countE')?.value || 0;
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:150,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:mColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>M: <b style={{color:ct.itemColor}}>{mVal}{cntSuffix}</b></div>
+                </div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:eColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>E: <b style={{color:ct.itemColor}}>{eVal}{cntSuffix}</b></div>
+                </div>
+                <div style={{borderTop:`1px solid ${ct.tooltipBorder}`,marginTop:4,paddingTop:4,color:ct.labelColor,fontWeight:700}}>
+                  Total: <b>{mVal+eVal}{cntSuffix}</b>
+                </div>
+              </div>
+            );
+          }} />
+
+          <Bar
+            dataKey="count"
+            radius={[6, 6, 0, 0]}
+            barSize={22}
+            maxBarSize={32}
+          >
+            {failureCategoryCount.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
+                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
+              />
+            ))}
+            <LabelList dataKey="count" position="top" style={{ fontSize: 11, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+
 </div>
 
 
@@ -4135,12 +4717,13 @@ style={{ cursor: 'pointer' }}>
               tickMargin={8}
               tick={renderParetoTick}
             />
-            {/* YAxis ซ้าย: label "นาที" ชิดแกน offset=-8 */}
+            {/* YAxis ซ้าย: label "ชม." ชิดแกน offset=-8 */}
             <YAxis
               yAxisId="left"
               orientation="left"
+              tickFormatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}
               label={{
-                value: t.min,
+                value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr',
                 angle: -90,
                 position: 'insideLeft',
                 offset: 8,
@@ -4165,7 +4748,7 @@ style={{ cursor: 'pointer' }}>
               tick={{ fontSize: 10, fill: getChartTheme(isLightMode).axis }}
               width={36}
             />
-            <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang })} cursor={{ fill: 'transparent' }} />
+            <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang, isLightMode })} cursor={{ fill: 'transparent' }} />
             <Bar yAxisId="left" dataKey="value" fill={getChartTheme(isLightMode).paretoBars} barSize={32} radius={[6,6,0,0]}>
               {paretoData.map((entry, index) => {
                 const isComp = entry.status === 'Completed';
@@ -4223,7 +4806,8 @@ style={{ cursor: 'pointer' }}>
         <YAxis
           yAxisId="left"
           orientation="left"
-          label={{ value: t.min, angle: -90, position: 'insideLeft', fill: getChartTheme(isLightMode).axis }}
+          tickFormatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}
+          label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
         />
         <YAxis
           yAxisId="right"
@@ -4231,7 +4815,7 @@ style={{ cursor: 'pointer' }}>
           domain={[0, 100]}
           label={{ value: '%', angle: 90, position: 'insideRight', fill: getChartTheme(isLightMode).axis }}
         />
-        <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang })} cursor={{ fill: 'transparent' }} />
+        <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang, isLightMode })} cursor={{ fill: 'transparent' }} />
         <Bar
           yAxisId="left"
           dataKey="value"
@@ -4263,534 +4847,12 @@ style={{ cursor: 'pointer' }}>
   )}
 </div>
 </div>
+</div>
 
+
+
+{/* === ROW A: Repair Time Breakdown + Recurrent Problems === */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-     {/* Breakdown Type */}
-                     <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickType ? ' jath-chart-active-filter' : ''}`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-4">
-      {t.typeTitle}
-    </h3>
-
-    <div className="h-64 flex items-center justify-center">
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie
-            data={typeAnalysis}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={90}
-            paddingAngle={4}
-            label={renderCountLabel}
-            labelLine={false}
-            dataKey="value"
-            stroke="none"
-            style={{ cursor: 'pointer' }}
-            onClick={(entry) => { if (entry && entry.name) toggleChartFilter(setChartClickType, chartClickType, entry.name); }}
-          >
-            {typeAnalysis.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} opacity={chartClickType && chartClickType !== entry.name ? 0.3 : 1} />
-            ))}
-          </Pie>
-          <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
-          <Legend verticalAlign="bottom" height={36}/>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
-  </div>
-   
-
-     {/* Main Reason for Long Time Repair */}
-                   <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickReason ? ' jath-chart-active-filter' : ''}`}>
-  <h3 className="text-lg font-bold text-gray-800 mb-4">{t.reasonTitle}</h3>
-  <div style={{height: isMobile ? 380 : 256, position: 'relative'}}>
-    <ResponsiveContainer>
-      <PieChart margin={isMobile ? { top: 20, right: 20, bottom: 0, left: 20 } : {}}>
-        <Pie
-          data={pieReasonData}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy={isMobile ? "40%" : "50%"}
-          outerRadius={isMobile ? 85 : 80}
-          label={renderPercentLabel}
-          labelLine={false}
-          stroke="none"
-          style={{ cursor: 'pointer' }}
-          onClick={(entry) => { if (entry && entry.name) toggleChartFilter(setChartClickReason, chartClickReason, entry.name); }}
-        >
-          {pieReasonData.map((entry, index) => (
-      <Cell key={`cell-${index}`} fill={getChartTheme(isLightMode).palettePieReason[index % 8]}
-        opacity={chartClickReason && chartClickReason !== entry.name ? 0.2 : 1}
-      />
-    ))}
-        </Pie>
-        <RechartsTooltip
-          cursor={{ fill: 'transparent' }}
-          content={({ active, payload }) => {
-            if (!active || !payload || !payload.length) return null;
-            const entry = payload[0];
-            const ct = getChartTheme(isLightMode);
-            const seriesColor = entry.payload?.color || entry.color || ct.paretoBars;
-            const label = REASON_I18N[entry.name];
-            const displayName = label ? label[lang] : entry.name;
-            return (
-              <div data-jath-tooltip='1' style={{
-                background: ct.tooltipBg,
-                backdropFilter: 'blur(16px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-                border: `1px solid ${ct.tooltipBorder}`,
-                borderRadius: 12,
-                padding: '10px 14px',
-                boxShadow: isLightMode
-                  ? '0 8px 32px rgba(60,100,200,0.13), inset 0 1px 1px rgba(255,255,255,0.7)'
-                  : '0 12px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.10)',
-                fontSize: 12,
-                minWidth: 160,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: seriesColor, flexShrink: 0 }} />
-                  <span className="jath-tooltip-name" style={{ '--jath-c': isLightMode ? seriesColor : ct.labelColor, color: isLightMode ? seriesColor : ct.labelColor, fontWeight: 400, flex: 1 }}>{displayName}</span>
-                  <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? seriesColor : ct.labelColor, color: isLightMode ? seriesColor : ct.labelColor, fontWeight: 700, marginLeft: 8 }}>{entry.value}%</span>
-                </div>
-              </div>
-            );
-          }}
-        />
-        <Legend
-          layout={isMobile ? "vertical" : "vertical"}
-          align={isMobile ? "center" : "right"}
-          verticalAlign={isMobile ? "bottom" : "middle"}
-          wrapperStyle={isMobile ? { position: "absolute", top: "260px", left: 0, right: 0, fontSize: 11 } : {}}
-          formatter={(value) => {
-    const item = REASON_I18N[value];
-    return item ? item[lang] : value;
-  }}
-        />
-      </PieChart>
-    </ResponsiveContainer>
-  </div>
-</div>
-</div>
-
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-
-  {/* 🔹 ซ้าย : Top 10 Failure Category */}
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-4">
-  {t.failureCategoryTitle}
-  {chartClickCategory && (() => {
-    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
-    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
-    if (!sel || total === 0) return null;
-    const pct = ((sel.count / total) * 100).toFixed(1);
-    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
-  })()}
-</h3>
-
-    <div className="h-[320px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={failureCategoryCount}
-          margin={{ top: 20, right: isMobile ? 8 : 25, bottom: 20, left: isMobile ? 0 : 15 }}
-          style={{ cursor: 'pointer' }}
-          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
-        >
-          <CartesianGrid
-            vertical={false}
-            stroke={getChartTheme(isLightMode).grid}
-            strokeDasharray="2 6"
-          />
-          <XAxis
-            dataKey="name"
-            interval={0}
-            angle={-35}
-            textAnchor="end"
-            height={70}
-            tickMargin={16}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-            tickLine={false}
-          />
-          <YAxis
-            domain={[0, 'dataMax']}
-            tickCount={6}
-            padding={{ top: 0, bottom: 0 }}
-            allowDecimals={false}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-            tickLine={false}
-            width={isMobile ? 24 : 40}
-          />
-          <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-
-          <Bar
-            dataKey="count"
-            radius={[6, 6, 0, 0]}
-            barSize={22}
-            maxBarSize={32}
-          >
-            {failureCategoryCount.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
-                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  </div>
-
-
-{/*Recurrent Problems (ปัญหาที่เกิดซ้ำ)*/}
-
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-        <h3 className="text-lg font-bold text-gray-800 mb-4">
-  {t.recurrentTitle}
-</h3>
-
-  <div className="h-80">
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={recurrentData} style={{ cursor: 'pointer' }}
-        margin={{ top: 10, right: isMobile ? 8 : 10, bottom: isMobile ? 80 : 0, left: isMobile ? 18 : 10 }}
-        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.repairDetail; toggleChartFilter(setChartClickRepairDetail, chartClickRepairDetail, v); } }}>
-        <CartesianGrid stroke="rgba(255,255,255,0.18)" strokeDasharray="2 6" vertical={false} />
-        <XAxis
-          dataKey="name"
-          interval={0}
-          height={isMobile ? 70 : 95}
-          tickMargin={8}
-          tick={({ x, y, payload }) => {
-            const text = payload.value || '';
-            if (isMobile) {
-              // รวม text ทั้งหมด แล้ว wrap ทุก 20 ตัวอักษร จำกัด 2 บรรทัด
-              const line1 = text.slice(0, 20);
-              const rest = text.slice(20);
-              const line2 = rest.length === 0 ? '' : rest.length > 20 ? rest.slice(0, 19) + '…' : rest;
-              return (
-                <g transform={`translate(${x},${y})`}>
-                  <text textAnchor="end" fontSize={8} fill={getChartTheme(isLightMode).axis} transform="rotate(-45)">
-                    <tspan x={0} dy={4}>{line1}</tspan>
-                    {line2 && <tspan x={0} dy={10}>{line2}</tspan>}
-                  </text>
-                </g>
-              );
-            }
-            const wrapText = (str, maxLen = 20) => {
-              const words = str.split(' ');
-              const lines = [];
-              let current = '';
-              words.forEach(w => {
-                if ((current + ' ' + w).trim().length <= maxLen) { current = current ? current + ' ' + w : w; }
-                else { lines.push(current); current = w; }
-              });
-              if (current) lines.push(current);
-              if (lines.length > 3) { lines.length = 3; lines[2] = lines[2] + '…'; }
-              return lines;
-            };
-            const lines = wrapText(text);
-            return (
-              <g transform={`translate(${x},${y}) rotate(-35)`}>
-                <text textAnchor="end" fontSize={11} fill={getChartTheme(isLightMode).axis}>
-                  {lines.map((line, i) => <tspan key={i} x="0" dy={i === 0 ? 0 : 14}>{line}</tspan>)}
-                </text>
-              </g>
-            );
-          }}
-        />
-        <YAxis allowDecimals={false} domain={[0, 'dataMax']}
-          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-          width={isMobile ? 28 : 40}
-        />
-        <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
-        <Bar dataKey="count" barSize={36} radius={[6, 6, 0, 0]}>
-          {recurrentData.map((entry, index) => (
-            <Cell key={`cell-${index}`}
-              fill={entry.color || getChartTheme(isLightMode).paletteRecurrent[index % 5]}
-              opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
-            />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-</div>
-</div>
-
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-
-
-
-                    {/* Scatter Plot */}
-
-                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickMachine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.scatterTitle}</h3>
-                        <div className="h-80">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <ScatterChart 
-margin={{ top: 10, right: isMobile ? 16 : 35, bottom: 20, left: isMobile ? 0 : 15 }}>
-                                    <CartesianGrid stroke={getChartTheme(isLightMode).grid} strokeDasharray="2 6" />
-                                    <XAxis
-                                      type="number"
-                                      dataKey="count"
-                                      name={t.times}
-                                      tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-                                      axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-                                      tickLine={{ stroke: '#374151' }}
-                                      tickMargin={10}
-                                    />
-                                    <YAxis
-                                      type="number"
-                                      dataKey="time"
-                                      name={t.min}
-                                      tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-                                      axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-                                      tickLine={{ stroke: '#374151' }}
-                                      tickMargin={10}
-                                      width={isMobile ? 36 : 50}
-                                      tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
-                                    />
-  <RechartsTooltip
-  
-  cursor={{ fill: 'transparent' }}
-  content={({ active, payload }) => {
-    if (!active || !payload || !payload.length) return null;
-
-    const d = payload[0].payload;
-
-    return (
-      <div
-        data-jath-tooltip='1'
-        style={{
-          backgroundColor: getChartTheme(isLightMode).tooltipBg,
-          backdropFilter: 'blur(16px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-    boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13), inset 0 1px 1px rgba(255,255,255,0.7)' : '0 8px 32px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.08)',
-          border: `1px solid ${getChartTheme(isLightMode).tooltipBorder}`,
-          borderRadius: 12,
-          padding: '8px 10px',
-                 fontSize: '12px',
-          color: getChartTheme(isLightMode).tooltipColor
-        }}
-      >
-        <div className="font-semibold mb-1" style={{color: getChartTheme(isLightMode).labelColor}}>
-  {lang === "TH" ? "เครื่องจักร" :
-   lang === "JP" ? "設備" :
-   "Machine"} : {d.id}
-</div>
-
-<div className="jath-tooltip-val" style={{color: getChartTheme(isLightMode).itemColor}}>
-  {lang === "TH" ? "จำนวนครั้ง" :
-   lang === "JP" ? "回数" :
-   "Frequency"} : <b>{d.count}</b>
-</div>
-
-<div className="jath-tooltip-val" style={{color: getChartTheme(isLightMode).itemColor}}>
-  {lang === "TH" ? "เวลาซ่อม (นาที)" :
-   lang === "JP" ? "修理時間 (分)" :
-   "Repair Time (min)"} : <b>{d.time}</b>
-</div>
-      </div>
-    );
-  }}
-/>
-
-
-                                    <Scatter
-                                      name="Machine Breakdown"
-                                      data={scatterData}
-                                      fillOpacity={isLightMode ? 0.92 : 0.85}
-                                      strokeWidth={isLightMode ? 1.5 : 0}
-                                      stroke={getChartTheme(isLightMode).scatterStroke}
-                                      onClick={(data) => { if (data && data.id) { toggleChartFilter(setChartClickMachine, chartClickMachine, data.id); } }}
-                                      style={{ cursor: 'pointer' }}
-                                    >
-                                        {scatterData.map((entry, index) => (
-                                            <Cell
-                                              key={`cell-${index}`}
-                                              fill={
-  entry.time > 1500 ? getChartTheme(isLightMode).scatterVHigh :
-  entry.time > 500  ? getChartTheme(isLightMode).scatterHigh  :
-  entry.time > 150  ? getChartTheme(isLightMode).scatterMid   :
-                      getChartTheme(isLightMode).scatterLow
-}
-r={
-  entry.time > 1500 ? 10 :
-  entry.time > 500  ? 7  :
-  entry.time > 150  ? 5  : 4
-}
-opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
-                                            />
-                                        ))}
-                                    </Scatter>
-                                </ScatterChart>
-                            </ResponsiveContainer>
-
-                        </div>
-                    </div>
-
-{/* Breakdown Time Distribution */}
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-4">
-      {t.distTitle}
-    </h3>
-
-    <div className="h-80">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart 
-           margin={{ top: 15, right: isMobile ? 8 : 55, bottom: 0, left: isMobile ? 0 : 0 }}
-           data={distData}
-           style={{ cursor: 'pointer' }}
-           onClick={(e) => {
-             if (e && e.activePayload && e.activePayload[0]) {
-               const payload = e.activePayload[0].payload;
-               const bucket = { label: payload.name, min: payload.min, max: payload.max };
-               if (chartClickDuration && chartClickDuration.label === payload.name) {
-                 setChartClickDuration(null);
-               } else {
-                 setChartClickDuration(bucket);
-               }
-             }
-           }}
-           >
-          <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} />
-          <XAxis dataKey="name" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }} />
-          <YAxis tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }} width={isMobile ? 28 : 40} />
-          <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-
-          <Bar
-            dataKey="count"
-            radius={[6, 6, 0, 0]}
-            barSize={26}
-          >
-            {distData.map((entry, i) => (
-              <Cell
-                key={i}
-                fill={entry.color || getChartTheme(isLightMode).paletteDist[i]}
-                opacity={chartClickDuration && chartClickDuration.label !== entry.name ? 0.25 : 1}
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  </div>
-                </div>
-                               </div> 
-
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-           
-                   <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.trendChartTitle}</h3>
-                        <div className="h-80">
-                            
-                            <ResponsiveContainer width="100%" height="100%">
-                                <ComposedChart
-                                  data={monthlyTrend}
-                                  margin={{ top: 16, right: isMobile ? 38 : 25, bottom: 40, left: isMobile ? 6 : 35 }}
-                                  style={{ cursor: 'pointer' }}
-                                  onClick={(e) => { if (e && e.activeLabel) { toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); } }}
-                                >
-                                  <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} />
-                                  <XAxis
-                                    dataKey="month"
-                                    interval={0}
-                                    minTickGap={isMobile ? 30 : 0}
-                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 12 }}
-                                    axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-                                    tickLine={false}
-                                  />
-                                  <YAxis yAxisId="left" orientation="left"
-                                    tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
-                                    width={isMobile ? 34 : 50}
-                                    label={{ value: t.times, angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-                                  />
-                                  <YAxis 
-                                   yAxisId="right" orientation="right"
-                                   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
-                                   width={isMobile ? 42 : 45}
-                                   tickFormatter={isMobile ? (v) => v >= 1000 ? `${(v/1000).toFixed(1)}K` : v : undefined}
-                                   label={{ value: t.min, angle: 90, position: 'insideRight', offset: isMobile ? -10 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-                                     />
-
-   <RechartsTooltip
-     cursor={{ fill: 'transparent' }}
-     content={({ active, payload, label }) => {
-       if (!active || !payload || !payload.length) return null;
-       const ct = getChartTheme(isLightMode);
-       const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
-       const done  = payload.find(p => p.dataKey === 'Completed')?.value || 0;
-       const temp  = payload.find(p => p.dataKey === 'Temporary')?.value || 0;
-       const total = done + temp;
-       const lTotal = lang==='TH' ? 'รวม BD ทั้งหมด' : lang==='JP' ? '合計件数' : 'Total Breakdowns';
-       return (
-         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 200 }}>
-           <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
-           {payload.map((entry, i) => {
-             const sc = entry.payload?.color || entry.stroke || entry.color || entry.fill || ct.paretoBars;
-             const unit = entry.dataKey === 'time' ? unitSuffix.time : unitSuffix.count;
-             return (
-               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-                 <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
-                 <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
-                   <span className="jath-tooltip-name" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 400, marginRight: 4 }}>{entry.name}:</span>
-                   {typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value}{unit}
-                 </span>
-               </div>
-             );
-           })}
-           {(done > 0 || temp > 0) && (
-             <div style={{ borderTop: `1px solid ${ct.tooltipBorder}`, marginTop: 6, paddingTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
-               <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: ct.labelColor, flexShrink: 0 }}/>
-               <span style={{ color: ct.labelColor, fontWeight: 700 }}>
-                 {lTotal}: <b>{total}{unitSuffix.count}</b>
-               </span>
-             </div>
-           )}
-         </div>
-       );
-     }}
-   />
-
-                                  <Legend
-                                    wrapperStyle={{ fontSize: 12, fontWeight: 500 }}
-                                    formatter={(value) => (
-                                      <span style={{color: isLightMode ? "#1c3a5e" : "#e5e7eb"}}>{value}</span>
-                                    )}
-                                  />
-                                  <Bar
-                                    yAxisId="left"
-                                    dataKey="Completed"
-                                    stackId="status"
-                                    name={lang==='TH' ? 'เสร็จสิ้น' : lang==='JP' ? '完了' : 'Completed'}
-                                    fill={isLightMode ? "#34C759" : "#475569"}
-                                    barSize={22}
-                                    radius={[0, 0, 0, 0]}
-                                  />
-                                  <Bar
-                                    yAxisId="left"
-                                    dataKey="Temporary"
-                                    stackId="status"
-                                    name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary'}
-                                    fill={isLightMode ? "#FF9500" : "#E50914"}
-                                    barSize={22}
-                                    radius={[6, 6, 0, 0]}
-                                  />
-                                  <Line
-                                    yAxisId="right"
-                                    type="monotone"
-                                    dataKey="time"
-                                    name={t.colTime}
-                                    stroke={isLightMode ? "#FF9500" : "#F59E0B"}
-                                    strokeWidth={3}
-                                    dot={false}
-                                  />
-                                </ComposedChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
-              
  {/* Repair Time Breakdown */}
  <div className="netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a]">
     <h3 className="text-lg font-bold text-gray-800 mb-4">
@@ -4866,11 +4928,254 @@ return (
 
 </ResponsiveContainer></div>
 
-</div>  
-</div> 
-      
+</div>
 
-               
+
+{/*Recurrent Problems (ปัญหาที่เกิดซ้ำ)*/}
+
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">
+  {t.recurrentTitle}
+</h3>
+
+  <div style={{height: '304px'}}>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={recurrentData} style={{ cursor: 'pointer' }}
+        margin={{ top: 24, right: isMobile ? 8 : 10, bottom: isMobile ? 80 : 0, left: isMobile ? 18 : 10 }}
+        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.repairDetail; toggleChartFilter(setChartClickRepairDetail, chartClickRepairDetail, v); } }}>
+        <CartesianGrid stroke="rgba(255,255,255,0.18)" strokeDasharray="2 6" vertical={false} />
+        <XAxis
+          dataKey="name"
+          interval={0}
+          height={isMobile ? 70 : 95}
+          tickMargin={8}
+          tick={({ x, y, payload }) => {
+            const text = payload.value || '';
+            if (isMobile) {
+              // รวม text ทั้งหมด แล้ว wrap ทุก 20 ตัวอักษร จำกัด 2 บรรทัด
+              const line1 = text.slice(0, 20);
+              const rest = text.slice(20);
+              const line2 = rest.length === 0 ? '' : rest.length > 20 ? rest.slice(0, 19) + '…' : rest;
+              return (
+                <g transform={`translate(${x},${y})`}>
+                  <text textAnchor="end" fontSize={8} fill={getChartTheme(isLightMode).axis} transform="rotate(-45)">
+                    <tspan x={0} dy={4}>{line1}</tspan>
+                    {line2 && <tspan x={0} dy={10}>{line2}</tspan>}
+                  </text>
+                </g>
+              );
+            }
+            const wrapText = (str, maxLen = 20) => {
+              const words = str.split(' ');
+              const lines = [];
+              let current = '';
+              words.forEach(w => {
+                if ((current + ' ' + w).trim().length <= maxLen) { current = current ? current + ' ' + w : w; }
+                else { lines.push(current); current = w; }
+              });
+              if (current) lines.push(current);
+              if (lines.length > 3) { lines.length = 3; lines[2] = lines[2] + '…'; }
+              return lines;
+            };
+            const lines = wrapText(text);
+            return (
+              <g transform={`translate(${x},${y}) rotate(-35)`}>
+                <text textAnchor="end" fontSize={11} fill={getChartTheme(isLightMode).axis}>
+                  {lines.map((line, i) => <tspan key={i} x="0" dy={i === 0 ? 0 : 14}>{line}</tspan>)}
+                </text>
+              </g>
+            );
+          }}
+        />
+        <YAxis allowDecimals={false} domain={[0, 'dataMax']}
+          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+          width={isMobile ? 38 : 52}
+          label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+        />
+        <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
+        <Bar dataKey="count" barSize={36} radius={[6, 6, 0, 0]}>
+          {recurrentData.map((entry, index) => (
+            <Cell key={`cell-${index}`}
+              fill={entry.color || getChartTheme(isLightMode).paletteRecurrent[index % 5]}
+              opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
+            />
+          ))}
+          <LabelList
+            dataKey="count"
+            position="top"
+            style={{ fontSize: 12, fontWeight: 700, fill: getChartTheme(isLightMode).axis }}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+</div>
+
+{/* === ROW B: Main Reason for Long Time Repair + Status Longtime P.I.C === */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+     {/* Main Reason for Long Time Repair */}
+                   <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickReason ? ' jath-chart-active-filter' : ''}`} style={{display:'flex', flexDirection:'column'}}>
+  <h3 className="text-lg font-bold text-gray-800 mb-4">{t.reasonTitle}</h3>
+  <div style={{position: 'relative', height: isMobile ? 280 : 300}}>
+    <ResponsiveContainer>
+      <PieChart margin={isMobile ? { top: 20, right: 20, bottom: 0, left: 20 } : {}}>
+        <Pie
+          data={pieReasonData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy={isMobile ? "40%" : "50%"}
+          outerRadius={isMobile ? 85 : 80}
+          label={renderPercentLabel}
+          labelLine={false}
+          stroke="none"
+          style={{ cursor: 'pointer' }}
+          onClick={(entry) => { if (entry && entry.name) toggleChartFilter(setChartClickReason, chartClickReason, entry.name); }}
+        >
+          {pieReasonData.map((entry, index) => (
+      <Cell key={`cell-${index}`} fill={getChartTheme(isLightMode).palettePieReason[index % 8]}
+        opacity={chartClickReason && chartClickReason !== entry.name ? 0.2 : 1}
+      />
+    ))}
+        </Pie>
+        <RechartsTooltip
+          cursor={{ fill: 'transparent' }}
+          content={({ active, payload }) => {
+            if (!active || !payload || !payload.length) return null;
+            const entry = payload[0];
+            const ct = getChartTheme(isLightMode);
+            const seriesColor = entry.payload?.color || entry.color || ct.paretoBars;
+            const label = REASON_I18N[entry.name];
+            const displayName = label ? label[lang] : entry.name;
+            return (
+              <div data-jath-tooltip='1' style={{
+                background: ct.tooltipBg,
+                backdropFilter: 'blur(16px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                border: `1px solid ${ct.tooltipBorder}`,
+                borderRadius: 12,
+                padding: '10px 14px',
+                boxShadow: isLightMode
+                  ? '0 8px 32px rgba(60,100,200,0.13), inset 0 1px 1px rgba(255,255,255,0.7)'
+                  : '0 12px 40px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.10)',
+                fontSize: 12,
+                minWidth: 160,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: seriesColor, flexShrink: 0 }} />
+                  <span className="jath-tooltip-name" style={{ '--jath-c': isLightMode ? seriesColor : ct.labelColor, color: isLightMode ? seriesColor : ct.labelColor, fontWeight: 400, flex: 1 }}>{displayName}</span>
+                  <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? seriesColor : ct.labelColor, color: isLightMode ? seriesColor : ct.labelColor, fontWeight: 700, marginLeft: 8 }}>{entry.value}%</span>
+                </div>
+              </div>
+            );
+          }}
+        />
+        <Legend
+          layout={isMobile ? "vertical" : "vertical"}
+          align={isMobile ? "center" : "right"}
+          verticalAlign={isMobile ? "bottom" : "middle"}
+          wrapperStyle={isMobile ? { position: "absolute", top: "260px", left: 0, right: 0, fontSize: 11 } : {}}
+          formatter={(value) => {
+    const item = REASON_I18N[value];
+    return item ? item[lang] : value;
+  }}
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+
+{/* ── NEW: Status Longtime Breakdown by Department (P.I.C) ── */}
+<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column'}}>
+  <h3 className="text-lg font-bold text-gray-800 mb-4">
+    {lang === 'TH' ? 'สถานะการแก้ไขระยะยาว (แผนก P.I.C)' : lang === 'JP' ? '長期修理ステータス（担当部門）' : 'Status Longtime Breakdown (P.I.C)'}
+  </h3>
+  <div style={{height: isMobile ? 260 : 300}}>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={statusByDeptData}
+        margin={{ top: 28, right: isMobile ? 8 : 20, bottom: 10, left: isMobile ? 0 : 10 }}
+      >
+        <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} strokeDasharray="2 6" />
+        <XAxis
+          dataKey="dept"
+          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 13, fontWeight: 600 }}
+          axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+          tickLine={false}
+        />
+        <YAxis
+          allowDecimals={false}
+          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+          axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+          tickLine={false}
+          width={isMobile ? 28 : 40}
+          label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+        />
+        <RechartsTooltip
+          cursor={{ fill: 'rgba(255,255,255,0.06)' }}
+          content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const row = statusByDeptData.find(d => d.dept === label) || {};
+            const comp = row.Completed || 0;
+            const temp = row.Temporary || 0;
+            const total = comp + temp;
+            const lComp  = lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed';
+            const lTemp  = lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary';
+            const lTotal = lang==='TH'?'รวม':lang==='JP'?'合計':'Total';
+            const lTimes = lang==='TH'?' ครั้ง':lang==='JP'?' 回':' times';
+            const compClr = isLightMode ? '#007AFF' : '#475569';
+            const tempClr = isLightMode ? '#FF9500' : '#E50914';
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:170,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:compClr,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lComp}: <b style={{color:ct.itemColor}}>{comp}{lTimes}</b></div>
+                </div>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:tempClr,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lTemp}: <b style={{color:ct.itemColor}}>{temp}{lTimes}</b></div>
+                </div>
+                <div style={{borderTop:`1px solid ${ct.tooltipBorder}`,marginTop:5,paddingTop:5,fontWeight:700,color:ct.labelColor}}>
+                  {lTotal}: <b style={{color:ct.labelColor}}>{total}{lTimes}</b>
+                </div>
+              </div>
+            );
+          }}
+        />
+        <Bar dataKey="Completed" name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'} stackId="a" fill={isLightMode ? '#007AFF' : '#475569'} radius={[0,0,0,0]} barSize={36} />
+        <Bar dataKey="Temporary" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'} stackId="a" fill={isLightMode ? '#FF9500' : '#E50914'} radius={[6,6,0,0]} barSize={36}>
+          <LabelList
+            content={({ x, y, width, value, index }) => {
+              const row = statusByDeptData[index] || {};
+              const total = (row.Completed || 0) + (row.Temporary || 0);
+              if (total === 0) return null;
+              return (
+                <text x={x + width / 2} y={y - 6} textAnchor="middle" fontSize={11} fontWeight={700} fill={getChartTheme(isLightMode).axis}>
+                  {total}
+                </text>
+              );
+            }}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+  <div style={{marginTop: 10, display: 'flex', justifyContent: 'center', gap: 18, flexWrap: 'wrap'}}>
+    <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
+      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background: isLightMode ? '#007AFF' : '#475569',flexShrink:0}} />
+      <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}</span>
+    </span>
+    <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
+      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background: isLightMode ? '#FF9500' : '#E50914',flexShrink:0}} />
+      <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}</span>
+    </span>
+  </div>
+</div>
+</div>
+
                     {/* Data Table */}
                     <div className="netflix-card rounded-xl shadow-sm border border-[#2a2a2a] overflow-hidden mb-12">
                     <div className="p-5 border-b border-gray-200 flex justify-between items-center" style={{background: isLightMode ? undefined : 'transparent'}}>
