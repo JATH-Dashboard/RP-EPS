@@ -1059,7 +1059,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 23/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 25/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1098,7 +1098,7 @@ body.jath-mode .critical-card::after {
             colPicLT: "ผู้รับผิดชอบ (Long Time BD)",
             mtbfTitle: "แนวโน้ม MTBF (ชั่วโมง)",
             mttrTitle: "แนวโน้ม MTTR (ชั่วโมง)",
-            min: "นาที",
+            min: "ชม.",
             times: "ครั้ง",
             cumulative: "สะสม %",
             less60: "< 60 นาที",
@@ -1111,7 +1111,7 @@ body.jath-mode .critical-card::after {
             statusDone: "เสร็จสิ้น",
             statusTemp: "แก้ไขชั่วคราว",
             jathTitle: "JATH Focus – โหมดโฟกัส",
-            jathTop3: "3 เครื่องหลัก",
+            jathTop3: "5 เครื่องหลัก",
             jathDetail: "รายละเอียดที่ต้องโฟกัส",
             jathFailure: "ปัญหาหลัก",
             jathLongRepair: "สาเหตุซ่อมนาน",
@@ -1121,7 +1121,7 @@ body.jath-mode .critical-card::after {
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 23/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 25/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1160,7 +1160,7 @@ body.jath-mode .critical-card::after {
             colPicLT: "P.I.C (Long Time BD)",
             mtbfTitle: "MTBF Trend (hr)",
             mttrTitle: "MTTR Trend (hr)",
-            min: "min",
+            min: "hr",
             times: "times",
             cumulative: "Cumulative %",
             less60: "≤ 60 min",
@@ -1173,7 +1173,7 @@ body.jath-mode .critical-card::after {
             statusDone: "Completed",
             statusTemp: "Temporary",
             jathTitle: "JATH Focus Mode",
-            jathTop3: "Top 3 Machines",
+            jathTop3: "Top 5 Machines",
             jathDetail: "Focus Detail",
             jathFailure: "Main Failure",
             jathLongRepair: "Long Repair Reason",
@@ -1184,7 +1184,7 @@ body.jath-mode .critical-card::after {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年23月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年25月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1223,7 +1223,7 @@ body.jath-mode .critical-card::after {
             colPicLT: "担当者（長時間故障）",
              mtbfTitle: "MTBF 推移（時間）",
             mttrTitle: "MTTR 推移（時間）",
-            min: "分",
+            min: "時",
             times: "回",
             cumulative: "累積 %",
             less60: "≤ 60 分",
@@ -1236,7 +1236,7 @@ body.jath-mode .critical-card::after {
             statusDone: "完了",
             statusTemp: "一時対応",
             jathTitle: "JATH フォーカスモード",
-            jathTop3: "重点設備トップ3",
+            jathTop3: "重点設備トップ5",
             jathDetail: "重点詳細",
             jathFailure: "主な故障",
             jathLongRepair: "長時間修理の理由",
@@ -1293,40 +1293,40 @@ const TOOLTIP_I18N = {
 
 // 🔹 Reason Legend Translation
 const REASON_I18N = {
-  "Incorrect problem diagnosis": {
-    TH: "ขาดการวิเคราะห์ปัญหาที่ถูกต้อง",
-    EN: "Incorrect problem diagnosis",
-    JP: "問題の分析が正確でない"
+  "Diagnosis": {
+    TH: "การวินิจฉัย",
+    EN: "Diagnosis",
+    JP: "診断"
   },
-  "Complicated repair procedures": {
-    TH: "ขั้นตอนการซ่อมซับซ้อน",
-    EN: "Complicated repair procedures",
-    JP: "修理手順が複雑である"
+  "Parts Procurement": {
+    TH: "การจัดหาชิ้นส่วน",
+    EN: "Parts Procurement",
+    JP: "部品調達"
   },
-  "Spare parts not available": {
-    TH: "อะไหล่ไม่พร้อม",
-    EN: "Spare parts not available",
-    JP: "部品が準備できていない"
+  "Disassembly": {
+    TH: "การถอดแยก",
+    EN: "Disassembly",
+    JP: "分解"
   },
-  "Lack of understanding of the machine": {
-    TH: "ยังไม่เข้าใจเครื่องจักร",
-    EN: "Lack of understanding of the machine",
-    JP: "機械への理解が不十分である"
+  "Rework / Correction": {
+    TH: "การแก้ไขปรับแต่ง",
+    EN: "Rework / Correction",
+    JP: "手直し修正"
   },
-  "Lack of tools or special equipment": {
-    TH: "ขาดเครื่องมือหรืออุปกรณ์พิเศษ",
-    EN: "Lack of tools or special equipment",
-    JP: "特殊工具または設備が不足している"
+  "Assembly": {
+    TH: "การประกอบ",
+    EN: "Assembly",
+    JP: "組付け"
   },
-  "Shortage of skilled personnel": {
-    TH: "ขาดบุคลากรที่มีทักษะ",
-    EN: "Shortage of skilled personnel",
-    JP: "熟練した人材が不足している"
+  "Adjustment": {
+    TH: "การปรับตั้ง",
+    EN: "Adjustment",
+    JP: "調整"
   },
   "Other": {
-    TH: "รอข้อมูลอัพเดท",
-    EN: "Pending data update",
-    JP: "データ更新待ち"
+    TH: "อื่นๆ",
+    EN: "Other",
+    JP: "その他"
   }
 };
 
@@ -1415,7 +1415,7 @@ const getChartTheme = (isLight) => ({
     : ['#E50914','#B91C1C','#991B1B','#374151','#4B5563','#6B7280','#7C3AED','#0D9488'],
 
   paretoBars:      isLight ? '#34C759' : '#475569',   // light=Apple Green, dark=Slate (Completed)
-  paretoTempColor: isLight ? '#FF9500' : '#E50914',   // light=Apple Orange, dark=Netflix Red (Temp)
+  paretoTempColor: isLight ? '#E50914' : '#E50914',   // light=Apple Orange, dark=Netflix Red (Temp)
   paretoCumLine:   isLight ? '#FF3B30' : '#1D9BF0',   // light=Apple Red, dark=Netflix Blue
 
   scatterLow:    isLight ? '#34C759' : '#6B7280',   // Light: Apple Green  | Dark: Gray
@@ -1425,8 +1425,10 @@ const getChartTheme = (isLight) => ({
   scatterStroke: isLight ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.3)',
 
   focusColors: isLight
-    ? ['#007AFF','#5856D6','#32ADE6','#B8D8FF']
-    : ['#831010','#E50914','#FF6B6B','#FFB8B8'],
+    // Apple HIG: Blue → Green → Orange → Purple — high contrast, distinct hues
+    ? ['#007AFF','#34C759','#FF9500','#AF52DE']
+    // Netflix dark: Red → Cyan → Amber → Slate — vivid, distinct on dark bg
+    : ['#E50914','#00C8FF','#F59E0B','#A78BFA'],
 });
 
 
@@ -1893,16 +1895,16 @@ const handleDropOP = async (e) => {
                             picRC:             row[mapIdx.picRC]           || '',
                             over1H:            row[mapIdx.over1H]          || '',
                             corrective:        row[mapIdx.corrective]      || '',
-                            longReason:        row[mapIdx.longReason]      || 'Others',
+                            longReason:        row[mapIdx.longReason]      || 'Pending Data',
                             statusLT:          row[mapIdx.statusLT]        || '',
                             picLT:             row[mapIdx.picLT]           || '',
                             type:            typeVal === 'E' ? 'E' : 'M',
                             failureCategory: row[mapIdx.failureCategory]  || 'Unspecified',
                             status:          row[mapIdx.status] || '',
-                            durationType:    bdTimeVal < 30  ? '0-29'
-                                           : bdTimeVal < 60  ? '30-59'
-                                           : bdTimeVal < 120 ? '60-119'
-                                           : '≥ 120'
+                            durationType:    bdTimeVal <= 30  ? '0-30'
+                                           : bdTimeVal <= 60  ? '31-60'
+                                           : bdTimeVal <= 120 ? '61-120'
+                                           : '> 120'
                         };
                     }).filter(item => item !== null && item.bdTime >= 0);
                     return processed;
@@ -1991,6 +1993,7 @@ const handleDropOP = async (e) => {
             const [filterOpen, setFilterOpen] = useState(() => window.innerWidth >= 640);
 
             // ── Chart Click Interaction State (Power BI style) ──────────────
+            const [lineChartMode, setLineChartMode]                 = useState('count'); // 'count' | 'bdtime'
             const [chartClickLine, setChartClickLine]               = useState(null);
             const [chartClickMachine, setChartClickMachine]         = useState(null);
             const [chartClickMonth, setChartClickMonth]             = useState(null);
@@ -2001,6 +2004,7 @@ const handleDropOP = async (e) => {
             const [chartClickDuration, setChartClickDuration]       = useState(null);   // Distribution → filter by duration bucket (min/max)
             const [chartClickReason, setChartClickReason]           = useState(null);   // Main Reason pie → filter
             const [chartClickDate, setChartClickDate]               = useState(null);   // Daily Trend → filter by exact date
+            const [chartClickDept, setChartClickDept]               = useState(null);   // Status Root Cause (P.I.C) → filter by dept
 
             // Toggle helper: click same value → deselect (like Power BI)
             const toggleChartFilter = React.useCallback((setter, current, value) => {
@@ -2019,9 +2023,10 @@ const handleDropOP = async (e) => {
               setChartClickDuration(null);
               setChartClickReason(null);
               setChartClickDate(null);
+              setChartClickDept(null);
             }, []);
 
-            const hasAnyChartFilter = chartClickLine || chartClickMachine || chartClickMonth || chartClickCategory || chartClickType || chartClickStatus || chartClickRepairDetail || chartClickDuration || chartClickReason || chartClickDate;
+            const hasAnyChartFilter = chartClickLine || chartClickMachine || chartClickMonth || chartClickCategory || chartClickType || chartClickStatus || chartClickRepairDetail || chartClickDuration || chartClickReason || chartClickDate || chartClickDept;
                         const [selectedDates, setSelectedDates] = useState([]); 
 
             // File Upload Handler
@@ -2125,16 +2130,16 @@ repairDetail: row[mapIdx.repairDetail] || '',
                                 over1H: row[mapIdx.over1H] || '',
                                 corrective: row[mapIdx.corrective] || '',
                                 type: typeVal === 'E' ? 'E' : 'M',
-                                longReason: row[mapIdx.longReason] || 'Others',
+                                longReason: row[mapIdx.longReason] || 'Pending Data',
                                 statusLT: row[mapIdx.statusLT] || '',
                                 picLT: row[mapIdx.picLT] || '',
                                 failureCategory: row[mapIdx.failureCategory] || 'Unspecified', 
                                 status: row[mapIdx.status] || '',
                                 durationType:
-  bdTimeVal < 30  ? '0-29'   :
-  bdTimeVal < 60  ? '30-59'  :
-  bdTimeVal < 120 ? '60-119' :
-                    '≥ 120'
+  bdTimeVal <= 30  ? '0-30'  :
+  bdTimeVal <= 60  ? '31-60' :
+  bdTimeVal <= 120 ? '61-120':
+                     '> 120'
                             };
                         }).filter(item => item !== null && item.bdTime >= 0);
 
@@ -2207,18 +2212,10 @@ const data = rows.slice(1).map(r => {
   setOperationData(data);   // 🔑 ต้องมี
   setOpUploaded(true);      // 🔑 ต้องมี
 };
-            // ── normalizeReason: ต้องอยู่ก่อน filter useEffect ──────────────────
+            // ── normalizeReason: pass-through Column AC value as-is ──────────────────
             const normalizeReason = (name) => {
-              const n = (name || '').toLowerCase();
-              if (n.includes('diagnosis')) return 'Incorrect problem diagnosis';
-              if (n.includes('spare')) return 'Spare parts not available';
-              if (n.includes('tool')) return 'Lack of tools or special equipment';
-              if (n.includes('skill') || n.includes('technician'))
-                return 'Shortage of skilled personnel';
-              if (n.includes('procedure')) return 'Complicated repair procedures';
-              if (n.includes('understanding'))
-                return 'Lack of understanding of the machine';
-              return null;
+              const n = (name || '').trim();
+              return n.length > 0 ? n : 'Pending Data';
             };
 
             // Filter Logic
@@ -2246,10 +2243,11 @@ const data = rows.slice(1).map(r => {
     if (chartClickType)         res = res.filter(d => d.type === chartClickType);
     if (chartClickRepairDetail) res = res.filter(d => d.repairDetail === chartClickRepairDetail);
     if (chartClickReason)       res = res.filter(d => {
-      const normalized = normalizeReason(d.longReason || '') || 'Other';
+      const normalized = normalizeReason(d.longReason || '');
       return normalized === chartClickReason;
     });
     if (chartClickDuration)     res = res.filter(d => d.bdTime >= chartClickDuration.min && d.bdTime <= chartClickDuration.max);
+    if (chartClickDept)         res = res.filter(d => (d.picRC || '').toString().trim().toUpperCase().includes(chartClickDept));
 
     setFilteredData(res);
 }, [
@@ -2269,6 +2267,7 @@ const data = rows.slice(1).map(r => {
     chartClickRepairDetail,
     chartClickReason,
     chartClickDuration,
+    chartClickDept,
     rawData
 ]);
 
@@ -2296,12 +2295,13 @@ const applyAllFilters = React.useCallback((data, opts = {}) => {
   if (!skip.includes('category')     && chartClickCategory)            res = res.filter(d => d.failureCategory === chartClickCategory);
   if (!skip.includes('type')         && chartClickType)                res = res.filter(d => d.type === chartClickType);
   if (!skip.includes('repair')       && chartClickRepairDetail)        res = res.filter(d => d.repairDetail === chartClickRepairDetail);
-  if (!skip.includes('reason')       && chartClickReason)              res = res.filter(d => (normalizeReason(d.longReason || '') || 'Other') === chartClickReason);
+  if (!skip.includes('reason')       && chartClickReason)              res = res.filter(d => (normalizeReason(d.longReason || '')) === chartClickReason);
   if (!skip.includes('chartDuration')&& chartClickDuration)           res = res.filter(d => d.bdTime >= chartClickDuration.min && d.bdTime <= chartClickDuration.max);
+  if (!skip.includes('chartDept')    && chartClickDept)               res = res.filter(d => (d.picRC || '').toString().trim().toUpperCase().includes(chartClickDept));
   return res;
 }, [selectedMachines, selectedLines, selectedMonths, selectedDates, selectedDurationTypes, selectedStatuses,
     chartClickMachine, chartClickLine, chartClickMonth, chartClickDate, chartClickStatus,
-    chartClickCategory, chartClickType, chartClickRepairDetail, chartClickReason, chartClickDuration]);
+    chartClickCategory, chartClickType, chartClickRepairDetail, chartClickReason, chartClickDuration, chartClickDept]);
 
 // Machine options = ทุก filter ยกเว้น machine เอง
 const uniqueMachines = useMemo(() => {
@@ -2338,7 +2338,7 @@ const uniqueDates = useMemo(() => {
 }, [rawData, applyAllFilters]);
 
 // Duration options = ทุก filter ยกเว้น duration เอง
-const ALL_DURATIONS = ['0-29', '30-59', '60-119', '≥ 120'];
+const ALL_DURATIONS = ['0-30', '31-60', '61-120', '> 120'];
 const uniqueDurationTypes = useMemo(() => {
   const source = applyAllFilters(rawData, { skip: ['duration'] });
   const existing = new Set(source.map(d => d.durationType));
@@ -2363,13 +2363,16 @@ const failureCategoryCount = useMemo(() => {
         ? d.failureCategory.trim()
         : 'Unspecified';
 
-    if (!groups[key]) groups[key] = 0;
-    groups[key]++;
+    if (!groups[key]) groups[key] = { count: 0, countM: 0, countE: 0 };
+    groups[key].count++;
+    const me = (d.type || '').toString().trim().toUpperCase();
+    if (me === 'M') groups[key].countM++;
+    else if (me === 'E') groups[key].countE++;
   });
 
   const palF = getChartTheme(isLightMode).paletteFailure;
   return Object.keys(groups)
-    .map(k => ({ name: k, count: groups[k] }))
+    .map(k => ({ name: k, count: groups[k].count, countM: groups[k].countM, countE: groups[k].countE }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 10)
     .map((d, i) => ({ ...d, color: palF[i % 10] }));
@@ -2409,20 +2412,22 @@ const repairTimeBreakdown = useMemo(() => {
 
 }, [filteredData, isLightMode]);
 
-// ── Status Longtime Breakdown by Department (P.I.C) ──────────────────────
+// ── Status Root Cause Breakdown by Department (P.I.C RC) ──────────────────
 const statusByDeptData = useMemo(() => {
   const DEPTS = ['MT', 'PE', 'PDT', 'QC'];
   const groups = {};
-  DEPTS.forEach(d => { groups[d] = { dept: d, Completed: 0, Temporary: 0, completedTime: 0, temporaryTime: 0 }; });
+  DEPTS.forEach(d => { groups[d] = { dept: d, Completed: 0, Temporary: 0, OnProcess: 0, completedTime: 0, temporaryTime: 0 }; });
 
   filteredData.forEach(d => {
-    const pic = (d.picLT || '').toString().trim().toUpperCase();
+    const pic = (d.picRC || '').toString().trim().toUpperCase();
     const matched = DEPTS.find(dep => pic.includes(dep));
     if (!matched) return;
-    const isComp = (d.statusLT || '').trim().toLowerCase() === 'completed';
-    if (isComp) {
+    const st = (d.statusRC || '').trim().toLowerCase();
+    if (st === 'completed') {
       groups[matched].Completed += 1;
       groups[matched].completedTime += d.bdTime || 0;
+    } else if (st === 'on process') {
+      groups[matched].OnProcess += 1;
     } else {
       groups[matched].Temporary += 1;
       groups[matched].temporaryTime += d.bdTime || 0;
@@ -2430,7 +2435,7 @@ const statusByDeptData = useMemo(() => {
   });
 
   return DEPTS.map(d => groups[d])
-    .sort((a, b) => (b.Completed + b.Temporary) - (a.Completed + a.Temporary));
+    .sort((a, b) => (b.Completed + b.Temporary + b.OnProcess) - (a.Completed + a.Temporary + a.OnProcess));
 }, [filteredData]);
 
 // ── Power BI chip style helpers ───────────────────────────────────────────
@@ -2447,30 +2452,30 @@ const closeBtn = {
 };
 
 const FDR_LINES = [
-  'Rack EPS',
-  'Nut Ball Screw EPS Rack',
-  'Pinion EPS',
-  'Sensor Assy EPS',
-  'Shaft Assy Input',
-  'Gear Assy EPS'
+  'Rack Machining',
+  'Nut Machining',
+  'Pinion Machining',
+  'Sensor Assy',
+  'Input Shaft Assy',
+  'Gear Assy'
 ];
 // 🔑 COLOR MAP ใช้ทุกกราฟ (FDR / MTBF / MTTR)
 const LINE_COLOR_MAP_DARK = {
-  'Rack EPS': '#DC2626',
-  'Nut Ball Screw EPS Rack': '#2563EB',
-  'Pinion EPS': '#16A34A',
-  'Sensor Assy EPS': '#F59E0B',
-  'Shaft Assy Input': '#7C3AED',
-  'Gear Assy EPS': '#0D9488'
+  'Rack Machining': '#DC2626',
+  'Nut Machining': '#2563EB',
+  'Pinion Machining': '#16A34A',
+  'Sensor Assy': '#F59E0B',
+  'Input Shaft Assy': '#7C3AED',
+  'Gear Assy': '#0D9488'
 };
 // 🍎 Apple System Colors for line charts in light mode
 const LINE_COLOR_MAP_LIGHT = {
-  'Rack EPS': '#FF3B30',
-  'Nut Ball Screw EPS Rack': '#007AFF',
-  'Pinion EPS': '#34C759',
-  'Sensor Assy EPS': '#FF9500',
-  'Shaft Assy Input': '#5856D6',
-  'Gear Assy EPS': '#00C7BE'
+  'Rack Machining': '#FF3B30',
+  'Nut Machining': '#007AFF',
+  'Pinion Machining': '#34C759',
+  'Sensor Assy': '#FF9500',
+  'Input Shaft Assy': '#5856D6',
+  'Gear Assy': '#00C7BE'
 };
 const getLineColorMap = (isLight) => isLight ? LINE_COLOR_MAP_LIGHT : LINE_COLOR_MAP_DARK;
 
@@ -2490,30 +2495,30 @@ const parseMonth = (m) => {
 
 const FDR_LINE_LABELS = {
   TH: {
-    'Rack EPS': 'Rack EPS',
-    'Nut Ball Screw EPS Rack': 'Nut Ball Screw EPS Rack',
-    'Pinion EPS': 'Pinion EPS',
-    'Sensor Assy EPS': 'Sensor Assy EPS',
-    'Shaft Assy Input': 'Shaft Assy Input',
-    'Gear Assy EPS': 'Gear Assy EPS',
+    'Rack Machining': 'Rack Machining',
+    'Nut Machining': 'Nut Machining',
+    'Pinion Machining': 'Pinion Machining',
+    'Sensor Assy': 'Sensor Assy',
+    'Input Shaft Assy': 'Input Shaft Assy',
+    'Gear Assy': 'Gear Assy',
     fdrTitle: "แนวโน้ม FDR (%)",
   },
   EN: {
-    'Rack EPS': 'Rack EPS',
-    'Nut Ball Screw EPS Rack': 'Nut Ball Screw EPS Rack',
-    'Pinion EPS': 'Pinion EPS',
-    'Sensor Assy EPS': 'Sensor Assy EPS',
-    'Shaft Assy Input': 'Shaft Assy Input',
-    'Gear Assy EPS': 'Gear Assy EPS',
+    'Rack Machining': 'Rack Machining',
+    'Nut Machining': 'Nut Machining',
+    'Pinion Machining': 'Pinion Machining',
+    'Sensor Assy': 'Sensor Assy',
+    'Input Shaft Assy': 'Input Shaft Assy',
+    'Gear Assy': 'Gear Assy',
     fdrTitle: "FDR Trend (%)",
   },
   JP: {
-    'Rack EPS': 'ラック EPS',
-    'Nut Ball Screw EPS Rack': 'ボールねじ EPS ラック',
-    'Pinion EPS': 'ピニオン EPS',
-    'Sensor Assy EPS': 'センサー Assy EPS',
-    'Shaft Assy Input': '入力シャフト Assy',
-    'Gear Assy EPS': 'ギア Assy EPS',
+    'Rack Machining': 'ラック EPS',
+    'Nut Machining': 'ボールねじ EPS ラック',
+    'Pinion Machining': 'ピニオン EPS',
+    'Sensor Assy': 'センサー Assy EPS',
+    'Input Shaft Assy': '入力シャフト Assy',
+    'Gear Assy': 'ギア Assy EPS',
     fdrTitle: "FDR 推移 (%)",
   }
 };
@@ -2530,12 +2535,22 @@ const fdrByMonth = useMemo(() => {
 
 // --- FIX FDR CALCULATION (ONLY THIS GRAPH) ---
 
-const GEAR_GROUP = [
-  'Gear Assy EPS',
-  'Gear Assy EPS Short',
-  'Housing Assy EPS No1',
-  'Housing Assy EPS No2',
-  'Pulley Sub-Assy'
+const ASSY_LINE_GROUP = [
+  'Gear Assy',
+  'Gear Sub-Assy',
+  'Housing Assy No.1',
+  'Housing Assy No.2',
+  'Pulley Sub-Assy',
+  'Rack Sub-Assy'
+];
+
+// 🔹 Machining Line Group (reference only — ไม่กระทบการคำนวณ)
+const MACHINING_LINE_GROUP = [
+  'Rack Machining',
+  'Nut Machining',
+  'Pinion Machining',
+  'Sensor Assy',
+  'Input Shaft Assy'
 ];
 
 const bdMap = {};
@@ -2543,19 +2558,19 @@ const bdMap = {};
 // 🔹 Line ปกติ (คำนวณเฉพาะที่เลือก)
 fdrSource.forEach(d => {
   if (!activeFdrLines.includes(d.lineName)) return;
-  if (d.lineName === 'Gear Assy EPS') return; // เดี๋ยวคิดแยก
+  if (d.lineName === 'Gear Assy') return; // เดี๋ยวคิดแยก
 
   const key = `${d.month}|${d.lineName}`;
   bdMap[key] = (bdMap[key] || 0) + d.bdTime;
 });
 
-// 🔹 Gear Assy EPS (คำนวณเฉพาะเมื่อถูกเลือก)
-if (activeFdrLines.includes('Gear Assy EPS')) {
+// 🔹 Gear Assy (คำนวณเฉพาะเมื่อถูกเลือก)
+if (activeFdrLines.includes('Gear Assy')) {
   fdrSource.forEach(d => {
     if (selectedMonths.length > 0 && !selectedMonths.includes(d.month)) return;
-    if (!GEAR_GROUP.includes(d.lineName)) return;
+    if (!ASSY_LINE_GROUP.includes(d.lineName)) return;
 
-    const key = `${d.month}|Gear Assy EPS`;
+    const key = `${d.month}|Gear Assy`;
     bdMap[key] = (bdMap[key] || 0) + d.bdTime;
   });
 }
@@ -2609,39 +2624,55 @@ Object.values(monthMap).forEach(m => {
 );
 }, [rawData, applyAllFilters, operationData, selectedLines, selectedMonths, chartClickLine]);
 
-// FDR total (all lines combined) per month — used for bar chart when no line filter
+// FDR total split by Machining / Assy group per month — used for bar chart when no line filter
+const FDR_MACHINING_GROUP = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
+const FDR_ASSY_GROUP      = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy'];
+
 const fdrTotalByMonth = useMemo(() => {
   const fdrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
   if (operationData.length === 0 || fdrSource.length === 0) return [];
 
-  const bdMap = {};
-  const opMap = {};
+  const bdMachining = {};
+  const bdAssy      = {};
+  const opMachining = {};
+  const opAssy      = {};
 
   fdrSource.forEach(d => {
     if (!d.month) return;
-    bdMap[d.month] = (bdMap[d.month] || 0) + d.bdTime;
+    if (FDR_MACHINING_GROUP.includes(d.lineName)) {
+      bdMachining[d.month] = (bdMachining[d.month] || 0) + d.bdTime;
+    }
+    if (FDR_ASSY_GROUP.includes(d.lineName)) {
+      bdAssy[d.month] = (bdAssy[d.month] || 0) + d.bdTime;
+    }
   });
 
   operationData.forEach(o => {
     if (!o.month) return;
-    opMap[o.month] = (opMap[o.month] || 0) + o.opTime1X2;
+    if (FDR_MACHINING_GROUP.includes(o.lineName)) {
+      opMachining[o.month] = (opMachining[o.month] || 0) + o.opTime1X2;
+    }
+    if (FDR_ASSY_GROUP.includes(o.lineName)) {
+      opAssy[o.month] = (opAssy[o.month] || 0) + o.opTime1X2;
+    }
   });
 
   const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
   return allMonths.map(month => ({
     month,
-    fdrTotal: opMap[month] > 0 ? +((bdMap[month] || 0) / opMap[month] * 100).toFixed(2) : 0
+    fdrMachining: opMachining[month] > 0 ? +((bdMachining[month] || 0) / opMachining[month] * 100).toFixed(2) : 0,
+    fdrAssy:      opAssy[month]      > 0 ? +((bdAssy[month]      || 0) / opAssy[month]      * 100).toFixed(2) : 0,
   })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
 }, [rawData, applyAllFilters, operationData, selectedLines, selectedMonths]);
 
 const mttrByMonth = useMemo(() => {
   const MTTR_LINES = [
-    'Rack EPS',
-    'Nut Ball Screw EPS Rack',
-    'Pinion EPS',
-    'Sensor Assy EPS',
-    'Shaft Assy Input',
-    'Gear Assy EPS'
+    'Rack Machining',
+    'Nut Machining',
+    'Pinion Machining',
+    'Sensor Assy',
+    'Input Shaft Assy',
+    'Gear Assy'
   ];
 
 
@@ -2654,27 +2685,28 @@ const mttrByMonth = useMemo(() => {
 
   const map = {};
 
-    const GEAR_GROUP = [
-  'Gear Assy EPS',
-  'Gear Assy EPS Short',
-  'Housing Assy EPS No1',
-  'Housing Assy EPS No2',
-  'Pulley Sub-Assy'
+    const ASSY_LINE_GROUP = [
+  'Gear Assy',
+  'Gear Sub-Assy',
+  'Housing Assy No.1',
+  'Housing Assy No.2',
+  'Pulley Sub-Assy',
+  'Rack Sub-Assy'
 ];
 
 mttrSource.forEach(d => {
 
-  // ===== CASE 1: Gear Assy EPS (รวม 5 line) =====
+  // ===== CASE 1: Gear Assy (รวม 5 line) =====
   if (
-    activeLines.includes('Gear Assy EPS') &&
-    GEAR_GROUP.includes(d.lineName)
+    activeLines.includes('Gear Assy') &&
+    ASSY_LINE_GROUP.includes(d.lineName)
   ) {
-    const key = `${d.month}|Gear Assy EPS`;
+    const key = `${d.month}|Gear Assy`;
 
     if (!map[key]) {
       map[key] = {
         month: d.month,
-        line: 'Gear Assy EPS',
+        line: 'Gear Assy',
         repairTime: 0,
         count: 0
       };
@@ -2738,27 +2770,105 @@ Object.values(monthMap).forEach(m => {
   );
 }, [rawData, applyAllFilters, selectedLines, selectedMonths, chartClickLine]);
 
-// MTTR total (avg all lines combined) per month — used for bar chart when no line filter
+// MTTR split by Machining / Assy group per month — used for bar chart when no line filter
+const MTTR_MACHINING_GROUP = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
+const MTTR_ASSY_GROUP      = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy'];
+
 const mttrTotalByMonth = useMemo(() => {
   const mttrSource = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
   if (mttrSource.length === 0) return [];
 
-  const map = {};
+  const mapMachining = {};
+  const mapAssy      = {};
+
   mttrSource.forEach(d => {
     if (!d.month) return;
-    if (!map[d.month]) map[d.month] = { repairTime: 0, count: 0 };
-    map[d.month].repairTime += d.repairTimeP || 0;
-    map[d.month].count += 1;
+    if (MTTR_MACHINING_GROUP.includes(d.lineName)) {
+      if (!mapMachining[d.month]) mapMachining[d.month] = { repairTime: 0, count: 0 };
+      mapMachining[d.month].repairTime += d.repairTimeP || 0;
+      mapMachining[d.month].count += 1;
+    }
+    if (MTTR_ASSY_GROUP.includes(d.lineName)) {
+      if (!mapAssy[d.month]) mapAssy[d.month] = { repairTime: 0, count: 0 };
+      mapAssy[d.month].repairTime += d.repairTimeP || 0;
+      mapAssy[d.month].count += 1;
+    }
   });
 
   const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
   return allMonths.map(month => ({
     month,
-    mttrTotal: map[month] && map[month].count > 0
-      ? +((map[month].repairTime / map[month].count) / 60).toFixed(2)
-      : 0
+    mttrMachining: mapMachining[month] && mapMachining[month].count > 0
+      ? +((mapMachining[month].repairTime / mapMachining[month].count) / 60).toFixed(2) : 0,
+    mttrAssy: mapAssy[month] && mapAssy[month].count > 0
+      ? +((mapAssy[month].repairTime / mapAssy[month].count) / 60).toFixed(2) : 0,
   })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
 }, [rawData, applyAllFilters, selectedMonths]);
+
+const mtbfTotalByMonth = useMemo(() => {
+  const MTBF_MACHINING = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
+  const MTBF_ASSY_LINES = ['Gear Assy'];
+  const ASSY_LINE_GROUP = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy'];
+  const ALL_MTBF_LINES = [...MTBF_MACHINING, ...MTBF_ASSY_LINES];
+
+  if (operationData.length === 0) return [];
+
+  const mtbfSource = applyAllFilters(rawData, { skip: ['month', 'chartMonth', 'chartLine', 'line'] });
+
+  // bdMap: month|line|machineNo → count
+  const bdMap = {};
+  mtbfSource.forEach(d => {
+    const lineKey = ASSY_LINE_GROUP.includes(d.lineName) ? 'Gear Assy' : d.lineName;
+    if (!ALL_MTBF_LINES.includes(lineKey)) return;
+    const key = `${d.month}|${lineKey}|${d.machineNo}`;
+    bdMap[key] = (bdMap[key] || 0) + 1;
+  });
+
+  // opMap: month|line → { opTime, machineCount }
+  const opMap = {};
+  operationData.forEach(o => {
+    const lineKey = ASSY_LINE_GROUP.includes(o.lineName) ? 'Gear Assy' : o.lineName;
+    if (!ALL_MTBF_LINES.includes(lineKey)) return;
+    const key = `${o.month}|${lineKey}`;
+    if (!opMap[key]) opMap[key] = { opTime: o.opTime, machineCount: Number(o.machineCount || 0) };
+  });
+
+  // mlCounts: month|line → { machineNo: count }
+  const mlCounts = {};
+  Object.entries(bdMap).forEach(([key, count]) => {
+    const [month, line, machine] = key.split('|');
+    const mlKey = `${month}|${line}`;
+    if (!mlCounts[mlKey]) mlCounts[mlKey] = {};
+    mlCounts[mlKey][machine] = count;
+  });
+
+  const calcGroupMtbf = (month, lines) => {
+    let sumWeighted = 0, sumMc = 0;
+    lines.forEach(line => {
+      const mlKey = `${month}|${line}`;
+      const opInfo = opMap[mlKey];
+      if (!opInfo || opInfo.opTime === 0) return;
+      const mc = opInfo.machineCount;
+      const machineCounts = mlCounts[mlKey] || {};
+      const mv = Object.values(machineCounts);
+      const case1 = mv.filter(c => c === 1).length;
+      const case2 = mv.filter(c => c > 1).reduce((s, c) => s + c, 0);
+      const case3 = Math.max(mc - mv.length, 0);
+      const divisor = case1 + case2 + case3 > 0 ? case1 + case2 + case3 : mc;
+      const mtbf_hr = (opInfo.opTime / divisor) / 60;
+      sumWeighted += mtbf_hr * mc;
+      sumMc += mc;
+    });
+    return sumMc > 0 ? +(sumWeighted / sumMc).toFixed(2) : 0;
+  };
+
+  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  return allMonths.map(month => ({
+    month,
+    mtbfMachining: calcGroupMtbf(month, MTBF_MACHINING),
+    mtbfAssy:      calcGroupMtbf(month, MTBF_ASSY_LINES),
+  })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
+}, [rawData, applyAllFilters, operationData, selectedMonths]);
 
 const mtbfByMonth = useMemo(() => {
 
@@ -2766,20 +2876,21 @@ const mtbfByMonth = useMemo(() => {
      0) CONFIG
   =============================== */
   const MTBF_LINES = [
-    'Rack EPS',
-    'Nut Ball Screw EPS Rack',
-    'Pinion EPS',
-    'Sensor Assy EPS',
-    'Shaft Assy Input',
-    'Gear Assy EPS'
+    'Rack Machining',
+    'Nut Machining',
+    'Pinion Machining',
+    'Sensor Assy',
+    'Input Shaft Assy',
+    'Gear Assy'
   ];
 
-  const GEAR_GROUP = [
-    'Gear Assy EPS',
-    'Gear Assy EPS Short',
-    'Housing Assy EPS No1',
-    'Housing Assy EPS No2',
-    'Pulley Sub-Assy'
+  const ASSY_LINE_GROUP = [
+    'Gear Assy',
+    'Gear Sub-Assy',
+    'Housing Assy No.1',
+    'Housing Assy No.2',
+    'Pulley Sub-Assy',
+    'Rack Sub-Assy'
   ];
 
   // คำนวณทุก line เสมอ — dim ทำที่ render layer ไม่ใช่ data layer
@@ -2804,10 +2915,10 @@ if (selectedMachines.length > 0) return [];
   const bdMap = {};
   mtbfSource.forEach(d => {
 
-    // ---- Gear Assy EPS (รวม 5 line) ----
+    // ---- Gear Assy (รวม 5 line) ----
     const lineKey =
-      activeLines.includes('Gear Assy EPS') && GEAR_GROUP.includes(d.lineName)
-        ? 'Gear Assy EPS'
+      activeLines.includes('Gear Assy') && ASSY_LINE_GROUP.includes(d.lineName)
+        ? 'Gear Assy'
         : d.lineName;
 
     if (!activeLines.includes(lineKey)) return;
@@ -2844,8 +2955,8 @@ const opMap = {};
 operationData.forEach(o => {
 
   const lineKey =
-    activeLines.includes('Gear Assy EPS') && GEAR_GROUP.includes(o.lineName)
-      ? 'Gear Assy EPS'
+    activeLines.includes('Gear Assy') && ASSY_LINE_GROUP.includes(o.lineName)
+      ? 'Gear Assy'
       : o.lineName;
 
   if (!activeLines.includes(lineKey)) return;
@@ -3008,7 +3119,8 @@ const recurrentData = useMemo(() => {
       groups[d.machineNo] = {
         value: 0,
         count: 0,
-        machineName: d.machineName // 👈 มาจาก column D
+        machineName: d.machineName,
+        lineName: d.lineName
       };
     }
     groups[d.machineNo].value += d.bdTime;
@@ -3020,6 +3132,7 @@ const recurrentData = useMemo(() => {
     .map(k => ({
       machineNo: k,
       machineName: groups[k].machineName,
+      lineName: groups[k].lineName,
       value: groups[k].value,
       count: groups[k].count
     }))
@@ -3051,17 +3164,18 @@ const top3FocusMachines = useMemo(() => {
       avg: m.downtime / m.count
     }))
     .sort((a, b) => b.downtime - a.downtime)
-    .slice(0, 3);
+    .slice(0, 5);
 }, [filteredData]);
 
 
             const lineDowntime = useMemo(() => {
                 const groups = {};
                 filteredData.forEach(d => {
-                    const st = d.status || 'Unknown';
-                    if (!groups[d.lineName]) groups[d.lineName] = { Completed: 0, Temporary: 0 };
-                    if (st === 'Completed') groups[d.lineName].Completed += 1;
-                    else groups[d.lineName].Temporary += 1;
+                    const st = (d.status || '').trim().toLowerCase();
+                    if (!groups[d.lineName]) groups[d.lineName] = { Completed: 0, Temporary: 0, OnProcess: 0, bdTimeCompleted: 0, bdTimeTemporary: 0, bdTimeOnProcess: 0 };
+                    if (st === 'completed') { groups[d.lineName].Completed += 1; groups[d.lineName].bdTimeCompleted += ((d.bdTime || 0) / 60); }
+                    else if (st === 'on process') { groups[d.lineName].OnProcess += 1; groups[d.lineName].bdTimeOnProcess += ((d.bdTime || 0) / 60); }
+                    else { groups[d.lineName].Temporary += 1; groups[d.lineName].bdTimeTemporary += ((d.bdTime || 0) / 60); }
                 });
                 // นับ recurrent ต่อ line
                 const pairCount = {};
@@ -3078,12 +3192,18 @@ const top3FocusMachines = useMemo(() => {
                 });
                 return Object.keys(groups)
                     .map(k => {
-                        const total = groups[k].Completed + groups[k].Temporary;
+                        const total = groups[k].Completed + groups[k].Temporary + groups[k].OnProcess;
+                        const totalBdTime = groups[k].bdTimeCompleted + groups[k].bdTimeTemporary + groups[k].bdTimeOnProcess;
                         return {
                             name: k,
                             Completed: groups[k].Completed,
                             Temporary: groups[k].Temporary,
+                            OnProcess: groups[k].OnProcess,
+                            bdTimeCompleted: Math.round(groups[k].bdTimeCompleted * 100) / 100,
+                            bdTimeTemporary: Math.round(groups[k].bdTimeTemporary * 100) / 100,
+                            bdTimeOnProcess: Math.round(groups[k].bdTimeOnProcess * 100) / 100,
                             value: total,
+                            totalBdTime: Math.round(totalBdTime * 100) / 100,
                             recurrent: recMap[k] || 0,
                             statusBreakdown: groups[k]
                         };
@@ -3145,7 +3265,7 @@ const pieReasonData = useMemo(() => {
   const bucket = {};
 
   longReasonAnalysis.forEach(d => {
-    const mappedName = normalizeReason(d.name) || 'Other';
+    const mappedName = normalizeReason(d.name);
 
     if (!bucket[mappedName]) bucket[mappedName] = 0;
     bucket[mappedName] += d.value;
@@ -3228,7 +3348,7 @@ const renderStatusOnLine = ({ cx, cy, payload, isLight }) => {
   const isComp = payload.status === 'Completed';
   const fill = isComp
     ? (isLight ? '#34C759' : '#6B7280')
-    : (isLight ? '#FF9500' : '#E50914');
+    : (isLight ? '#E50914' : '#E50914');
   return (
     <g>
       <circle cx={cx} cy={cy} r={5} fill={fill} stroke="rgba(0,0,0,0.25)" strokeWidth={1} />
@@ -3367,10 +3487,21 @@ const chartTooltipPareto = ({ active, payload, lang, isLightMode }) => {
       </div>
 
       {/* 🔹 Status */}
-      <div style={{ marginTop: 6, fontSize: 13, fontWeight: 600,
-        color: (data.status || '').toLowerCase() === 'completed' ? '#16A34A' : '#F59E0B' }}>
-        {S.title} : {(data.status || '').toLowerCase() === 'completed' ? S.done : (data.status || '').toLowerCase() === 'temporary' ? S.temp : (data.status || 'N/A')}
-      </div>
+      {(() => {
+        const st = (data.status || '').trim().toLowerCase();
+        const statusColor = st === 'completed' ? '#16A34A'
+                          : st === 'on process' ? '#F97316'
+                          : '#E50914';
+        const statusLabel = st === 'completed' ? S.done
+                          : st === 'temporary'  ? S.temp
+                          : st === 'on process' ? (lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process')
+                          : (data.status || 'N/A');
+        return (
+          <div style={{ marginTop: 6, fontSize: 13, fontWeight: 600, color: statusColor }}>
+            {S.title} : {statusLabel}
+          </div>
+        );
+      })()}
     </div>
   );
 };
@@ -3394,10 +3525,12 @@ const chartTooltipPareto = ({ active, payload, lang, isLightMode }) => {
                 const groups = {};
                 filteredData.forEach(d => {
                     const key = d.month;
-                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0, Completed: 0, Temporary: 0 };
+                    if (!groups[key]) groups[key] = { month: key, time: 0, count: 0, Completed: 0, Temporary: 0, OnProcess: 0 };
                     groups[key].time += d.bdTime;
                     groups[key].count += 1;
-                    if (d.status === 'Completed') groups[key].Completed += 1;
+                    const st = (d.status || '').trim().toLowerCase();
+                    if (st === 'completed') groups[key].Completed += 1;
+                    else if (st === 'on process') groups[key].OnProcess += 1;
                     else groups[key].Temporary += 1;
                 });
                 return Object.values(groups).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
@@ -3405,10 +3538,10 @@ const chartTooltipPareto = ({ active, payload, lang, isLightMode }) => {
 
             const distData = useMemo(() => {
   const buckets = [
-    { name: '0-29',   min: 0,   max: 29,  count: 0, countM: 0, countE: 0 },
-    { name: '30-59',  min: 30,  max: 59,  count: 0, countM: 0, countE: 0 },
-    { name: '60-119', min: 60,  max: 119, count: 0, countM: 0, countE: 0 },
-    { name: '≥ 120',  min: 120, max: Infinity, count: 0, countM: 0, countE: 0 },
+    { name: '0-30',   min: 0,   max: 30,  count: 0, countM: 0, countE: 0 },
+    { name: '31-60',  min: 31,  max: 60,  count: 0, countM: 0, countE: 0 },
+    { name: '61-120', min: 61,  max: 120, count: 0, countM: 0, countE: 0 },
+    { name: '> 120',  min: 121, max: Infinity, count: 0, countM: 0, countE: 0 },
   ];
 
   filteredData.forEach(d => {
@@ -3548,6 +3681,7 @@ onDragOver={handleDragOver}
       topFailure={paretoData}
       topLongReason={pieReasonData}
       filteredData={filteredData}
+      rawData={rawData}
       isLightMode={isLightMode}
       setIsLightMode={setIsLightMode}
       isMobile={isMobile}
@@ -3727,6 +3861,7 @@ onDragOver={handleDragOver}
                         {chartClickDuration && <span style={chipStyle(isLightMode)}>Duration: <b>{chartClickDuration.label} min</b><span onClick={() => { setChartClickDuration(null); }} style={closeBtn}>✕</span></span>}
                         {chartClickDate     && <span style={chipStyle(isLightMode)}>Date: <b>{chartClickDate}</b><span onClick={() => { setChartClickDate(null); }} style={closeBtn}>✕</span></span>}
                         {chartClickReason   && <span style={chipStyle(isLightMode)}>Reason: <b>{chartClickReason}</b><span onClick={() => setChartClickReason(null)} style={closeBtn}>✕</span></span>}
+                        {chartClickDept     && <span style={chipStyle(isLightMode)}>Dept (P.I.C): <b>{chartClickDept}</b><span onClick={() => setChartClickDept(null)} style={closeBtn}>✕</span></span>}
                         <button onClick={clearAllChartFilters} style={{
                           marginLeft: 'auto', fontSize: 11, padding: '3px 12px',
                           borderRadius: 20, border: `1px solid ${isLightMode ? '#3b82f6' : '#E50914'}`,
@@ -3790,26 +3925,35 @@ onDragOver={handleDragOver}
       {(selectedLines.length === 0 && !chartClickLine) ? (
         <BarChart data={fdrTotalByMonth}
           margin={{ top: 20, right: isMobile ? 36 : 20, bottom: 10, left: isMobile ? 6 : 30 }}
-          style={{ cursor: 'pointer' }}>
+          style={{ cursor: 'pointer' }}
+          barCategoryGap="30%" barGap={4}>
           <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis unit="%" width={isMobile ? 38 : 52} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8} />
           <RechartsTooltip content={({ active, payload, label }) => {
             if (!active || !payload || !payload.length) return null;
             const ct = getChartTheme(isLightMode);
-            const val = payload[0]?.value ?? 0;
             return (
-              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:140,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
-                <div style={{fontWeight:700,marginBottom:4,color:ct.labelColor}}>{label}</div>
-                <div style={{color:ct.itemColor}}>FDR: <b style={{color: isLightMode ? '#1d4ed8' : '#93C5FD'}}>{val.toFixed(2)}%</b></div>
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:180,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                {payload.map((p, i) => (
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:2,color:ct.itemColor}}>
+                    <span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:p.fill,flexShrink:0}}/>
+                    <span>{p.name}:</span>
+                    <b style={{color:p.fill}}>{(p.value??0).toFixed(2)}%</b>
+                  </div>
+                ))}
               </div>
             );
           }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-          <Bar dataKey="fdrTotal" name="FDR (%)" barSize={28} radius={[6,6,0,0]}>
-            {fdrTotalByMonth.map((entry, i) => (
-              <Cell key={i} fill={isLightMode ? '#007AFF' : '#E50914'} opacity={0.85} />
-            ))}
-            <LabelList dataKey="fdrTotal" position="top" formatter={(v) => v > 0 ? v.toFixed(2) + '%' : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          <Legend verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 8, fontSize: isMobile ? 10 : 12 }} />
+          <Bar dataKey="fdrMachining" name="Machining Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#007AFF' : '#E50914'}>
+            <LabelList dataKey="fdrMachining" position="top" formatter={(v) => v > 0 ? v.toFixed(2)+'%' : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+          <Bar dataKey="fdrAssy" name="Assy Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#34C759' : '#F59E0B'}>
+            <LabelList dataKey="fdrAssy" position="top" formatter={(v) => v > 0 ? v.toFixed(2)+'%' : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
         </BarChart>
       ) : (
@@ -3857,48 +4001,77 @@ onDragOver={handleDragOver}
 
   <div className="h-72">
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
-        data={(() => {
-          let d = mtbfByMonth;
-          if (selectedMonths.length > 0) d = d.filter(r => selectedMonths.includes(r.month));
-          return d;
-        })()}
-        style={{ cursor: 'pointer' }}
-      >
-        <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
-        <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
-        <YAxis
-  width={isMobile ? 38 : 55}
-  tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }}
-  tickMargin={8}
-  label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-/>
-         <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
-
-        <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }} onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
-        {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map(line => {
-          const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
-          const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
-          const dimmed = !isHighlight;
-          return (
-            <Line
-              key={line}
-              dataKey={line}
-              stroke={getLineColorMap(isLightMode)[line]}
-              color={getLineColorMap(isLightMode)[line]}
-              strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
-              dot={false}
-              activeDot={{ r: 6 }}
-              type="linear"
-              connectNulls
-              strokeOpacity={dimmed ? 0.12 : 1}
-              style={{ cursor: 'pointer' }}
-              onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
-            />
-          );
-        })}
-      </LineChart>
+      {(selectedLines.length === 0 && !chartClickLine) ? (
+        <BarChart data={mtbfTotalByMonth}
+          margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
+          style={{ cursor: 'pointer' }}
+          barCategoryGap="30%" barGap={4}>
+          <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const unit = lang==='TH'?'ชม.':lang==='JP'?'時間':'hr';
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:180,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                {payload.map((p, i) => (
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:2,color:ct.itemColor}}>
+                    <span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:p.fill,flexShrink:0}}/>
+                    <span>{p.name}:</span>
+                    <b style={{color:p.fill}}>{(p.value??0).toFixed(2)} {unit}</b>
+                  </div>
+                ))}
+              </div>
+            );
+          }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+          <Legend verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 8, fontSize: isMobile ? 10 : 12 }} />
+          <Bar dataKey="mtbfMachining" name="Machining Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#007AFF' : '#E50914'}>
+            <LabelList dataKey="mtbfMachining" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+          <Bar dataKey="mtbfAssy" name="Assy Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#34C759' : '#F59E0B'}>
+            <LabelList dataKey="mtbfAssy" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      ) : (
+        <LineChart
+          margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
+          data={(() => {
+            let d = mtbfByMonth;
+            if (selectedMonths.length > 0) d = d.filter(r => selectedMonths.includes(r.month));
+            return d;
+          })()}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
+            onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
+          {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map(line => {
+            const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+            const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+            const dimmed = !isHighlight;
+            return (
+              <Line key={line} dataKey={line}
+                stroke={getLineColorMap(isLightMode)[line]}
+                color={getLineColorMap(isLightMode)[line]}
+                strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+                dot={false} activeDot={{ r: 6 }}
+                type="linear" connectNulls
+                strokeOpacity={dimmed ? 0.12 : 1}
+                style={{ cursor: 'pointer' }}
+                onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+              />
+            );
+          })}
+        </LineChart>
+      )}
     </ResponsiveContainer>
   </div>
 </div>
@@ -3916,7 +4089,8 @@ onDragOver={handleDragOver}
       {(selectedLines.length === 0 && !chartClickLine) ? (
         <BarChart data={mttrTotalByMonth}
           margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
-          style={{ cursor: 'pointer' }}>
+          style={{ cursor: 'pointer' }}
+          barCategoryGap="30%" barGap={4}>
           <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
@@ -3924,19 +4098,28 @@ onDragOver={handleDragOver}
           <RechartsTooltip content={({ active, payload, label }) => {
             if (!active || !payload || !payload.length) return null;
             const ct = getChartTheme(isLightMode);
-            const val = payload[0]?.value ?? 0;
+            const unit = lang==='TH'?'ชม.':lang==='JP'?'時間':'hr';
             return (
-              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:140,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
-                <div style={{fontWeight:700,marginBottom:4,color:ct.labelColor}}>{label}</div>
-                <div style={{color:ct.itemColor}}>MTTR: <b style={{color: isLightMode ? '#1d4ed8' : '#93C5FD'}}>{val.toFixed(2)} {lang==='TH'?'ชม.':lang==='JP'?'時間':'hr'}</b></div>
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:180,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                {payload.map((p, i) => (
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:2,color:ct.itemColor}}>
+                    <span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:p.fill,flexShrink:0}}/>
+                    <span>{p.name}:</span>
+                    <b style={{color:p.fill}}>{(p.value??0).toFixed(2)} {unit}</b>
+                  </div>
+                ))}
               </div>
             );
           }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
-          <Bar dataKey="mttrTotal" name="MTTR" barSize={28} radius={[6,6,0,0]}>
-            {mttrTotalByMonth.map((entry, i) => (
-              <Cell key={i} fill={isLightMode ? '#007AFF' : '#E50914'} opacity={0.85} />
-            ))}
-            <LabelList dataKey="mttrTotal" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          <Legend verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 8, fontSize: isMobile ? 10 : 12 }} />
+          <Bar dataKey="mttrMachining" name="Machining Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#007AFF' : '#E50914'}>
+            <LabelList dataKey="mttrMachining" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+          <Bar dataKey="mttrAssy" name="Assy Line" barSize={isMobile ? 12 : 20} radius={[6,6,0,0]}
+            fill={isLightMode ? '#34C759' : '#F59E0B'}>
+            <LabelList dataKey="mttrAssy" position="top" formatter={(v) => v > 0 ? v.toFixed(1) : ''} style={{ fontSize: 9, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
         </BarChart>
       ) : (
@@ -3951,7 +4134,7 @@ onDragOver={handleDragOver}
           <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
-          {['Rack EPS','Nut Ball Screw EPS Rack','Pinion EPS','Sensor Assy EPS','Shaft Assy Input','Gear Assy EPS'].map((line) => {
+          {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map((line) => {
             const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
             const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
             const dimmed = !isHighlight;
@@ -4015,7 +4198,8 @@ onDragOver={handleDragOver}
        const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
        const done  = payload.find(p => p.dataKey === 'Completed')?.value || 0;
        const temp  = payload.find(p => p.dataKey === 'Temporary')?.value || 0;
-       const total = done + temp;
+       const onproc = payload.find(p => p.dataKey === 'OnProcess')?.value || 0;
+       const total = done + temp + onproc;
        const lTotal = lang==='TH' ? 'รวม BD ทั้งหมด' : lang==='JP' ? '合計件数' : 'Total Breakdowns';
        return (
          <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 200 }}>
@@ -4067,6 +4251,15 @@ onDragOver={handleDragOver}
                                   />
                                   <Bar
                                     yAxisId="left"
+                                    dataKey="OnProcess"
+                                    stackId="status"
+                                    name={lang==='TH' ? 'กำลังดำเนินการ' : lang==='JP' ? '処理中' : 'On Process'}
+                                    fill="#F97316"
+                                    barSize={22}
+                                    radius={[0, 0, 0, 0]}
+                                  />
+                                  <Bar
+                                    yAxisId="left"
                                     dataKey="Temporary"
                                     stackId="status"
                                     name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary'}
@@ -4091,11 +4284,37 @@ onDragOver={handleDragOver}
 
                     {/* Line Analysis */}
                     <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4" style={{alignSelf:'flex-start'}}>{t.lineAnalysisTitle}</h3>
+                        <div style={{alignSelf:'flex-start', width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16, flexWrap:'wrap', gap:8}}>
+                          <h3 className="text-lg font-bold text-gray-800" style={{margin:0}}>{t.lineAnalysisTitle}</h3>
+                          <div style={{display:'flex', gap:6, alignItems:'center'}}>
+                            <button
+                              onClick={() => setLineChartMode('count')}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                background: lineChartMode==='count' ? (isLightMode ? '#1d4ed8' : '#E50914') : 'transparent',
+                                color: lineChartMode==='count' ? '#ffffff' : (isLightMode ? '#5a7aa8' : '#9ca3af'),
+                                border: lineChartMode==='count' ? 'none' : `1px solid ${isLightMode ? 'rgba(160,200,240,0.5)' : '#3a3a3a'}`,
+                                boxShadow: lineChartMode==='count' ? (isLightMode ? '0 0 10px rgba(29,78,216,0.35)' : '0 0 10px rgba(229,9,20,0.4)') : 'none',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'จำนวนครั้ง':lang==='JP'?'件数':'Count'}</button>
+                            <button
+                              onClick={() => setLineChartMode('bdtime')}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                background: lineChartMode==='bdtime' ? (isLightMode ? '#1d4ed8' : '#E50914') : 'transparent',
+                                color: lineChartMode==='bdtime' ? '#ffffff' : (isLightMode ? '#5a7aa8' : '#9ca3af'),
+                                border: lineChartMode==='bdtime' ? 'none' : `1px solid ${isLightMode ? 'rgba(160,200,240,0.5)' : '#3a3a3a'}`,
+                                boxShadow: lineChartMode==='bdtime' ? (isLightMode ? '0 0 10px rgba(29,78,216,0.35)' : '0 0 10px rgba(229,9,20,0.4)') : 'none',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'เวลา':lang==='JP'?'タイム':'Time'}</button>
+                          </div>
+                        </div>
                         <div style={{height:'336px', width:'100%'}}>
                             <ResponsiveContainer width="100%" height="100%">
 <ComposedChart
-  data={lineDowntime}
+  data={lineChartMode === 'bdtime' ? [...lineDowntime].sort((a,b) => b.totalBdTime - a.totalBdTime) : lineDowntime}
   margin={{ top: 20, right: isMobile ? 36 : 50, bottom: 20, left: isMobile ? 16 : 10 }}
   style={{ cursor: 'pointer' }}
   onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickLine, chartClickLine, v); } }}
@@ -4121,8 +4340,9 @@ onDragOver={handleDragOver}
     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
     tickLine={false}
     width={isMobile ? 36 : 52}
-    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+    label={{ value: lineChartMode==='bdtime' ? (lang==='TH'?'ชั่วโมง':lang==='JP'?'時間':'hr') : (lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count'), angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
   />
+  {lineChartMode === 'count' && (
   <YAxis
     yAxisId="right"
     orientation="right"
@@ -4140,82 +4360,109 @@ onDragOver={handleDragOver}
       return <text x={cx} y={cy} textAnchor="middle" fontSize={10} fill={getChartTheme(isLightMode).axis} transform={`rotate(90,${cx},${cy})`}>{txt}</text>;
     }}
   />
+  )}
   <RechartsTooltip
     cursor={{ fill: 'rgba(255,255,255,0.06)' }}
     content={({ active, payload, label }) => {
       if (!active || !payload || !payload.length) return null;
       const ct = getChartTheme(isLightMode);
       const entry = lineDowntime.find(d => d.name === label) || {};
-      const comp = entry.Completed || 0;
-      const temp = entry.Temporary || 0;
-      const total = entry.value || 0;
+      const isBdMode = lineChartMode === 'bdtime';
+      const comp = isBdMode ? (entry.bdTimeCompleted || 0) : (entry.Completed || 0);
+      const temp = isBdMode ? (entry.bdTimeTemporary || 0) : (entry.Temporary || 0);
+      const onproc = isBdMode ? (entry.bdTimeOnProcess || 0) : (entry.OnProcess || 0);
+      const total = isBdMode ? (entry.totalBdTime || 0) : (entry.value || 0);
       const recur = payload.find(p => p.dataKey === 'recurrent')?.value || 0;
-      const lComp  = lang==='TH' ? 'เสร็จสิ้น'      : lang==='JP' ? '完了'     : 'Completed';
-      const lTemp  = lang==='TH' ? 'แก้ไขชั่วคราว'  : lang==='JP' ? '一時対応' : 'Temporary';
-      const lTotal = lang==='TH' ? 'รวม'             : lang==='JP' ? '合計'     : 'Total';
-      const lRecur = lang==='TH' ? 'ปัญหาซ้ำ'        : lang==='JP' ? '再発問題' : 'Recurrent';
-      const lTimes = lang==='TH' ? ' ครั้ง'          : lang==='JP' ? ' 回'      : ' times';
+      const lComp  = lang==='TH' ? 'เสร็จสิ้น'       : lang==='JP' ? '完了'     : 'Completed';
+      const lTemp  = lang==='TH' ? 'แก้ไขชั่วคราว'   : lang==='JP' ? '一時対応' : 'Temporary';
+      const lOnP   = lang==='TH' ? 'กำลังดำเนินการ'  : lang==='JP' ? '処理中'   : 'On Process';
+      const lTotal = lang==='TH' ? 'รวม'              : lang==='JP' ? '合計'     : 'Total';
+      const lRecur = lang==='TH' ? 'ปัญหาซ้ำ'         : lang==='JP' ? '再発問題' : 'Recurrent';
+      const lTimes = isBdMode ? (lang==='TH' ? ' ชม.' : lang==='JP' ? ' 時' : ' hr') : (lang==='TH' ? ' ครั้ง' : lang==='JP' ? ' 回' : ' times');
       const compFill = isLightMode ? '#34C759' : '#6B7280';
-      const tempFill = isLightMode ? '#FF9500' : '#C2410C';
+      const tempFill = isLightMode ? '#E50914' : '#C2410C';
+      const onpFill  = '#F97316';
+      const bdFill = isLightMode ? '#1d4ed8' : '#E50914';
       return (
         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:160, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
           <div style={{ fontWeight:700, marginBottom:6, color:ct.labelColor }}>{label}</div>
-          <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-            <div style={{ width:8, height:8, borderRadius:'50%', background:compFill, flexShrink:0 }}/>
-            <div style={{ color:ct.itemColor }}>{lComp}: <b style={{color:ct.itemColor}}>{comp}{lTimes}</b></div>
-          </div>
-          <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-            <div style={{ width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
-            <div style={{ color:ct.itemColor }}>{lTemp}: <b style={{color:ct.itemColor}}>{temp}{lTimes}</b></div>
-          </div>
-          <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, color:ct.labelColor, fontWeight:700 }}>
-            {lTotal}: <b style={{color:ct.labelColor}}>{total}{lTimes}</b>
-          </div>
-          <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:4 }}>
-            <div style={{ width:8, height:8, borderRadius:'50%', background:'#EF4444', flexShrink:0 }}/>
-            <div style={{ color:'#EF4444', fontWeight:600 }}>{lRecur}: <b style={{color:'#EF4444'}}>{recur}{lTimes}</b></div>
-          </div>
+          {isBdMode ? (
+            <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+              <div style={{ width:8, height:8, borderRadius:'50%', background:bdFill, flexShrink:0 }}/>
+              <div style={{ color:ct.itemColor }}>{lTotal}: <b style={{color:ct.itemColor}}>{total.toFixed(2)}{lTimes}</b></div>
+            </div>
+          ) : (
+            <>
+              <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+                <div style={{ width:8, height:8, borderRadius:'50%', background:compFill, flexShrink:0 }}/>
+                <div style={{ color:ct.itemColor }}>{lComp}: <b style={{color:ct.itemColor}}>{comp}{lTimes}</b></div>
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+                <div style={{ width:8, height:8, borderRadius:'50%', background:tempFill, flexShrink:0 }}/>
+                <div style={{ color:ct.itemColor }}>{lTemp}: <b style={{color:ct.itemColor}}>{temp}{lTimes}</b></div>
+              </div>
+              {onproc > 0 && (
+              <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+                <div style={{ width:8, height:8, borderRadius:'50%', background:onpFill, flexShrink:0 }}/>
+                <div style={{ color:ct.itemColor }}>{lOnP}: <b style={{color:ct.itemColor}}>{onproc}{lTimes}</b></div>
+              </div>
+              )}
+              <div style={{ borderTop:`1px solid ${ct.tooltipBorder}`, marginTop:4, paddingTop:4, color:ct.labelColor, fontWeight:700 }}>
+                {lTotal}: <b style={{color:ct.labelColor}}>{total}{lTimes}</b>
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:4 }}>
+                <div style={{ width:8, height:8, borderRadius:'50%', background: isLightMode ? '#7C3AED' : '#1D9BF0', flexShrink:0 }}/>
+                <div style={{ color: isLightMode ? '#7C3AED' : '#1D9BF0', fontWeight:600 }}>{lRecur}: <b style={{color: isLightMode ? '#7C3AED' : '#1D9BF0'}}>{recur}{lTimes}</b></div>
+              </div>
+            </>
+          )}
         </div>
       );
     }}
   />
+  {lineChartMode === 'count' && (
   <Legend
     verticalAlign="bottom"
     align="center"
     wrapperStyle={{ fontSize: isMobile ? 10 : 12, paddingTop: 8 }}
     formatter={(value) => {
-      if (value === 'Completed') return lang==='TH' ? 'เสร็จสิ้น'     : lang==='JP' ? '完了'     : 'Completed';
-      if (value === 'Temporary') return lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary';
-      if (value === 'recurrent') return lang==='TH' ? 'ปัญหาซ้ำ'      : lang==='JP' ? '再発問題' : 'Recurrent';
+      if (value === 'Completed') return lang==='TH' ? 'เสร็จสิ้น'       : lang==='JP' ? '完了'     : 'Completed';
+      if (value === 'Temporary') return lang==='TH' ? 'แก้ไขชั่วคราว'  : lang==='JP' ? '一時対応' : 'Temporary';
+      if (value === 'On Process' || value === 'กำลังดำเนินการ' || value === '処理中') return lang==='TH' ? 'กำลังดำเนินการ' : lang==='JP' ? '処理中' : 'On Process';
+      if (value === 'recurrent') return lang==='TH' ? 'ปัญหาซ้ำ'        : lang==='JP' ? '再発問題' : 'Recurrent';
       return value;
     }}
   />
-  <Bar yAxisId="left" dataKey="Completed" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#475569'} name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}>
-    {lineDowntime.map((entry, i) => (
-      <Cell key={`comp-${i}`}
-        fill={isLightMode ? '#34C759' : '#475569'}
-        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 0.9}
-      />
-    ))}
-  </Bar>
-  <Bar yAxisId="left" dataKey="Temporary" stackId="a" barSize={30} radius={[6,6,0,0]} fill={isLightMode ? '#FF9500' : '#E50914'} name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}>
-    {lineDowntime.map((entry, i) => (
-      <Cell key={`temp-${i}`}
-        fill={isLightMode ? '#FF9500' : '#E50914'}
-        opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1}
-      />
-    ))}
-  </Bar>
-  <Line
-    yAxisId="right"
-    type="monotone"
-    dataKey="recurrent"
-    name="recurrent"
-    stroke={isLightMode ? "#EF4444" : "#1D9BF0"}
-    strokeWidth={2.5}
-    dot={false}
-    activeDot={{ r: 6 }}
-  />
+  )}
+  {lineChartMode === 'count' ? (
+    <>
+      <Bar yAxisId="left" dataKey="Completed" stackId="a" barSize={30} radius={[0,0,0,0]} fill={isLightMode ? '#34C759' : '#475569'} name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}>
+        {lineDowntime.map((entry, i) => (
+          <Cell key={`comp-${i}`} fill={isLightMode ? '#34C759' : '#475569'} opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 0.9} />
+        ))}
+      </Bar>
+      <Bar yAxisId="left" dataKey="OnProcess" stackId="a" barSize={30} radius={[0,0,0,0]} fill="#F97316" name={lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'}>
+        {lineDowntime.map((entry, i) => (
+          <Cell key={`onp-${i}`} fill="#F97316" opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1} />
+        ))}
+      </Bar>
+      <Bar yAxisId="left" dataKey="Temporary" stackId="a" barSize={30} radius={[6,6,0,0]} fill="#E50914" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}>
+        {lineDowntime.map((entry, i) => (
+          <Cell key={`temp-${i}`} fill="#E50914" opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1} />
+        ))}
+      </Bar>
+      <Line yAxisId="right" type="monotone" dataKey="recurrent" name="recurrent" stroke={isLightMode ? "#7C3AED" : "#1D9BF0"} strokeWidth={2.5} dot={false} activeDot={{ r: 6 }} />
+    </>
+  ) : (
+    <Bar yAxisId="left" dataKey="totalBdTime" barSize={30} radius={[6,6,0,0]} name={lang==='TH'?'เวลา(ชม.)':lang==='JP'?'タイム':'Time'}>
+      {lineDowntime.map((entry, i) => (
+        <Cell key={`bd-${i}`}
+          fill={isLightMode ? '#1d4ed8' : '#E50914'}
+          opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1}
+        />
+      ))}
+    </Bar>
+  )}
 </ComposedChart>
                             </ResponsiveContainer>
                         </div>
@@ -4527,8 +4774,19 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
   const ct = getChartTheme(isLightMode);
   const hrSuffix = UNIT_SUFFIX[lang]?.hr || ' hr.';
   return (
-    <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', fontSize: 12, minWidth: 140, boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)' }}>
-      {label !== undefined && <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>}
+    <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', fontSize: 12, minWidth: 160, boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)' }}>
+      {label !== undefined && <div style={{ fontWeight: 700, marginBottom: 4, color: ct.labelColor }}>{label}</div>}
+      {(() => {
+        const machineData = top5Machines.find(m => m.machineNo === label);
+        if (machineData?.lineName) {
+          return (
+            <div style={{ fontSize: 11, color: ct.itemColor, marginBottom: 6, opacity: 0.8 }}>
+              {lang==='TH'?'ไลน์':lang==='JP'?'ライン':'Line'}: {machineData.lineName}
+            </div>
+          );
+        }
+        return null;
+      })()}
       {payload.map((entry, i) => {
         const machineIdx = top5Machines.findIndex(m => m.machineNo === label);
         const sc = machineIdx >= 0
@@ -4621,23 +4879,15 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
             if (!active || !payload || !payload.length) return null;
             const ct = getChartTheme(isLightMode);
             const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
-            const mColor = isLightMode ? '#FF9500' : '#F59E0B';
-            const eColor = isLightMode ? '#007AFF' : '#3B82F6';
-            const mVal = payload.find(p => p.dataKey === 'countM')?.value || 0;
-            const eVal = payload.find(p => p.dataKey === 'countE')?.value || 0;
+            const entry = payload.find(p => p.dataKey === 'count');
+            const totalVal = entry?.value || 0;
+            const barColor = entry?.payload?.color || ct.paletteFailure?.[0] || '#6366f1';
             return (
-              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:150,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:130,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
                 <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
-                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
-                  <div style={{width:8,height:8,borderRadius:'50%',background:mColor,flexShrink:0}}/>
-                  <div style={{color:ct.itemColor}}>M: <b style={{color:ct.itemColor}}>{mVal}{cntSuffix}</b></div>
-                </div>
-                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
-                  <div style={{width:8,height:8,borderRadius:'50%',background:eColor,flexShrink:0}}/>
-                  <div style={{color:ct.itemColor}}>E: <b style={{color:ct.itemColor}}>{eVal}{cntSuffix}</b></div>
-                </div>
-                <div style={{borderTop:`1px solid ${ct.tooltipBorder}`,marginTop:4,paddingTop:4,color:ct.labelColor,fontWeight:700}}>
-                  Total: <b>{mVal+eVal}{cntSuffix}</b>
+                <div style={{display:'flex',alignItems:'center',gap:6}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:barColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lang==='TH'?'จำนวน':lang==='JP'?'件数':'Count'}: <b style={{color:ct.labelColor}}>{totalVal}{cntSuffix}</b></div>
                 </div>
               </div>
             );
@@ -4751,8 +5001,10 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
             <RechartsTooltip content={(props) => chartTooltipPareto({ ...props, lang, isLightMode })} cursor={{ fill: 'transparent' }} />
             <Bar yAxisId="left" dataKey="value" fill={getChartTheme(isLightMode).paretoBars} barSize={32} radius={[6,6,0,0]}>
               {paretoData.map((entry, index) => {
-                const isComp = entry.status === 'Completed';
-                const fill = isComp ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
+                const st = (entry.status || '').trim().toLowerCase();
+                const fill = st === 'completed' ? getChartTheme(isLightMode).paretoBars
+                           : st === 'on process' ? '#F97316'
+                           : getChartTheme(isLightMode).paretoTempColor;
                 return (
                   <Cell key={`pareto-${index}`} fill={fill}
                     opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
@@ -4787,6 +5039,10 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
           <span className="flex items-center gap-1">
             <span className="jath-swatch inline-block w-3 h-3 rounded-sm" style={{background: getChartTheme(isLightMode).paretoTempColor}} />
             <span className="jath-tooltip-name" style={{color: isLightMode ? '#4a6a8a' : '#9ca3af'}}>{lang === 'TH' ? 'แก้ไขชั่วคราว' : lang === 'JP' ? '一時対応' : 'Temporary'}</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="jath-swatch inline-block w-3 h-3 rounded-sm" style={{background: '#F97316'}} />
+            <span className="jath-tooltip-name" style={{color: isLightMode ? '#4a6a8a' : '#9ca3af'}}>{lang === 'TH' ? 'กำลังดำเนินการ' : lang === 'JP' ? '処理中' : 'On Process'}</span>
           </span>
           <span className="flex items-center gap-1">
             <span className="jath-swatch inline-block w-3 h-0.5" style={{background: getChartTheme(isLightMode).paretoCumLine}} />
@@ -4824,8 +5080,10 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
           radius={[6,6,0,0]}
         >
           {paretoData.map((entry, index) => {
-            const isComp = entry.status === 'Completed';
-            const fill = isComp ? getChartTheme(isLightMode).paretoBars : getChartTheme(isLightMode).paretoTempColor;
+            const st = (entry.status || '').trim().toLowerCase();
+            const fill = st === 'completed' ? getChartTheme(isLightMode).paretoBars
+                       : st === 'on process' ? '#F97316'
+                       : getChartTheme(isLightMode).paretoTempColor;
             return (
               <Cell key={`pareto-${index}`} fill={fill}
                 opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
@@ -5086,16 +5344,24 @@ return (
   </div>
 </div>
 
-{/* ── NEW: Status Longtime Breakdown by Department (P.I.C) ── */}
-<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column'}}>
+{/* ── NEW: Status Root Cause by Department (P.I.C RC) ── */}
+<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickDept ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column'}}>
   <h3 className="text-lg font-bold text-gray-800 mb-4">
-    {lang === 'TH' ? 'สถานะการแก้ไขระยะยาว (แผนก P.I.C)' : lang === 'JP' ? '長期修理ステータス（担当部門）' : 'Status Longtime Breakdown (P.I.C)'}
+    {lang === 'TH' ? 'สถานะ Root Cause (แผนก P.I.C)' : lang === 'JP' ? 'ルート原因ステータス（担当部門）' : 'Status Root Cause (P.I.C)'}
+    {chartClickDept && (
+      <span style={{fontSize:12,fontWeight:600,marginLeft:10,color:isLightMode?'#1d4ed8':'#60a5fa'}}>
+        {chartClickDept}
+        <span onClick={() => setChartClickDept(null)} style={{marginLeft:6,cursor:'pointer',opacity:0.7}}>✕</span>
+      </span>
+    )}
   </h3>
   <div style={{height: isMobile ? 260 : 300}}>
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
         data={statusByDeptData}
         margin={{ top: 28, right: isMobile ? 8 : 20, bottom: 10, left: isMobile ? 0 : 10 }}
+        style={{ cursor: 'pointer' }}
+        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.dept; toggleChartFilter(setChartClickDept, chartClickDept, v); } }}
       >
         <CartesianGrid stroke={getChartTheme(isLightMode).grid} vertical={false} strokeDasharray="2 6" />
         <XAxis
@@ -5120,13 +5386,16 @@ return (
             const row = statusByDeptData.find(d => d.dept === label) || {};
             const comp = row.Completed || 0;
             const temp = row.Temporary || 0;
-            const total = comp + temp;
+            const onp  = row.OnProcess || 0;
+            const total = comp + temp + onp;
             const lComp  = lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed';
             const lTemp  = lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary';
+            const lOnP   = lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process';
             const lTotal = lang==='TH'?'รวม':lang==='JP'?'合計':'Total';
             const lTimes = lang==='TH'?' ครั้ง':lang==='JP'?' 回':' times';
             const compClr = isLightMode ? '#007AFF' : '#475569';
-            const tempClr = isLightMode ? '#FF9500' : '#E50914';
+            const tempClr = '#E50914';
+            const onpClr  = '#F97316';
             return (
               <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:170,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
                 <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
@@ -5134,6 +5403,12 @@ return (
                   <div style={{width:8,height:8,borderRadius:'50%',background:compClr,flexShrink:0}}/>
                   <div style={{color:ct.itemColor}}>{lComp}: <b style={{color:ct.itemColor}}>{comp}{lTimes}</b></div>
                 </div>
+                {onp > 0 && (
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:onpClr,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lOnP}: <b style={{color:ct.itemColor}}>{onp}{lTimes}</b></div>
+                </div>
+                )}
                 <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
                   <div style={{width:8,height:8,borderRadius:'50%',background:tempClr,flexShrink:0}}/>
                   <div style={{color:ct.itemColor}}>{lTemp}: <b style={{color:ct.itemColor}}>{temp}{lTimes}</b></div>
@@ -5145,12 +5420,24 @@ return (
             );
           }}
         />
-        <Bar dataKey="Completed" name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'} stackId="a" fill={isLightMode ? '#007AFF' : '#475569'} radius={[0,0,0,0]} barSize={36} />
-        <Bar dataKey="Temporary" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'} stackId="a" fill={isLightMode ? '#FF9500' : '#E50914'} radius={[6,6,0,0]} barSize={36}>
+        <Bar dataKey="Completed" name={lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'} stackId="a" radius={[0,0,0,0]} barSize={36}>
+          {statusByDeptData.map((entry,i) => (
+            <Cell key={`comp-${i}`} fill={isLightMode ? '#007AFF' : '#475569'} opacity={chartClickDept && chartClickDept !== entry.dept ? 0.2 : 1} />
+          ))}
+        </Bar>
+        <Bar dataKey="OnProcess" name={lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'} stackId="a" radius={[0,0,0,0]} barSize={36}>
+          {statusByDeptData.map((entry,i) => (
+            <Cell key={`onp-${i}`} fill="#F97316" opacity={chartClickDept && chartClickDept !== entry.dept ? 0.2 : 1} />
+          ))}
+        </Bar>
+        <Bar dataKey="Temporary" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'} stackId="a" radius={[6,6,0,0]} barSize={36}>
+          {statusByDeptData.map((entry,i) => (
+            <Cell key={`temp-${i}`} fill="#E50914" opacity={chartClickDept && chartClickDept !== entry.dept ? 0.2 : 1} />
+          ))}
           <LabelList
             content={({ x, y, width, value, index }) => {
               const row = statusByDeptData[index] || {};
-              const total = (row.Completed || 0) + (row.Temporary || 0);
+              const total = (row.Completed || 0) + (row.Temporary || 0) + (row.OnProcess || 0);
               if (total === 0) return null;
               return (
                 <text x={x + width / 2} y={y - 6} textAnchor="middle" fontSize={11} fontWeight={700} fill={getChartTheme(isLightMode).axis}>
@@ -5169,7 +5456,11 @@ return (
       <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}</span>
     </span>
     <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
-      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background: isLightMode ? '#FF9500' : '#E50914',flexShrink:0}} />
+      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background:'#F97316',flexShrink:0}} />
+      <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'}</span>
+    </span>
+    <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
+      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background:'#E50914',flexShrink:0}} />
       <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}</span>
     </span>
   </div>
@@ -5275,7 +5566,7 @@ const FocusDonut = ({ data, valueKey = 'value', colors, unit = '' }) => {
       {/* CENTER LABEL */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <div className="text-2xl font-extrabold tracking-tight leading-none" style={{color:'#ffffff'}}>
-          {unit === '%' ? `${percent}%` : Math.round(top)}
+          {unit === '%' ? `${percent}%` : Number.isInteger(top) || top >= 10 ? Math.round(top) : top.toFixed(2)}
         </div>
         <div className="mt-1 text-[11px] uppercase tracking-widest" style={{color:'#9ca3af'}}>
           {unit === '%' ? 'Top Share' : unit}
@@ -5293,22 +5584,75 @@ const JATHFocusView = ({
   topFailure = [],
   topLongReason = [],
   filteredData = [],
+  rawData = [],
   isLightMode = false,
   setIsLightMode = () => {},
   isMobile = false
 }) => {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.EN;
 
+  // --- Focus filter states ---
+  const [focusStatusRC, setFocusStatusRC]   = React.useState([]);
+  const [focusLine,     setFocusLine]       = React.useState([]);
+  const [focusMonth,    setFocusMonth]      = React.useState([]);
+
+  // Dropdown open states
+  const [openDd, setOpenDd] = React.useState(null); // 'status'|'line'|'month'|null
+
+  // --- Unique options derived from filteredData ---
+  const focusLineOptions   = React.useMemo(() => [...new Set(filteredData.map(d => d.lineName).filter(Boolean))].sort(), [filteredData]);
+  const focusMonthOptions  = React.useMemo(() => [...new Set(filteredData.map(d => d.month).filter(Boolean))].sort(), [filteredData]);
+  const focusStatusRCOpts  = React.useMemo(() => [...new Set(filteredData.map(d => (d.statusRC||'').trim()).filter(Boolean))].sort(), [filteredData]);
+
+  // --- Top 5 machines (respects focus filters) ---
+  const focusTop5Machines = React.useMemo(() => {
+    let base = filteredData;
+    if (focusStatusRC.length > 0) base = base.filter(d => focusStatusRC.includes((d.statusRC||'').trim()));
+    if (focusLine.length > 0)     base = base.filter(d => focusLine.includes(d.lineName));
+    if (focusMonth.length > 0)    base = base.filter(d => focusMonth.includes(d.month));
+    const map = {};
+    base.forEach(d => {
+      if (!map[d.machineNo]) map[d.machineNo] = { machineNo: d.machineNo, line: d.lineName, downtime: 0, count: 0 };
+      map[d.machineNo].downtime += d.bdTime;
+      map[d.machineNo].count += 1;
+    });
+    return Object.values(map)
+      .map(m => ({ ...m, avg: m.downtime / m.count }))
+      .sort((a, b) => b.downtime - a.downtime)
+      .slice(0, 5);
+  }, [filteredData, focusStatusRC, focusLine, focusMonth]);
+
   // --- Local state for selected machine ---
   const [selectedMachineNo, setSelectedMachineNo] = React.useState(
-    top3[0]?.machineNo || null
+    () => focusTop5Machines[0]?.machineNo || null
   );
 
-  // --- Focus-only derived data ---
+  // Auto-select first machine when top5 changes
+  React.useEffect(() => {
+    setSelectedMachineNo(prev => {
+      const ids = focusTop5Machines.map(m => m.machineNo);
+      if (prev && ids.includes(prev)) return prev;
+      return ids[0] || null;
+    });
+  }, [focusTop5Machines]);
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    if (!openDd) return;
+    const handler = () => setOpenDd(null);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [openDd]);
+
+  // --- Focus-only derived data (filtered by selected machine + filters) ---
   const focusMachineNo = selectedMachineNo;
-  const focusData = focusMachineNo
-    ? filteredData.filter(d => d.machineNo === focusMachineNo)
-    : [];
+  const focusData = React.useMemo(() => {
+    let res = focusMachineNo ? filteredData.filter(d => d.machineNo === focusMachineNo) : [];
+    if (focusStatusRC.length > 0) res = res.filter(d => focusStatusRC.includes((d.statusRC||'').trim()));
+    if (focusLine.length > 0)     res = res.filter(d => focusLine.includes(d.lineName));
+    if (focusMonth.length > 0)    res = res.filter(d => focusMonth.includes(d.month));
+    return res;
+  }, [focusMachineNo, filteredData, focusStatusRC, focusLine, focusMonth]);
 
   // --- 🔹 1) Pareto Analysis: Main Problems (Top 3 by BD Time) ---
   const focusParetoTop3 = Object.entries(
@@ -5327,7 +5671,7 @@ const JATHFocusView = ({
   // --- 🔹 2) Long Repair Reason (Top 3 by count → %) ---
   const focusLongReasonTop3 = Object.entries(
     focusData.reduce((acc, d) => {
-      const key = d.longReason || 'Other';
+      const key = d.longReason || 'Pending Data';
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {})
@@ -5419,25 +5763,25 @@ const JATHFocusView = ({
       {/* ===== MAIN AREA ===== */}
 <div className={isMobile
   ? "flex flex-col gap-3 p-3 overflow-y-auto"
-  : "grid grid-cols-[1fr_2fr] gap-2 p-4 h-[calc(100vh-64px)] overflow-visible"
-}>
+  : "grid grid-cols-[1fr_2fr] gap-2 p-3 overflow-hidden"
+} style={{height:'calc(100vh - 64px)'}}>
 
 
-        {/* LEFT: TOP 3 CARDS */}
+        {/* LEFT: TOP 5 CARDS */}
         <div className={isMobile
           ? "flex flex-col gap-2"
-          : "grid gap-4 overflow-visible"
+          : "flex flex-col gap-2 overflow-hidden h-full"
         }>
-          {top3.length === 0 && (
+          {focusTop5Machines.length === 0 && (
             <div className="rounded-xl shadow p-4 text-sm flex items-center justify-center" style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1f1f1f', color: isLightMode ? '#374151' : '#9ca3af'}}>
               {t.noData || 'No Data'}
             </div>
           )}
-          {top3.map((m, idx) => (
+          {focusTop5Machines.map((m, idx) => (
             <div
               key={m.machineNo}
               onClick={() => setSelectedMachineNo(m.machineNo)}
-              className={`rounded-xl shadow p-4 border-l-4 cursor-pointer transition-all
+              className={`rounded-xl shadow border-l-4 cursor-pointer transition-all flex-1 min-h-0
   ${
     m.machineNo === selectedMachineNo ||
     (!selectedMachineNo && idx === 0)
@@ -5446,33 +5790,35 @@ const JATHFocusView = ({
   }
 `}
               style={{
+                padding: '8px 12px',
                 background: isLightMode
-                  ? (idx === 0 ? 'rgba(254,242,242,0.92)' : idx === 1 ? 'rgba(255,251,235,0.92)' : 'rgba(240,253,244,0.92)')
+                  ? (idx === 0 ? 'rgba(254,242,242,0.92)' : idx === 1 ? 'rgba(255,251,235,0.92)' : idx === 2 ? 'rgba(240,253,244,0.92)' : idx === 3 ? 'rgba(239,246,255,0.92)' : 'rgba(250,245,255,0.92)')
                   : '#1f1f1f',
                 borderColor:
                   idx === 0 ? '#DC2626' :
                   idx === 1 ? '#F59E0B' :
-                              '#16A34A',
+                  idx === 2 ? '#16A34A' :
+                  idx === 3 ? '#3B82F6' :
+                              '#8B5CF6',
               }}
             >
               <div className="flex items-center justify-between">
-                <div className="font-bold text-base" style={{color: isLightMode ? '#111827' : '#f1f5f9'}}>
+                <div className="font-semibold" style={{fontSize:12, color: isLightMode ? '#111827' : '#f1f5f9'}}>
                   #{idx + 1} {t.machine} : {m.machineNo}
                 </div>
                 {m.machineNo === selectedMachineNo && (
-                  <span className="critical-badge">
+                  <span className="critical-badge" style={{fontSize:9, padding:'2px 7px'}}>
                     CRITICAL
                   </span>
                 )}
               </div>
-              <div className="text-sm mt-1" style={{color: isLightMode ? '#6b7280' : '#9ca3af'}}>
+              <div style={{fontSize:11, color: isLightMode ? '#6b7280' : '#9ca3af', marginTop:2}}>
                 {t.line} : {m.line}
               </div>
-              <div className="text-sm mt-2" style={{color: isLightMode ? '#374151' : '#cbd5e1'}}>
-                {t.totalTime} : <b style={{color: isLightMode ? '#b91c1c' : '#fca5a5'}}>{Math.round(m.downtime)}</b> {t.min}
-              </div>
-              <div className="text-sm" style={{color: isLightMode ? '#374151' : '#cbd5e1'}}>
-                {t.avgTime} : <b style={{color: isLightMode ? '#b91c1c' : '#fca5a5'}}>{Math.round(m.avg)}</b> {t.min}
+              <div style={{fontSize:11, color: isLightMode ? '#374151' : '#cbd5e1', marginTop:3}}>
+                {t.totalTime} : <b style={{color: isLightMode ? '#b91c1c' : '#fca5a5'}}>{(m.downtime/60).toFixed(2)}</b> {t.min}
+                &nbsp;|&nbsp;
+                {t.avgTime} : <b style={{color: isLightMode ? '#b91c1c' : '#fca5a5'}}>{(m.avg/60).toFixed(2)}</b> {t.min}
               </div>
             </div>
           ))}
@@ -5481,21 +5827,90 @@ const JATHFocusView = ({
         {/* RIGHT: DETAIL PANEL */}
         <div className={isMobile
           ? "rounded-xl shadow p-3 flex flex-col gap-3"
-          : "rounded-xl shadow p-4 grid grid-rows-[16px_1fr] gap-4 overflow-hidden"
-        } style={{background: isLightMode ? 'rgba(248,250,255,0.92)' : '#161616'}}>
+          : "rounded-xl shadow p-4 flex flex-col gap-3 overflow-hidden"
+        } style={{background: isLightMode ? 'rgba(248,250,255,0.92)' : '#161616', height:'100%'}}>
 
-          <div className="font-bold text-base" style={{color: isLightMode ? '#111827' : '#f1f5f9', display: isMobile ? 'none' : undefined}}>
-            {t.jathDetail}
+          <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:6, flexShrink:0,
+            padding:'8px 12px', borderRadius:10, marginBottom:2,
+            background: isLightMode ? 'rgba(219,234,254,0.40)' : 'rgba(255,255,255,0.04)',
+            border: isLightMode ? '1px solid rgba(160,200,240,0.35)' : '1px solid #2a2a2a'
+          }}>
+            <div className="font-bold text-base" style={{color: isLightMode ? '#111827' : '#f1f5f9'}}>
+              {t.jathDetail}
+            </div>
+            {/* Focus Filters - Multi-select checkbox dropdowns */}
+            <div style={{display:'flex', gap:6, flexWrap:'wrap', alignItems:'center'}} onMouseDown={e => e.stopPropagation()}>
+              {[
+                { key:'status', label: lang==='TH'?'Status RC':lang==='JP'?'Status RC':'Status RC',
+                  opts: focusStatusRCOpts, val: focusStatusRC, set: setFocusStatusRC },
+                { key:'line',   label: lang==='TH'?'Line':lang==='JP'?'ライン':'Line',
+                  opts: focusLineOptions,  val: focusLine,     set: setFocusLine },
+                { key:'month',  label: lang==='TH'?'เดือน':lang==='JP'?'月':'Month',
+                  opts: focusMonthOptions, val: focusMonth,    set: setFocusMonth },
+              ].map(({ key, label, opts, val, set }) => (
+                <div key={key} style={{position:'relative'}} onMouseDown={e => e.stopPropagation()}>
+                  <button
+                    onMouseDown={e => { e.stopPropagation(); setOpenDd(prev => prev === key ? null : key); }}
+                    style={{
+                      display:'flex', alignItems:'center', gap:5,
+                      background: val.length > 0 ? (isLightMode ? '#1d4ed8' : '#E50914') : (isLightMode ? 'rgba(255,255,255,0.85)' : '#2a2a2a'),
+                      color: val.length > 0 ? '#fff' : (isLightMode ? '#0f172a' : '#e5e5e5'),
+                      border: `1px solid ${val.length > 0 ? 'transparent' : (isLightMode ? 'rgba(160,200,240,0.6)' : '#3a3a3a')}`,
+                      borderRadius: 8, padding: '4px 10px', fontSize: 11, cursor:'pointer',
+                      outline:'none', whiteSpace:'nowrap', fontFamily:'Sarabun, sans-serif',
+                      boxShadow: val.length > 0 ? (isLightMode ? '0 0 8px rgba(29,78,216,0.3)' : '0 0 8px rgba(229,9,20,0.4)') : 'none'
+                    }}
+                  >
+                    {label}{val.length > 0 ? ` (${val.length})` : ''} <span style={{fontSize:9, marginLeft:2}}>▼</span>
+                  </button>
+                  {openDd === key && (
+                    <div onMouseDown={e => e.stopPropagation()} style={{
+                      position:'absolute', top:'calc(100% + 4px)', left:0, zIndex:9999,
+                      background: isLightMode ? '#ffffff' : '#1e1e1e',
+                      border: `1px solid ${isLightMode ? 'rgba(160,200,240,0.6)' : '#3a3a3a'}`,
+                      borderRadius: 10, padding:'6px 4px', minWidth:170, maxHeight:220,
+                      overflowY:'auto', boxShadow: isLightMode ? '0 8px 24px rgba(60,100,200,0.15)' : '0 8px 24px rgba(0,0,0,0.7)'
+                    }}>
+                      <div style={{display:'flex', gap:8, padding:'2px 10px 6px', borderBottom:`1px solid ${isLightMode?'rgba(0,0,0,0.08)':'rgba(255,255,255,0.06)'}`, marginBottom:4}}>
+                        <span onMouseDown={() => set([...opts])} style={{fontSize:10, cursor:'pointer', color: isLightMode?'#1d4ed8':'#E50914', fontWeight:700}}>{lang==='TH'?'ทั้งหมด':'All'}</span>
+                        <span style={{color: isLightMode?'#ccc':'#555'}}>|</span>
+                        <span onMouseDown={() => set([])} style={{fontSize:10, cursor:'pointer', color: isLightMode?'#6b7280':'#9ca3af', fontWeight:700}}>{lang==='TH'?'ล้าง':'Clear'}</span>
+                      </div>
+                      {opts.map(o => (
+                        <label key={o} onMouseDown={e => e.stopPropagation()} style={{
+                          display:'flex', alignItems:'center', gap:8, padding:'5px 10px',
+                          cursor:'pointer', borderRadius:6, fontSize:11,
+                          color: isLightMode ? '#111827' : '#e5e5e5',
+                          background: val.includes(o) ? (isLightMode?'rgba(219,234,254,0.7)':'rgba(229,9,20,0.12)') : 'transparent',
+                          userSelect:'none'
+                        }}>
+                          <input type="checkbox" checked={val.includes(o)}
+                            onChange={() => set(prev => prev.includes(o) ? prev.filter(x => x !== o) : [...prev, o])}
+                            style={{accentColor: isLightMode?'#1d4ed8':'#E50914', width:13, height:13, cursor:'pointer'}} />
+                          {o}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {(focusStatusRC.length > 0 || focusLine.length > 0 || focusMonth.length > 0) && (
+                <button onMouseDown={() => { setFocusStatusRC([]); setFocusLine([]); setFocusMonth([]); setOpenDd(null); }}
+                  style={{background: isLightMode ? '#dc2626' : '#E50914', color:'#fff', border:'none', borderRadius:8,
+                    padding:'4px 10px', fontSize:11, cursor:'pointer', fontWeight:600, fontFamily:'Sarabun, sans-serif'
+                  }}>{lang==='TH'?'รีเซ็ต':lang==='JP'?'リセット':'Reset'}</button>
+              )}
+            </div>
           </div>
 
           <div className={isMobile
             ? "flex flex-col gap-3 text-sm"
-            : "grid grid-cols-2 gap-4 auto-rows-fr text-sm h-full"
-          } style={{color: isLightMode ? '#374151' : '#cbd5e1'}}>
+            : "grid grid-cols-2 gap-4 text-sm overflow-hidden"
+          } style={{color: isLightMode ? '#374151' : '#cbd5e1', flex:1, minHeight:0}}>
 
 
 {/* Main Failure */}
-<div className={`rounded-xl px-5 pb-5 pt-2 flex flex-col ${isMobile ? "" : "min-h-[180px]"}`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a'}}>
+<div className={`rounded-xl px-4 pb-4 pt-2 flex flex-col`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a', overflow:'hidden', minHeight:0}}>
   {/* Header */}
   <div className="text-sm font-bold mb-1 flex items-center gap-2 uppercase tracking-wide" style={{color: isLightMode ? '#374151' : '#9ca3af',letterSpacing:"0.08em"}}>
     <span className="inline-flex items-center justify-center w-7 h-7 rounded-full" style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#dc2626' : '#E50914'}}>
@@ -5508,7 +5923,7 @@ const JATHFocusView = ({
     {/* LEFT: DONUT */}
     <div className="flex items-center justify-center overflow-visible">
       <FocusDonut
-        data={focusParetoTop3.map(d => ({ name: d.name, value: d.value }))}
+        data={focusParetoTop3.map(d => ({ name: d.name, value: d.value / 60 }))}
         valueKey="value"
         colors={getChartTheme(isLightMode).focusColors}
         unit={t.min}
@@ -5530,7 +5945,7 @@ const JATHFocusView = ({
                 </span>
                 <span>{d.name}</span>
                 <span className="ml-2 text-xs" style={{color: isLightMode ? '#6b7280' : '#64748b'}}>
-                  {Math.round(d.value)} {t.min}
+                  {(d.value/60).toFixed(2)} {t.min}
                 </span>
               </li>
               {i < focusParetoTop3.length - 1 && (
@@ -5547,7 +5962,7 @@ const JATHFocusView = ({
 </div>
 
             {/* Long Repair Reason */}
-            <div className={`rounded-xl px-5 pb-5 pt-2 flex flex-col ${isMobile ? "" : "min-h-[180px]"}`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a'}}>
+            <div className={`rounded-xl px-4 pb-4 pt-2 flex flex-col`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a', overflow:'hidden', minHeight:0}}>
   {/* Header */}
   <div className="text-sm font-bold mb-1 flex items-center gap-2 uppercase tracking-wide" style={{color: isLightMode ? '#374151' : '#9ca3af',letterSpacing:"0.08em"}}>
                 <span className="inline-flex items-center justify-center w-7 h-7 rounded-full" style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: '#F59E0B'}}>
@@ -5582,7 +5997,7 @@ const JATHFocusView = ({
                             </span>
                             <span>{d.name}</span>
                             <span className="ml-2 text-xs" style={{color: isLightMode ? '#6b7280' : '#64748b'}}>
-                              {Math.round((d.count / (focusLongReasonTotal || 1)) * 100)}%
+                              {Math.round((d.count / (focusLongReasonTop3.reduce((s,x)=>s+x.count,0) || 1)) * 100)}%
                             </span>
                           </li>
                           {i < focusLongReasonTop3.length - 1 && (
@@ -5599,7 +6014,7 @@ const JATHFocusView = ({
             </div>
 
             {/* Failure Category */}
-            <div className={`rounded-xl px-5 pb-5 pt-2 flex flex-col ${isMobile ? "" : "h-[36vh]"}`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a'}}>
+            <div className={`rounded-xl px-4 pb-4 pt-2 flex flex-col`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a', overflow:'hidden', minHeight:0}}>
   {/* Header */}
   <div className="text-sm font-bold mb-1 flex items-center gap-2 uppercase tracking-wide" style={{color: isLightMode ? '#374151' : '#9ca3af',letterSpacing:"0.08em"}}>
                 <span className="inline-flex items-center justify-center w-7 h-7 rounded-full" style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: '#6366F1'}}>
@@ -5650,7 +6065,7 @@ const JATHFocusView = ({
               </div>
             </div>
             {/* Recurrent Problems */}
-           <div className={`rounded-xl px-5 pb-5 pt-2 flex flex-col ${isMobile ? "" : "h-[36vh]"}`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a'}}>
+           <div className={`rounded-xl px-4 pb-4 pt-2 flex flex-col`} style={{background: isLightMode ? 'rgba(255,255,255,0.80)' : '#1a1a1a', border: isLightMode ? '1px solid rgba(180,210,240,0.50)' : '1px solid #2a2a2a', overflow:'hidden', minHeight:0}}>
 
   {/* Header */}
  <div className="text-sm font-bold mb-1 flex items-center gap-2 uppercase tracking-wide" style={{color: isLightMode ? '#374151' : '#9ca3af',letterSpacing:"0.08em"}}>
