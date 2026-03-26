@@ -1059,7 +1059,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 25/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 26/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1121,7 +1121,7 @@ body.jath-mode .critical-card::after {
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 25/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 26/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1184,7 +1184,7 @@ body.jath-mode .critical-card::after {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年25月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年26月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -2862,13 +2862,15 @@ const mtbfTotalByMonth = useMemo(() => {
     return sumMc > 0 ? +(sumWeighted / sumMc).toFixed(2) : 0;
   };
 
-  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
-  return allMonths.map(month => ({
+  const activeMonthsTotal = chartClickMonth
+    ? [chartClickMonth]
+    : selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  return activeMonthsTotal.map(month => ({
     month,
     mtbfMachining: calcGroupMtbf(month, MTBF_MACHINING),
     mtbfAssy:      calcGroupMtbf(month, MTBF_ASSY_LINES),
   })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
-}, [rawData, applyAllFilters, operationData, selectedMonths]);
+}, [rawData, applyAllFilters, operationData, selectedMonths, chartClickMonth]);
 
 const mtbfByMonth = useMemo(() => {
 
@@ -2982,6 +2984,10 @@ operationData.forEach(o => {
 
   Object.values(monthLineMap).forEach(({ month, line, machineCounts }) => {
 
+    // ถ้า filter เดือนอยู่ → ข้ามเดือนที่ไม่ได้เลือก
+    if (selectedMonths.length > 0 && !selectedMonths.includes(month)) return;
+    if (chartClickMonth && month !== chartClickMonth) return;
+
     const opKey = `${month}|${line}`;
     const opInfo = opMap[opKey];
     if (!opInfo || opInfo.opTime === 0) return;
@@ -3015,6 +3021,10 @@ operationData.forEach(o => {
 Object.entries(opMap).forEach(([key, opInfo]) => {
   const [month, line] = key.split('|');
 
+  // ถ้า filter เดือนอยู่ → ข้ามเดือนที่ไม่ได้เลือก
+  if (selectedMonths.length > 0 && !selectedMonths.includes(month)) return;
+  if (chartClickMonth && month !== chartClickMonth) return;
+
   // ถ้ามีค่า MTBF จากสูตรเดิมแล้ว → ข้าม
   if (monthMap[month]?.[line] !== undefined) return;
 
@@ -3029,21 +3039,26 @@ Object.entries(opMap).forEach(([key, opInfo]) => {
   /* ===============================
      5) FILL EMPTY MONTHS (กันกราฟขาด)
   =============================== */
-  const allMonths =
-    selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  const activeMonths = chartClickMonth
+    ? [chartClickMonth]
+    : selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
 
-  allMonths.forEach(m => {
+  activeMonths.forEach(m => {
     if (!monthMap[m]) {
       monthMap[m] = { month: m };
       MTBF_LINES.forEach(l => (monthMap[m][l] = 0));
     }
   });
 
-  return Object.values(monthMap).sort(
+  const filteredMonthMap = Object.fromEntries(
+    Object.entries(monthMap).filter(([m]) => activeMonths.includes(m))
+  );
+
+  return Object.values(filteredMonthMap).sort(
     (a, b) => parseMonth(a.month) - parseMonth(b.month)
   );
 
-}, [rawData, applyAllFilters, operationData, selectedLines, selectedMachines, selectedMonths]);
+}, [rawData, applyAllFilters, operationData, selectedLines, selectedMachines, selectedMonths, chartClickMonth]);
 
 
 
@@ -4043,6 +4058,7 @@ onDragOver={handleDragOver}
           data={(() => {
             let d = mtbfByMonth;
             if (selectedMonths.length > 0) d = d.filter(r => selectedMonths.includes(r.month));
+            if (chartClickMonth) d = d.filter(r => r.month === chartClickMonth);
             return d;
           })()}
           style={{ cursor: 'pointer' }}>
