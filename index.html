@@ -3051,6 +3051,39 @@ const over1hByMonth = useMemo(() => {
   })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
 }, [rawData, applyAllFilters, selectedMonths]);
 
+// Over 1 hour breakdown count per individual line per month (for line chart when filtered)
+const OVER1H_LINES = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'];
+const OVER1H_ASSY_GROUP = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy'];
+
+const over1hByLine = useMemo(() => {
+  const source = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (source.length === 0) return [];
+
+  const map = {};
+  source.forEach(d => {
+    if (!d.month || d.bdTime <= 60) return;
+    const lineKey = OVER1H_ASSY_GROUP.includes(d.lineName) ? 'Gear Assy' : d.lineName;
+    if (!OVER1H_LINES.includes(lineKey)) return;
+    const key = `${d.month}|${lineKey}`;
+    if (!map[key]) map[key] = { month: d.month, line: lineKey, count: 0 };
+    map[key].count += 1;
+  });
+
+  const monthMap = {};
+  Object.values(map).forEach(r => {
+    if (!monthMap[r.month]) monthMap[r.month] = { month: r.month };
+    monthMap[r.month][r.line] = r.count;
+  });
+
+  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  allMonths.forEach(m => {
+    if (!monthMap[m]) monthMap[m] = { month: m };
+    OVER1H_LINES.forEach(l => { if (monthMap[m][l] === undefined) monthMap[m][l] = 0; });
+  });
+
+  return Object.values(monthMap).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
+}, [rawData, applyAllFilters, selectedMonths]);
+
 const mtbfTotalByMonth = useMemo(() => {
   const MTBF_MACHINING = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
   const MTBF_ASSY_LINES = ['Gear Assy'];
@@ -4246,12 +4279,13 @@ onDragOver={handleDragOver}
 </div>
 
   {/* Over 1 Hour Breakdown Count */}
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
     <h3 className="text-lg font-bold text-gray-800 mb-4">
-      {lang==='TH' ? 'จำนวน Breakdown ที่เกิน 1 ชั่วโมง' : lang==='JP' ? '1時間以上の故障件数' : 'Over 1 Hour Breakdown Count'}
+      {lang==='TH' ? 'จำนวน Breakdown ที่เกิน 1 ชั่วโมง (ครั้ง)' : lang==='JP' ? '1時間以上の故障件数 (件数)' : 'Over 1 Hour Breakdown (Count)'}
     </h3>
     <div style={{height: '274px'}}>
       <ResponsiveContainer width="100%" height="100%">
+        {(selectedLines.length === 0 && !chartClickLine) ? (
         <BarChart data={over1hByMonth}
           margin={{ top: 20, right: isMobile ? 20 : 30, bottom: 10, left: isMobile ? 6 : 10 }}
           barCategoryGap="30%" barGap={4}>
@@ -4281,10 +4315,37 @@ onDragOver={handleDragOver}
             <LabelList dataKey="machining" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
           <Bar dataKey="assy" name="Assy Line" barSize={isMobile ? 14 : 22} radius={[6,6,0,0]}
-            fill={isLightMode ? '#34C759' : '#F59E0B'}>
+            fill={isLightMode ? '#FF9500' : '#F59E0B'}>
             <LabelList dataKey="assy" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
         </BarChart>
+        ) : (
+        <LineChart data={over1hByLine}
+          margin={{ top: 20, right: isMobile ? 30 : 45, bottom: 10, left: isMobile ? 20 : 10 }}
+          style={{ cursor: 'pointer' }}>
+          <CartesianGrid vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis allowDecimals={false} width={isMobile ? 30 : 40} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'count', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
+            onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
+          {OVER1H_LINES.map((line) => {
+            const isSelected = selectedLines.length === 0 || selectedLines.includes(line);
+            const isHighlight = chartClickLine ? chartClickLine === line : isSelected;
+            const dimmed = !isHighlight;
+            return (
+              <Line key={line} dataKey={line}
+                stroke={getLineColorMap(isLightMode)[line]} color={getLineColorMap(isLightMode)[line]}
+                strokeWidth={isHighlight && (chartClickLine === line || selectedLines.includes(line)) ? 4 : 2.5}
+                dot={false} activeDot={{ r: 6 }} type="linear" connectNulls
+                strokeOpacity={dimmed ? 0.12 : 1} style={{ cursor: 'pointer' }}
+                onClick={() => toggleChartFilter(setChartClickLine, chartClickLine, line)}
+              />
+            );
+          })}
+        </LineChart>
+        )}
       </ResponsiveContainer>
     </div>
   </div>
