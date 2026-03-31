@@ -1178,7 +1178,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             type: "Type (M/E)",
             paretoTitle: "Pareto Analysis: Main Problems",
             top5Title: "Top 5 Machine Breakdown (Count)",
-            lineAnalysisTitle: "Downtime by Line & Status with Recurrence Count",
+            lineAnalysisTitle: "Downtime by Line & Status with Recurrence",
             reasonTitle: "Main Reason for Long Time Repair",
             recurrentTitle: "Recurrent Problems",
             failureCategoryTitle: "Failure Category",
@@ -4629,7 +4629,7 @@ onDragOver={handleDragOver}
                                     dataKey="Temporary"
                                     stackId="status"
                                     name={lang==='TH' ? 'แก้ไขชั่วคราว' : lang==='JP' ? '一時対応' : 'Temporary'}
-                                    fill={isLightMode ? "#FF9500" : "#E50914"}
+                                    fill={isLightMode ? "#FF3B30" : "#E50914"}
                                     barSize={22}
                                     radius={[6, 6, 0, 0]}
                                   />
@@ -4638,7 +4638,7 @@ onDragOver={handleDragOver}
                                     type="monotone"
                                     dataKey="time"
                                     name={t.colTime}
-                                    stroke={isLightMode ? "#5856D6" : "#F59E0B"}
+                                    stroke={isLightMode ? "#FFCC00" : "#F59E0B"}
                                     strokeWidth={3}
                                     dot={false}
                                   />
