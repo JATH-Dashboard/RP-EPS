@@ -1481,8 +1481,8 @@ const getChartTheme = (isLight) => ({
     : ['#E50914','#B91C1C','#991B1B','#374151','#4B5563','#6B7280','#7C3AED','#2563EB','#0D9488','#16A34A'],
 
   paletteRecurrent: isLight
-    ? ['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF']
-    : ['#E50914','#B91C1C','#991B1B','#374151','#4B5563'],
+    ? ['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF','#5856D6','#AF52DE','#00C7BE','#FF2D55','#32ADE6']
+    : ['#E50914','#B91C1C','#991B1B','#374151','#4B5563','#6B7280','#7C3AED','#2563EB','#0D9488','#16A34A'],
 
   paletteDist: isLight
     ? ['#007AFF','#34C759','#FFCC00','#FF3B30']
@@ -3400,8 +3400,8 @@ const recurrentData = useMemo(() => {
     .filter(d => d.total > 1)
     .map(d => ({ name: d.name, repairDetail: d.repairDetail, count: d.total - 1 }))
     .sort((a, b) => b.count - a.count)
-    .slice(0, 5)
-    .map((d, i) => ({ ...d, color: palR[i % 5] }));
+    .slice(0, 10)
+    .map((d, i) => ({ ...d, color: palR[i % 10] }));
 }, [filteredData, isLightMode]);
 
 
@@ -4315,7 +4315,7 @@ onDragOver={handleDragOver}
             <LabelList dataKey="machining" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
           <Bar dataKey="assy" name="Assy Line" barSize={isMobile ? 14 : 22} radius={[6,6,0,0]}
-            fill={isLightMode ? '#FF9500' : '#F59E0B'}>
+            fill={isLightMode ? '#34C759' : '#F59E0B'}>
             <LabelList dataKey="assy" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
           </Bar>
         </BarChart>
@@ -5186,93 +5186,84 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
 
 </div>
 
-{/* === Failure Category Full === */}
+{/* === Recurrent Problems Full Width === */}
 <div className="grid grid-cols-1 gap-6 mb-6">
-  {/* 🔹 ซ้าย : Top 10 Failure Category */}
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-4">
-  {t.failureCategoryTitle}
-  {chartClickCategory && (() => {
-    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
-    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
-    if (!sel || total === 0) return null;
-    const pct = ((sel.count / total) * 100).toFixed(1);
-    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
-  })()}
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">
+  {t.recurrentTitle}
 </h3>
 
-    <div className="h-[320px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={failureCategoryCount}
-          margin={{ top: 20, right: isMobile ? 8 : 25, bottom: 20, left: isMobile ? 0 : 15 }}
-          style={{ cursor: 'pointer' }}
-          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
-        >
-          <CartesianGrid
-            vertical={false}
-            stroke={getChartTheme(isLightMode).grid}
-            strokeDasharray="2 6"
-          />
-          <XAxis
-            dataKey="name"
-            interval={0}
-            angle={-35}
-            textAnchor="end"
-            height={70}
-            tickMargin={16}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-            tickLine={false}
-          />
-          <YAxis
-            domain={[0, 'dataMax']}
-            tickCount={6}
-            padding={{ top: 0, bottom: 0 }}
-            allowDecimals={false}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-            tickLine={false}
-            width={isMobile ? 34 : 52}
-            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-          />
-          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
-            if (!active || !payload || !payload.length) return null;
-            const ct = getChartTheme(isLightMode);
-            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
-            const entry = payload.find(p => p.dataKey === 'count');
-            const totalVal = entry?.value || 0;
-            const barColor = entry?.payload?.color || ct.paletteFailure?.[0] || '#6366f1';
+  <div style={{height: '340px'}}>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={recurrentData} style={{ cursor: 'pointer' }}
+        margin={{ top: 24, right: isMobile ? 8 : 10, bottom: isMobile ? 80 : 0, left: isMobile ? 18 : 10 }}
+        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.repairDetail; toggleChartFilter(setChartClickRepairDetail, chartClickRepairDetail, v); } }}>
+        <CartesianGrid stroke="rgba(255,255,255,0.18)" strokeDasharray="2 6" vertical={false} />
+        <XAxis
+          dataKey="name"
+          interval={0}
+          height={isMobile ? 70 : 95}
+          tickMargin={8}
+          tick={({ x, y, payload }) => {
+            const text = payload.value || '';
+            if (isMobile) {
+              const line1 = text.slice(0, 20);
+              const rest = text.slice(20);
+              const line2 = rest.length === 0 ? '' : rest.length > 20 ? rest.slice(0, 19) + '…' : rest;
+              return (
+                <g transform={`translate(${x},${y})`}>
+                  <text textAnchor="end" fontSize={8} fill={getChartTheme(isLightMode).axis} transform="rotate(-45)">
+                    <tspan x={0} dy={4}>{line1}</tspan>
+                    {line2 && <tspan x={0} dy={10}>{line2}</tspan>}
+                  </text>
+                </g>
+              );
+            }
+            const wrapText = (str, maxLen = 20) => {
+              const words = str.split(' ');
+              const lines = [];
+              let current = '';
+              words.forEach(w => {
+                if ((current + ' ' + w).trim().length <= maxLen) { current = current ? current + ' ' + w : w; }
+                else { lines.push(current); current = w; }
+              });
+              if (current) lines.push(current);
+              if (lines.length > 3) { lines.length = 3; lines[2] = lines[2] + '…'; }
+              return lines;
+            };
+            const lines = wrapText(text);
             return (
-              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:130,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
-                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
-                <div style={{display:'flex',alignItems:'center',gap:6}}>
-                  <div style={{width:8,height:8,borderRadius:'50%',background:barColor,flexShrink:0}}/>
-                  <div style={{color:ct.itemColor}}>{lang==='TH'?'จำนวน':lang==='JP'?'件数':'Count'}: <b style={{color:ct.labelColor}}>{totalVal}{cntSuffix}</b></div>
-                </div>
-              </div>
+              <g transform={`translate(${x},${y}) rotate(-35)`}>
+                <text textAnchor="end" fontSize={11} fill={getChartTheme(isLightMode).axis}>
+                  {lines.map((line, i) => <tspan key={i} x="0" dy={i === 0 ? 0 : 14}>{line}</tspan>)}
+                </text>
+              </g>
             );
-          }} />
-
-          <Bar
+          }}
+        />
+        <YAxis allowDecimals={false} domain={[0, 'dataMax']}
+          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
+          width={isMobile ? 38 : 52}
+          label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+        />
+        <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
+        <Bar dataKey="count" barSize={36} radius={[6, 6, 0, 0]}>
+          {recurrentData.map((entry, index) => (
+            <Cell key={`cell-${index}`}
+              fill={entry.color || getChartTheme(isLightMode).paletteRecurrent[index % 10]}
+              opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
+            />
+          ))}
+          <LabelList
             dataKey="count"
-            radius={[6, 6, 0, 0]}
-            barSize={22}
-            maxBarSize={32}
-          >
-            {failureCategoryCount.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
-                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
-              />
-            ))}
-            <LabelList dataKey="count" position="top" style={{ fontSize: 11, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+            position="top"
+            style={{ fontSize: 12, fontWeight: 700, fill: getChartTheme(isLightMode).axis }}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   </div>
-
+</div>
 </div>
 
 
@@ -5469,7 +5460,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
 
 
 
-{/* === ROW A: Repair Time Breakdown + Recurrent Problems === */}
+{/* === ROW A: Repair Time Breakdown + Failure Category === */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
  {/* Repair Time Breakdown */}
  <div className="netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a]">
@@ -5549,85 +5540,91 @@ return (
 </div>
 
 
-{/*Recurrent Problems (ปัญหาที่เกิดซ้ำ)*/}
-
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-        <h3 className="text-lg font-bold text-gray-800 mb-4">
-  {t.recurrentTitle}
+{/* 🔹 Failure Category (Half Width) */}
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+  {t.failureCategoryTitle}
+  {chartClickCategory && (() => {
+    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
+    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
+    if (!sel || total === 0) return null;
+    const pct = ((sel.count / total) * 100).toFixed(1);
+    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
+  })()}
 </h3>
 
-  <div style={{height: '304px'}}>
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={recurrentData} style={{ cursor: 'pointer' }}
-        margin={{ top: 24, right: isMobile ? 8 : 10, bottom: isMobile ? 80 : 0, left: isMobile ? 18 : 10 }}
-        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.repairDetail; toggleChartFilter(setChartClickRepairDetail, chartClickRepairDetail, v); } }}>
-        <CartesianGrid stroke="rgba(255,255,255,0.18)" strokeDasharray="2 6" vertical={false} />
-        <XAxis
-          dataKey="name"
-          interval={0}
-          height={isMobile ? 70 : 95}
-          tickMargin={8}
-          tick={({ x, y, payload }) => {
-            const text = payload.value || '';
-            if (isMobile) {
-              // รวม text ทั้งหมด แล้ว wrap ทุก 20 ตัวอักษร จำกัด 2 บรรทัด
-              const line1 = text.slice(0, 20);
-              const rest = text.slice(20);
-              const line2 = rest.length === 0 ? '' : rest.length > 20 ? rest.slice(0, 19) + '…' : rest;
-              return (
-                <g transform={`translate(${x},${y})`}>
-                  <text textAnchor="end" fontSize={8} fill={getChartTheme(isLightMode).axis} transform="rotate(-45)">
-                    <tspan x={0} dy={4}>{line1}</tspan>
-                    {line2 && <tspan x={0} dy={10}>{line2}</tspan>}
-                  </text>
-                </g>
-              );
-            }
-            const wrapText = (str, maxLen = 20) => {
-              const words = str.split(' ');
-              const lines = [];
-              let current = '';
-              words.forEach(w => {
-                if ((current + ' ' + w).trim().length <= maxLen) { current = current ? current + ' ' + w : w; }
-                else { lines.push(current); current = w; }
-              });
-              if (current) lines.push(current);
-              if (lines.length > 3) { lines.length = 3; lines[2] = lines[2] + '…'; }
-              return lines;
-            };
-            const lines = wrapText(text);
-            return (
-              <g transform={`translate(${x},${y}) rotate(-35)`}>
-                <text textAnchor="end" fontSize={11} fill={getChartTheme(isLightMode).axis}>
-                  {lines.map((line, i) => <tspan key={i} x="0" dy={i === 0 ? 0 : 14}>{line}</tspan>)}
-                </text>
-              </g>
-            );
-          }}
-        />
-        <YAxis allowDecimals={false} domain={[0, 'dataMax']}
-          tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 11 }}
-          width={isMobile ? 38 : 52}
-          label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-        />
-        <RechartsTooltip content={makeTooltip(isLightMode, 'count', lang)} cursor={{ fill: 'transparent' }} />
-        <Bar dataKey="count" barSize={36} radius={[6, 6, 0, 0]}>
-          {recurrentData.map((entry, index) => (
-            <Cell key={`cell-${index}`}
-              fill={entry.color || getChartTheme(isLightMode).paletteRecurrent[index % 5]}
-              opacity={chartClickMachine && chartClickMachine !== entry.name.split(':')[0].trim() ? 0.25 : 1}
-            />
-          ))}
-          <LabelList
-            dataKey="count"
-            position="top"
-            style={{ fontSize: 12, fontWeight: 700, fill: getChartTheme(isLightMode).axis }}
+    <div className="h-[320px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={failureCategoryCount}
+          margin={{ top: 20, right: isMobile ? 8 : 15, bottom: 20, left: isMobile ? 0 : 5 }}
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
+        >
+          <CartesianGrid
+            vertical={false}
+            stroke={getChartTheme(isLightMode).grid}
+            strokeDasharray="2 6"
           />
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+          <XAxis
+            dataKey="name"
+            interval={0}
+            angle={-35}
+            textAnchor="end"
+            height={70}
+            tickMargin={16}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
+            tickLine={false}
+          />
+          <YAxis
+            domain={[0, 'dataMax']}
+            tickCount={6}
+            padding={{ top: 0, bottom: 0 }}
+            allowDecimals={false}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
+            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+            tickLine={false}
+            width={isMobile ? 34 : 42}
+            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+          />
+          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+            const entry = payload.find(p => p.dataKey === 'count');
+            const totalVal = entry?.value || 0;
+            const barColor = entry?.payload?.color || ct.paletteFailure?.[0] || '#6366f1';
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:130,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:barColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lang==='TH'?'จำนวน':lang==='JP'?'件数':'Count'}: <b style={{color:ct.labelColor}}>{totalVal}{cntSuffix}</b></div>
+                </div>
+              </div>
+            );
+          }} />
+
+          <Bar
+            dataKey="count"
+            radius={[6, 6, 0, 0]}
+            barSize={18}
+            maxBarSize={26}
+          >
+            {failureCategoryCount.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
+                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
+              />
+            ))}
+            <LabelList dataKey="count" position="top" style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   </div>
-</div>
+
 </div>
 
 {/* === ROW B: Main Reason for Long Time Repair + Status Longtime P.I.C === */}
