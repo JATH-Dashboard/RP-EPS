@@ -509,6 +509,23 @@ body.light-mode .netflix-card .text-white { color: var(--lm-text-main) !importan
 /* ── MISC fixes ────────────────────────────────────────── */
 body.light-mode .bg-gray-100 { background: #f9fafb !important; }
 body.light-mode .shadow-sm { box-shadow: var(--lm-card-shadow) !important; }
+
+/* ═══ HAMBURGER MENU ═══ */
+.hamburger-menu-backdrop {
+  transition: opacity 0.3s ease;
+}
+.hamburger-sidebar {
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.hamburger-sidebar button:hover {
+  filter: brightness(1.1);
+}
+body.light-mode .hamburger-sidebar button:hover {
+  background: rgba(29,78,216,0.08) !important;
+}
+body:not(.light-mode) .hamburger-sidebar button:hover {
+  background: rgba(229,9,20,0.12) !important;
+}
     </style>
    <style>
 /* ===== NETFLIX DARK DASHBOARD (UI ONLY) ===== */
@@ -1001,10 +1018,33 @@ body.jath-mode .critical-card::after {
   }
 }
 
+/* ═══ LINE CHART TOGGLE BUTTONS – force color override ═══ */
+body:not(.light-mode) button.line-toggle-btn.active-toggle {
+  background: #E50914 !important;
+  color: #ffffff !important;
+  border-color: #E50914 !important;
+  box-shadow: 0 0 10px rgba(229,9,20,0.4) !important;
+}
+body:not(.light-mode) button.line-toggle-btn.inactive-toggle {
+  background: transparent !important;
+  color: #E50914 !important;
+  border: 1px solid rgba(229,9,20,0.5) !important;
+  box-shadow: none !important;
+}
+body.light-mode button.line-toggle-btn.active-toggle {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 0 10px rgba(29,78,216,0.35) !important;
+}
+body.light-mode button.line-toggle-btn.inactive-toggle {
+  background: transparent !important;
+  color: #1d4ed8 !important;
+  border: 1px solid rgba(29,78,216,0.5) !important;
+  box-shadow: none !important;
+}
+
 </style>
-
-
-
 </head>
 <body class="text-slate-900">
     
@@ -1059,7 +1099,7 @@ body.jath-mode .critical-card::after {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 26/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 31/3/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1119,9 +1159,13 @@ body.jath-mode .critical-card::after {
             jathAction: "แผนการแก้ไข",
             back: "กลับหน้าหลัก",
             repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
+            menuKPI: "KPI",
+            menuFocus: "Focus Mode",
+            menuAnalysis: "Analysis",
+            menuTitle: "เมนู",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 26/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 31/3/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1181,10 +1225,14 @@ body.jath-mode .critical-card::after {
             jathAction: "Action Plan",
             back: "Back to Dashboard",
             repairBreakdownTitle: "[Under Improvement] Repair time breakdown (Over 1 hour)",
+            menuKPI: "KPI",
+            menuFocus: "Focus Mode",
+            menuAnalysis: "Analysis",
+            menuTitle: "Menu",
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年26月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年31月3日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1244,6 +1292,10 @@ body.jath-mode .critical-card::after {
             jathAction: "対応アクション",
             back: "ダッシュボードに戻る",
             repairBreakdownTitle: "【改善対応中】修理時間の内訳（1時間以上）",
+            menuKPI: "KPI",
+            menuFocus: "フォーカスモード",
+            menuAnalysis: "分析",
+            menuTitle: "メニュー",
         }
         };
 // 🔹 Universal Tooltip Dictionary (ไม่กระทบ logic)
@@ -1327,6 +1379,36 @@ const REASON_I18N = {
     TH: "อื่นๆ",
     EN: "Other",
     JP: "その他"
+  },
+  "Work Ability": {
+    TH: "ความสามารถในการซ่อม",
+    EN: "Work Ability",
+    JP: "作業能力"
+  },
+  "Spare Part": {
+    TH: "อะไหล่",
+    EN: "Spare Part",
+    JP: "スペアパーツ"
+  },
+  "Tools": {
+    TH: "เครื่องมือ",
+    EN: "Tools",
+    JP: "工具"
+  },
+  "Pending Data": {
+    TH: "รอข้อมูล",
+    EN: "Pending Data",
+    JP: "データ待ち"
+  },
+  "Setting Ability": {
+    TH: "ความสามารถในการตั้งค่า",
+    EN: "Setting Ability",
+    JP: "設定能力"
+  },
+  "Back up": {
+    TH: "เครื่องจักรสำรอง",
+    EN: "Back up",
+    JP: "予備機"
   }
 };
 
@@ -1762,11 +1844,135 @@ const renderParetoTick = ({ x, y, payload }) => {
           </button>
         );
 
+        // ═══════════════════════════════════════════
+        // 🍔 HAMBURGER MENU COMPONENT
+        // ═══════════════════════════════════════════
+        const HamburgerMenu = ({ isOpen, onClose, currentPage, setCurrentPage, t, isLightMode }) => {
+          const menuItems = [
+            { key: 'KPI', icon: '📊', label: t.menuKPI },
+            { key: 'FOCUS', icon: '🎯', label: t.menuFocus },
+            { key: 'ANALYSIS', icon: '🔬', label: t.menuAnalysis },
+          ];
+
+          return React.createElement(React.Fragment, null,
+            // Backdrop
+            isOpen && React.createElement('div', {
+              onClick: onClose,
+              style: {
+                position: 'fixed', inset: 0, zIndex: 9998,
+                background: 'rgba(0,0,0,0.5)',
+                backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
+                transition: 'opacity 0.3s ease',
+                opacity: isOpen ? 1 : 0,
+              }
+            }),
+            // Sidebar
+            React.createElement('div', {
+              style: {
+                position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 9999,
+                width: '280px',
+                transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
+                transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
+                background: isLightMode
+                  ? 'rgba(248,252,255,0.97)'
+                  : 'linear-gradient(180deg, #1a1a1a, #111)',
+                borderRight: isLightMode
+                  ? '1px solid rgba(180,210,240,0.55)'
+                  : '1px solid #2a2a2a',
+                boxShadow: isOpen ? '8px 0 32px rgba(0,0,0,0.3)' : 'none',
+                display: 'flex', flexDirection: 'column',
+                fontFamily: "'Sarabun', sans-serif",
+              }
+            },
+              // Menu header
+              React.createElement('div', {
+                style: {
+                  padding: '20px 20px 16px',
+                  borderBottom: isLightMode ? '1px solid rgba(180,210,240,0.40)' : '1px solid #2a2a2a',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                }
+              },
+                React.createElement('span', {
+                  style: {
+                    fontSize: 16, fontWeight: 700,
+                    color: isLightMode ? '#0f172a' : '#f1f5f9',
+                    letterSpacing: '0.02em',
+                  }
+                }, t.menuTitle || 'Menu'),
+                React.createElement('button', {
+                  onClick: onClose,
+                  style: {
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    color: isLightMode ? '#64748b' : '#9ca3af',
+                    fontSize: 22, lineHeight: 1, padding: '4px',
+                  }
+                }, '✕')
+              ),
+              // Menu items
+              React.createElement('nav', { style: { padding: '12px 10px', flex: 1 } },
+                menuItems.map(item =>
+                  React.createElement('button', {
+                    key: item.key,
+                    onClick: () => { setCurrentPage(item.key); onClose(); },
+                    style: {
+                      display: 'flex', alignItems: 'center', gap: 14,
+                      width: '100%', padding: '14px 16px', marginBottom: 4,
+                      borderRadius: 12, border: 'none', cursor: 'pointer',
+                      fontSize: 15, fontWeight: currentPage === item.key ? 700 : 500,
+                      fontFamily: "'Sarabun', sans-serif",
+                      transition: 'all 0.18s ease',
+                      background: currentPage === item.key
+                        ? (isLightMode ? 'rgba(29,78,216,0.10)' : 'rgba(229,9,20,0.15)')
+                        : 'transparent',
+                      color: currentPage === item.key
+                        ? (isLightMode ? '#1d4ed8' : '#E50914')
+                        : (isLightMode ? '#334155' : '#d1d5db'),
+                      borderLeft: currentPage === item.key
+                        ? (isLightMode ? '3px solid #1d4ed8' : '3px solid #E50914')
+                        : '3px solid transparent',
+                    }
+                  },
+                    React.createElement('span', { style: { fontSize: 20, lineHeight: 1 } }, item.icon),
+                    React.createElement('span', null, item.label)
+                  )
+                )
+              )
+            )
+          );
+        };
+
+        // Hamburger button component
+        const HamburgerBtn = ({ onClick, isLightMode, isMobile }) => (
+          React.createElement('button', {
+            onClick: onClick,
+            style: {
+              background: isLightMode ? 'rgba(240,248,255,0.65)' : '#1f1f1f',
+              border: isLightMode ? '1px solid rgba(180,215,245,0.70)' : '1px solid #2a2a2a',
+              borderRadius: 8, cursor: 'pointer',
+              padding: isMobile ? '5px 7px' : '7px 9px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.2s ease',
+              color: isLightMode ? '#334155' : '#d1d5db',
+            }
+          },
+            React.createElement('svg', {
+              width: isMobile ? 18 : 22, height: isMobile ? 18 : 22,
+              viewBox: '0 0 24 24', fill: 'none',
+              stroke: 'currentColor', strokeWidth: 2.2,
+              strokeLinecap: 'round', strokeLinejoin: 'round',
+            },
+              React.createElement('line', { x1: 3, y1: 6, x2: 21, y2: 6 }),
+              React.createElement('line', { x1: 3, y1: 12, x2: 21, y2: 12 }),
+              React.createElement('line', { x1: 3, y1: 18, x2: 21, y2: 18 })
+            )
+          )
+        );
+
         // Main Dashboard Component
                      function Dashboard() {
 
 useEffect(() => {
-  if (viewMode === 'JATH') {
+  if (currentPage === 'FOCUS') {
     document.body.classList.add('jath-mode');
 
     if (document.documentElement.requestFullscreen) {
@@ -1779,9 +1985,20 @@ useEffect(() => {
       document.exitFullscreen().catch(() => {});
     }
   }
-}, [viewMode]);
+}, [currentPage]);
 
 const [viewMode, setViewMode] = useState('DASHBOARD');
+const [currentPage, setCurrentPage] = useState('KPI');
+const [menuOpen, setMenuOpen] = useState(false);
+const [showScrollTop, setShowScrollTop] = useState(false);
+
+// Scroll-to-top detection
+useEffect(() => {
+  if (currentPage !== 'ANALYSIS') { setShowScrollTop(false); return; }
+  const onScroll = () => setShowScrollTop(window.scrollY > 300);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  return () => window.removeEventListener('scroll', onScroll);
+}, [currentPage]);
 
 const handleDragOver = (e) => {
   e.preventDefault(); // 🔑 สำคัญมาก ไม่งั้น drop ไม่ทำงาน
@@ -2805,6 +3022,35 @@ const mttrTotalByMonth = useMemo(() => {
   })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
 }, [rawData, applyAllFilters, selectedMonths]);
 
+// Over 1 hour breakdown count by Machining / Assy per month
+const OVER1H_MACHINING = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
+const OVER1H_ASSY      = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy'];
+
+const over1hByMonth = useMemo(() => {
+  const source = applyAllFilters(rawData, { skip: ['chartLine', 'line'] });
+  if (source.length === 0) return [];
+
+  const mapMach = {};
+  const mapAssy = {};
+
+  source.forEach(d => {
+    if (!d.month || d.bdTime <= 60) return;
+    if (OVER1H_MACHINING.includes(d.lineName)) {
+      mapMach[d.month] = (mapMach[d.month] || 0) + 1;
+    }
+    if (OVER1H_ASSY.includes(d.lineName)) {
+      mapAssy[d.month] = (mapAssy[d.month] || 0) + 1;
+    }
+  });
+
+  const allMonths = selectedMonths.length > 0 ? selectedMonths : uniqueMonths;
+  return allMonths.map(month => ({
+    month,
+    machining: mapMach[month] || 0,
+    assy: mapAssy[month] || 0,
+  })).sort((a, b) => parseMonth(a.month) - parseMonth(b.month));
+}, [rawData, applyAllFilters, selectedMonths]);
+
 const mtbfTotalByMonth = useMemo(() => {
   const MTBF_MACHINING = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
   const MTBF_ASSY_LINES = ['Gear Assy'];
@@ -3687,11 +3933,11 @@ onDragOver={handleDragOver}
                 </div>
                 );
             }
-  return viewMode === 'JATH'
-  ? <JATHFocusView
+  if (currentPage === 'FOCUS') {
+    return <JATHFocusView
       lang={lang}
       setLang={setLang}
-      onBack={() => setViewMode('DASHBOARD')}
+      onBack={() => { setCurrentPage('KPI'); setViewMode('DASHBOARD'); }}
       top3={top3FocusMachines}
       topFailure={paretoData}
       topLongReason={pieReasonData}
@@ -3700,13 +3946,30 @@ onDragOver={handleDragOver}
       isLightMode={isLightMode}
       setIsLightMode={setIsLightMode}
       isMobile={isMobile}
-    />
-  : (
+      menuOpen={menuOpen}
+      setMenuOpen={setMenuOpen}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      t={t}
+    />;
+  }
+
+  return (
                 <div className="min-h-screen bg-gray-50 font-sans pb-12">
+                {/* Hamburger Menu */}
+                <HamburgerMenu
+                  isOpen={menuOpen}
+                  onClose={() => setMenuOpen(false)}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  t={t}
+                  isLightMode={isLightMode}
+                />
                 {/* Header */}
                 <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
                     <div className={`max-w-7xl mx-auto flex justify-between items-center ${isMobile ? 'px-3 py-2' : 'px-4 sm:px-6 lg:px-8 py-4'}`}>
                         <div className="flex items-center space-x-2">
+                            <HamburgerBtn onClick={() => setMenuOpen(true)} isLightMode={isLightMode} isMobile={isMobile} />
                             <div style={{background: isLightMode ? 'rgba(219,234,254,0.90)' : '#E50914', color: isLightMode ? '#1d4ed8' : '#ffffff'}} className={`rounded-lg ${isMobile ? 'p-1.5' : 'p-2'}`}>
                                 <Activity size={isMobile ? 18 : 24} />
                             </div>
@@ -3727,31 +3990,6 @@ onDragOver={handleDragOver}
                             </div>
                             {/* Theme Toggle */}
                             <ThemeToggleBtn isLight={isLightMode} onToggle={() => setIsLightMode(p => !p)} />
-                            <button
-                                onClick={() =>
-                                    setViewMode(viewMode === 'DASHBOARD' ? 'JATH' : 'DASHBOARD')
-                                }
-                                style={isLightMode ? {
-                                    backgroundColor: '#1d4ed8',
-                                    color: '#ffffff',
-                                    border: '1px solid #1d4ed8',
-                                    boxShadow:
-                                        viewMode === 'JATH'
-                                            ? '0 0 18px rgba(29,78,216,0.75)'
-                                            : '0 0 10px rgba(29,78,216,0.35)'
-                                } : {
-                                    backgroundColor: '#E50914',
-                                    color: '#ffffff',
-                                    border: '1px solid #E50914',
-                                    boxShadow:
-                                        viewMode === 'JATH'
-                                            ? '0 0 18px rgba(229,9,20,0.95)'
-                                            : '0 0 10px rgba(229,9,20,0.6)'
-                                }}
-                                className={`jath-focus-btn rounded-md font-bold transition-all ${isMobile ? 'ml-1 px-2 py-1 text-[10px]' : 'ml-3 px-3 py-1 text-xs'}`}
-                            >
-                                <span>◉ {isMobile ? 'Focus' : 'Focus mode'}</span>
-                            </button>
                             <button
                                 onClick={() => {
                                     setRawData([]);
@@ -3891,45 +4129,47 @@ onDragOver={handleDragOver}
 
                 <main className={`max-w-7xl mx-auto pt-2 ${isMobile ? 'px-2' : 'px-4 sm:px-6 lg:px-8 pt-3'}`}>
 
+                    {/* ═══ PAGE: KPI ═══ */}
+                    {currentPage === 'KPI' && (<React.Fragment>
                     {/* KPIs */}
-                    <div className={`grid mb-4 ${isMobile ? 'grid-cols-3 gap-2' : 'grid-cols-1 md:grid-cols-3 gap-6 mb-8'}`}>
+                    <div className={`grid mb-4 ${isMobile ? 'grid-cols-3 gap-2' : 'grid-cols-1 md:grid-cols-3 gap-4 mb-6'}`}>
                       {/* Total Count */}
-                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-6'}`}>
-                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-4 rounded-full mr-4'}`}>
-                          <Settings size={isMobile ? 16 : 28} />
+                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-3'}`}>
+                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-3 rounded-full mr-3'}`}>
+                          <Settings size={isMobile ? 16 : 20} />
                         </div>
                         <div className="min-w-0">
-                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-sm'}`}>{t.totalCount}</p>
-                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-3xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{kpi.totalCount}</h3>
+                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{t.totalCount}</p>
+                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-2xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{kpi.totalCount}</h3>
                           <span className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{t.times}</span>
                         </div>
                       </div>
                       {/* Total Time */}
-                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-6'}`}>
-                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-4 rounded-full mr-4'}`}>
-                          <Clock size={isMobile ? 16 : 28} />
+                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-3'}`}>
+                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-3 rounded-full mr-3'}`}>
+                          <Clock size={isMobile ? 16 : 20} />
                         </div>
                         <div className="min-w-0">
-                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-sm'}`}>{t.totalTime}</p>
-                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-3xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{(kpi.totalTime / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</h3>
+                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{t.totalTime}</p>
+                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-2xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{(kpi.totalTime / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</h3>
                           <span className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{lang === 'TH' ? 'ชม.' : lang === 'JP' ? '時間' : 'hr.'}</span>
                         </div>
                       </div>
                       {/* Avg Time */}
-                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-6'}`}>
-                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-4 rounded-full mr-4'}`}>
-                          <Activity size={isMobile ? 16 : 28} />
+                      <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] flex items-center hover:scale-[1.02] transition-transform ${isMobile ? 'p-3' : 'p-3'}`}>
+                        <div style={{background: isLightMode ? 'rgba(219,234,254,0.85)' : '#2a2a2a', color: isLightMode ? '#1d4ed8' : '#E50914'}} className={`rounded-full ${isMobile ? 'p-2 mr-2 flex-shrink-0' : 'p-3 rounded-full mr-3'}`}>
+                          <Activity size={isMobile ? 16 : 20} />
                         </div>
                         <div className="min-w-0">
-                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-sm'}`}>{t.avgTime}</p>
-                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-3xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{(kpi.avgTime / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</h3>
+                          <p className={`text-gray-400 font-medium truncate ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{t.avgTime}</p>
+                          <h3 className={`font-bold leading-tight ${isMobile ? 'text-base' : 'text-2xl'}`} style={{color: isLightMode ? "#0f172a" : "#ffffff"}}>{(kpi.avgTime / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}</h3>
                           <span className={`text-gray-500 ${isMobile ? 'text-[9px]' : 'text-xs'}`}>{lang === 'TH' ? 'ชม.' : lang === 'JP' ? '時間' : 'hr.'}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* FDR - full width card */}
-                    <div className="grid grid-cols-1 gap-6 mb-6">
+                    {/* FDR + Over 1 Hour - 2 column layout */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
   <div className={`bg-white rounded-xl shadow-sm border border-gray-200 netflix-card jath-chart-interactive${chartClickLine ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
   <h3 className="text-lg font-bold text-gray-800 mb-4">
   {FDR_LINE_LABELS[lang]?.fdrTitle}
@@ -4004,6 +4244,50 @@ onDragOver={handleDragOver}
     </ResponsiveContainer>
   </div>
 </div>
+
+  {/* Over 1 Hour Breakdown Count */}
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+      {lang==='TH' ? 'จำนวน Breakdown ที่เกิน 1 ชั่วโมง' : lang==='JP' ? '1時間以上の故障件数' : 'Over 1 Hour Breakdown Count'}
+    </h3>
+    <div style={{height: '274px'}}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={over1hByMonth}
+          margin={{ top: 20, right: isMobile ? 20 : 30, bottom: 10, left: isMobile ? 6 : 10 }}
+          barCategoryGap="30%" barGap={4}>
+          <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
+          <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
+          <YAxis allowDecimals={false} width={isMobile ? 30 : 40} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
+            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
+          <RechartsTooltip content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:180,boxShadow:'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                {payload.map((p, i) => (
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:2,color:ct.itemColor}}>
+                    <span style={{display:'inline-block',width:8,height:8,borderRadius:'50%',background:p.fill,flexShrink:0}}/>
+                    <span>{p.name}:</span>
+                    <b style={{color:p.fill}}>{p.value} {lang==='TH'?'ครั้ง':lang==='JP'?'件':'times'}</b>
+                  </div>
+                ))}
+              </div>
+            );
+          }} cursor={{ fill: 'rgba(255,255,255,0.06)' }} />
+          <Legend verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: 8, fontSize: isMobile ? 10 : 12 }} />
+          <Bar dataKey="machining" name="Machining Line" barSize={isMobile ? 14 : 22} radius={[6,6,0,0]}
+            fill={isLightMode ? '#007AFF' : '#E50914'}>
+            <LabelList dataKey="machining" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+          <Bar dataKey="assy" name="Assy Line" barSize={isMobile ? 14 : 22} radius={[6,6,0,0]}
+            fill={isLightMode ? '#34C759' : '#F59E0B'}>
+            <LabelList dataKey="assy" position="top" formatter={(v) => v > 0 ? v : ''} style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
 </div>
 
                     {/* MTBF + MTTR */}
@@ -4171,6 +4455,11 @@ onDragOver={handleDragOver}
 </div>
 </div>
 
+
+</React.Fragment>)}
+
+{/* ═══ PAGE: ANALYSIS ═══ */}
+{currentPage === 'ANALYSIS' && (<React.Fragment>
 {/* === ROW 3: Breakdown (Count & Time) & Status + Downtime by Line === */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                    <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
@@ -4305,23 +4594,17 @@ onDragOver={handleDragOver}
                           <div style={{display:'flex', gap:6, alignItems:'center'}}>
                             <button
                               onClick={() => setLineChartMode('count')}
+                              className={`line-toggle-btn ${lineChartMode==='count' ? 'active-toggle' : 'inactive-toggle'}`}
                               style={{
                                 padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
-                                background: lineChartMode==='count' ? (isLightMode ? '#1d4ed8' : '#E50914') : 'transparent',
-                                color: lineChartMode==='count' ? '#ffffff' : (isLightMode ? '#5a7aa8' : '#9ca3af'),
-                                border: lineChartMode==='count' ? 'none' : `1px solid ${isLightMode ? 'rgba(160,200,240,0.5)' : '#3a3a3a'}`,
-                                boxShadow: lineChartMode==='count' ? (isLightMode ? '0 0 10px rgba(29,78,216,0.35)' : '0 0 10px rgba(229,9,20,0.4)') : 'none',
                                 fontFamily:'Sarabun, sans-serif'
                               }}
                             >{lang==='TH'?'จำนวนครั้ง':lang==='JP'?'件数':'Count'}</button>
                             <button
                               onClick={() => setLineChartMode('bdtime')}
+                              className={`line-toggle-btn ${lineChartMode==='bdtime' ? 'active-toggle' : 'inactive-toggle'}`}
                               style={{
                                 padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
-                                background: lineChartMode==='bdtime' ? (isLightMode ? '#1d4ed8' : '#E50914') : 'transparent',
-                                color: lineChartMode==='bdtime' ? '#ffffff' : (isLightMode ? '#5a7aa8' : '#9ca3af'),
-                                border: lineChartMode==='bdtime' ? 'none' : `1px solid ${isLightMode ? 'rgba(160,200,240,0.5)' : '#3a3a3a'}`,
-                                boxShadow: lineChartMode==='bdtime' ? (isLightMode ? '0 0 10px rgba(29,78,216,0.35)' : '0 0 10px rgba(229,9,20,0.4)') : 'none',
                                 fontFamily:'Sarabun, sans-serif'
                               }}
                             >{lang==='TH'?'เวลา':lang==='JP'?'タイム':'Time'}</button>
@@ -5538,6 +5821,39 @@ return (
                     )}
                     </div>
 
+                </React.Fragment>)}
+
+                {/* Scroll to Top Button */}
+                {currentPage === 'ANALYSIS' && showScrollTop && (
+                  <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    style={{
+                      position: 'fixed',
+                      bottom: isMobile ? 20 : 32,
+                      right: isMobile ? 20 : 32,
+                      zIndex: 50,
+                      width: isMobile ? 44 : 50,
+                      height: isMobile ? 44 : 50,
+                      borderRadius: '50%',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: isLightMode ? '#1d4ed8' : '#E50914',
+                      color: '#ffffff',
+                      boxShadow: isLightMode
+                        ? '0 4px 20px rgba(29,78,216,0.45)'
+                        : '0 4px 20px rgba(229,9,20,0.55)',
+                      transition: 'all 0.25s ease',
+                      fontSize: 22,
+                    }}
+                    title="Scroll to top"
+                  >
+                    ↑
+                  </button>
+                )}
+
                 </main>
                 </div>
             );
@@ -5603,9 +5919,14 @@ const JATHFocusView = ({
   rawData = [],
   isLightMode = false,
   setIsLightMode = () => {},
-  isMobile = false
+  isMobile = false,
+  menuOpen = false,
+  setMenuOpen = () => {},
+  currentPage = 'FOCUS',
+  setCurrentPage = () => {},
+  t: tProp = null
 }) => {
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.EN;
+  const t = tProp || TRANSLATIONS[lang] || TRANSLATIONS.EN;
 
   // --- Focus filter states ---
   const [focusStatusRC, setFocusStatusRC]   = React.useState([]);
@@ -5728,6 +6049,16 @@ const JATHFocusView = ({
       : "h-screen w-screen grid grid-rows-[64px_1fr] overflow-hidden"
     } style={{background: isLightMode ? 'linear-gradient(145deg, #e4ecf7 0%, #d6e4f4 45%, #c8d9ee 100%)' : 'radial-gradient(circle at top, #1a0000 0%, #141414 45%, #0f0f0f 100%)'}}>
 
+      {/* Hamburger Menu */}
+      <HamburgerMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        t={t}
+        isLightMode={isLightMode}
+      />
+
       {/* ===== HEADER ===== */}
       <div className="shadow flex items-center justify-between flex-shrink-0" style={{
         padding: isMobile ? '8px 12px' : '0 24px',
@@ -5737,6 +6068,7 @@ const JATHFocusView = ({
         borderBottom: isLightMode ? '1px solid rgba(180,210,240,0.55)' : '1px solid #2a2a2a'
       }}>
         <div className="flex items-center space-x-2">
+          <HamburgerBtn onClick={() => setMenuOpen(true)} isLightMode={isLightMode} isMobile={isMobile} />
           <h1 className={`font-bold hidden sm:block ${isMobile ? 'text-sm' : 'text-xl'}`} style={{color: isLightMode ? '#0f172a' : '#ffffff'}}>
             Focus Mode
           </h1>
@@ -5756,24 +6088,6 @@ const JATHFocusView = ({
           </div>
           {/* Theme Toggle */}
           <ThemeToggleBtn isLight={isLightMode} onToggle={() => setIsLightMode(p => !p)} />
-          {/* Back button */}
-          <button
-            onClick={onBack}
-            className={`rounded-lg font-semibold ${isMobile ? 'px-2 py-1 text-xs' : 'px-4 py-2 text-sm'}`}
-            style={isLightMode ? {
-              background: '#1d4ed8',
-              color: '#ffffff',
-              border: '1px solid #1d4ed8',
-              boxShadow: '0 0 10px rgba(29,78,216,0.35)'
-            } : {
-              background: '#E50914',
-              color: '#ffffff',
-              border: '1px solid #E50914',
-              boxShadow: '0 0 10px rgba(229,9,20,0.45)'
-            }}
-          >
-            ← {t.back}
-          </button>
         </div>
       </div>
       {/* ===== MAIN AREA ===== */}
