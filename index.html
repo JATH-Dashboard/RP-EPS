@@ -164,7 +164,7 @@ body.light-mode .min-h-screen .bg-blue-100 {
   background: rgba(219,234,254,0.80) !important;
 }
 
-body.light-mode .min-h-screen button:not(.lang-btn):not(.theme-toggle-btn):not(.jath-focus-btn) {
+body.light-mode .min-h-screen button:not(.lang-btn):not(.theme-toggle-btn):not(.jath-focus-btn):not(.line-toggle-btn) {
   background: rgba(255,255,255,0.60) !important;
   color: var(--lm-text-main) !important;
   border-color: rgba(160,200,245,0.55) !important;
@@ -816,7 +816,7 @@ body:not(.light-mode) .min-h-screen .bg-green-50 {
 }
 
 /* Upload buttons (language switch) */
-body:not(.light-mode) .min-h-screen button:not(.jath-focus-btn):not(.lang-btn):not(.theme-toggle-btn) {
+body:not(.light-mode) .min-h-screen button:not(.jath-focus-btn):not(.lang-btn):not(.theme-toggle-btn):not(.line-toggle-btn) {
   background-color: #1f1f1f !important;
   color: #ffffff !important;
   border-color: #333 !important;
@@ -1099,7 +1099,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 31/3/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 2/4/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1112,13 +1112,13 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             type: "ประเภท (M/E)",
             paretoTitle: "Pareto Analysis: ปัญหาหลักตามเวลาซ่อม",
             top5Title: "5 อันเดับเครื่องจักรที่ขัดข้องบ่อย (ครั้ง)",
-            lineAnalysisTitle: "เวลาเครื่องจักรขัดข้องแยกตามไลน์ & สถานะ & จำนวนการเกิดซ้ำ",
+            lineAnalysisTitle: "เครื่องขัดข้องตามไลน์ & สถานะ & การเกิดซ้ำ",
             recurrentTitle: "ปัญหาที่เกิดซ้ำ",
             reasonTitle: "สาเหตุที่ใช้เวลาซ่อมนาน",
             failureCategoryTitle: "หมวดหมู่ความล้มเหลว",
             typeTitle: "สัดส่วนประเภทเครื่องจักรขัดข้อง (M/E)",
             scatterTitle: "ความถี่ vs เวลาซ่อม (รายเครื่อง)",
-            trendChartTitle: "เครื่องจักรขัดข้อง (จำนวน & เวลา) & สถานะ",
+            trendChartTitle: "เครื่องจักรขัดข้อง & สถานะ",
             trendTitle: "แนวโน้มประจำวัน (เวลา & จำนวนครั้ง)",
             distTitle: "การกระจายตัวของเวลาซ่อม",
             tableTitle: "ข้อมูลรายละเอียดเครื่องจักรขัดข้อง",
@@ -1158,14 +1158,14 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             jathRecurrent: "สถานะปัญหา",
             jathAction: "แผนการแก้ไข",
             back: "กลับหน้าหลัก",
-            repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม(เกิน 1 ชั่วโมง)",
+            repairBreakdownTitle: "[อยู่ระหว่างการปรับปรุง] รายละเอียดเวลาในการซ่อม",
             menuKPI: "KPI",
             menuFocus: "Focus Mode",
             menuAnalysis: "Analysis",
             menuTitle: "เมนู",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 31/3/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 2/4/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1178,13 +1178,13 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             type: "Type (M/E)",
             paretoTitle: "Pareto Analysis: Main Problems",
             top5Title: "Top 5 Machine Breakdown (Count)",
-            lineAnalysisTitle: "Downtime by Line & Status with Recurrence",
+            lineAnalysisTitle: "Downtime by Line & Status & Recurrence",
             reasonTitle: "Main Reason for Long Time Repair",
             recurrentTitle: "Recurrent Problems",
             failureCategoryTitle: "Failure Category",
             typeTitle: "Breakdown Type Analysis (M/E)",
             scatterTitle: "Frequency vs Breakdown Time",
-            trendChartTitle: "Breakdown (Count & Time) & Status",
+            trendChartTitle: "Breakdown & Status",
             trendTitle: "Daily Breakdown Trend",
             distTitle: "Breakdown Time Distribution",
             tableTitle: "Detailed Breakdown Data",
@@ -1224,7 +1224,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             jathRecurrent: "Problem Status",
             jathAction: "Action Plan",
             back: "Back to Dashboard",
-            repairBreakdownTitle: "[Under Improvement] Repair time breakdown (Over 1 hour)",
+            repairBreakdownTitle: "[Under Improvement] Repair time breakdown",
             menuKPI: "KPI",
             menuFocus: "Focus Mode",
             menuAnalysis: "Analysis",
@@ -1232,7 +1232,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年31月3日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年2月4日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1245,13 +1245,13 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             type: "タイプ (M/E)",
             paretoTitle: "パレート分析：主な問題",
             top5Title: "ワースト5 機械故障 (件数)",
-            lineAnalysisTitle: "ライン別ダウンタイム分析 & ステータス & 再発件数",
+            lineAnalysisTitle: "ライン別ダウンタイム ＆ ステータス ＆ 再発",
             reasonTitle: "長時間修理の主な理由",
             recurrentTitle: "再発問題（繰り返し発生）",
             failureCategoryTitle: "故障カテゴリ",
             typeTitle: "故障タイプ分析 (M/E)",
             scatterTitle: "頻度 vs 故障時間",
-            trendChartTitle: "故障（件数 & 時間）& ステータス",
+            trendChartTitle: "故障 & ステータス",
             trendTitle: "日次故障トレンド",
             distTitle: "故障時間の分布",
             tableTitle: "詳細データ一覧",
@@ -1291,7 +1291,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             jathRecurrent: "問題ステータス",
             jathAction: "対応アクション",
             back: "ダッシュボードに戻る",
-            repairBreakdownTitle: "【改善対応中】修理時間の内訳（1時間以上）",
+            repairBreakdownTitle: "【改善対応中】修理時間の内訳",
             menuKPI: "KPI",
             menuFocus: "フォーカスモード",
             menuAnalysis: "分析",
@@ -1489,7 +1489,7 @@ const getChartTheme = (isLight) => ({
     : ['#374151','#4B5563','#B91C1C','#E50914'],
 
   paletteRepair: isLight
-    ? ['#007AFF','#5856D6','#AF52DE','#32ADE6','#00C7BE','#8E8E93']
+    ? ['#2563EB','#16A34A','#F59E0B','#DC2626','#8B5CF6','#64748B']
     : ['#dc2626','#ea580c','#f97316','#fb923c','#6b7280','#9ca3af'],
 
   palettePieReason: isLight
@@ -2211,6 +2211,8 @@ const handleDropOP = async (e) => {
 
             // ── Chart Click Interaction State (Power BI style) ──────────────
             const [lineChartMode, setLineChartMode]                 = useState('count'); // 'count' | 'bdtime'
+            const [trendChartMode, setTrendChartMode]               = useState('count'); // 'count' | 'bdtime'
+            const [top5ChartMode, setTop5ChartMode]                 = useState('count'); // 'count' | 'bdtime'
             const [chartClickLine, setChartClickLine]               = useState(null);
             const [chartClickMachine, setChartClickMachine]         = useState(null);
             const [chartClickMonth, setChartClickMonth]             = useState(null);
@@ -2628,6 +2630,38 @@ const repairTimeBreakdown = useMemo(() => {
   }));
 
 }, [filteredData, isLightMode]);
+
+// 🔹 Repair time breakdown by Problem Detail (Top 5 individual rows)
+const repairByProblemDetail = useMemo(() => {
+  const cats = ['diagnosis', 'Spare Part', 'Tools', 'Work Ability', 'Setting Ability', 'Back up'];
+  const rows = filteredData.map(d => {
+    const total = cats.reduce((s, c) => s + (d[c] || 0), 0);
+    return { ...d, _total: total };
+  }).filter(d => d._total > 0)
+    .sort((a, b) => b._total - a._total)
+    .slice(0, 5);
+
+  return rows.map(d => {
+    const t = d._total || 1;
+    return {
+      name: (d.repairDetail || 'Unknown').length > 30 ? (d.repairDetail || 'Unknown').slice(0, 28) + '…' : (d.repairDetail || 'Unknown'),
+      fullName: d.repairDetail || 'Unknown',
+      total: d._total,
+      diagnosisPct: ((d.diagnosis || 0) / t) * 100,
+      sparePartPct: ((d['Spare Part'] || 0) / t) * 100,
+      toolsPct: ((d.Tools || 0) / t) * 100,
+      workAbilityPct: ((d['Work Ability'] || 0) / t) * 100,
+      settingAbilityPct: ((d['Setting Ability'] || 0) / t) * 100,
+      backUpPct: ((d['Back up'] || 0) / t) * 100,
+      diagnosisRaw: d.diagnosis || 0,
+      sparePartRaw: d['Spare Part'] || 0,
+      toolsRaw: d.Tools || 0,
+      workAbilityRaw: d['Work Ability'] || 0,
+      settingAbilityRaw: d['Setting Ability'] || 0,
+      backUpRaw: d['Back up'] || 0,
+    };
+  });
+}, [filteredData]);
 
 // ── Status Root Cause Breakdown by Department (P.I.C RC) ──────────────────
 const statusByDeptData = useMemo(() => {
@@ -3435,6 +3469,23 @@ const recurrentData = useMemo(() => {
     .map((d, i) => ({ ...d, color: pal5[i % 5] }));
 }, [filteredData, isLightMode]);
 
+const top5MachinesByTime = useMemo(() => {
+  const groups = {};
+  filteredData.forEach(d => {
+    if (!groups[d.machineNo]) {
+      groups[d.machineNo] = { value: 0, count: 0, machineName: d.machineName, lineName: d.lineName };
+    }
+    groups[d.machineNo].value += d.bdTime;
+    groups[d.machineNo].count += 1;
+  });
+  const pal5 = getChartTheme(isLightMode).paletteTop5;
+  return Object.keys(groups)
+    .map(k => ({ machineNo: k, machineName: groups[k].machineName, lineName: groups[k].lineName, value: groups[k].value, count: groups[k].count }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5)
+    .map((d, i) => ({ ...d, color: pal5[i % 5] }));
+}, [filteredData, isLightMode]);
+
 // 🔥 ADD: Top 3 Machines for JATH Focus
 const top3FocusMachines = useMemo(() => {
   const map = {};
@@ -3704,14 +3755,17 @@ const makeTooltip = (isLight, unitKey, lang) => ({ active, payload, label }) => 
 
 
 // Tooltip สำหรับ FDR/MTBF/MTTR — filter เฉพาะ line ที่ถูก select (ถ้ามี)
-const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine) => ({ active, payload, label }) => {
+const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine, selectedLines) => ({ active, payload, label }) => {
   if (!active || !payload || !payload.length) return null;
   const ct = getChartTheme(isLight);
   const suffix = unitKey && lang ? (UNIT_SUFFIX[lang]?.[unitKey] || '') : '';
   // กรองเฉพาะ line ที่ select ถ้ามี filter อยู่
-  const filtered = chartClickLine
-    ? payload.filter(e => e.dataKey === chartClickLine)
-    : payload;
+  let filtered = payload;
+  if (chartClickLine) {
+    filtered = payload.filter(e => e.dataKey === chartClickLine);
+  } else if (selectedLines && selectedLines.length > 0) {
+    filtered = payload.filter(e => selectedLines.includes(e.dataKey));
+  }
   if (!filtered.length) return null;
   return (
     <div data-jath-tooltip="1" style={{
@@ -3784,7 +3838,7 @@ const chartTooltipPareto = ({ active, payload, lang, isLightMode }) => {
       {(() => {
         const st = (data.status || '').trim().toLowerCase();
         const statusColor = st === 'completed' ? '#16A34A'
-                          : st === 'on process' ? '#F97316'
+                          : st === 'on process' ? '#FACC15'
                           : '#E50914';
         const statusLabel = st === 'completed' ? S.done
                           : st === 'temporary'  ? S.temp
@@ -4251,7 +4305,7 @@ onDragOver={handleDragOver}
           <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis unit="%" width={isMobile ? 38 : 52} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" align="center"
             wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
@@ -4327,7 +4381,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis allowDecimals={false} width={isMobile ? 30 : 40} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'count', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'count', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {OVER1H_LINES.map((line) => {
@@ -4411,7 +4465,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map(line => {
@@ -4492,7 +4546,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map((line) => {
@@ -4523,14 +4577,34 @@ onDragOver={handleDragOver}
 {currentPage === 'ANALYSIS' && (<React.Fragment>
 {/* === ROW 3: Breakdown (Count & Time) & Status + Downtime by Line === */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                   <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.trendChartTitle}</h3>
-                        <div className="h-80">
+                   <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] ${isMobile ? 'px-2 py-3' : 'p-6'}`} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                        <div style={{alignSelf:'flex-start', width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16, flexWrap:'wrap', gap:8}}>
+                          <h3 className="text-lg font-bold text-gray-800" style={{margin:0}}>{t.trendChartTitle}</h3>
+                          <div style={{display:'flex', gap:6, alignItems:'center'}}>
+                            <button
+                              onClick={() => setTrendChartMode('count')}
+                              className={`line-toggle-btn ${trendChartMode==='count' ? 'active-toggle' : 'inactive-toggle'}`}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'จำนวนครั้ง':lang==='JP'?'件数':'Count'}</button>
+                            <button
+                              onClick={() => setTrendChartMode('bdtime')}
+                              className={`line-toggle-btn ${trendChartMode==='bdtime' ? 'active-toggle' : 'inactive-toggle'}`}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'เวลา':lang==='JP'?'タイム':'Time'}</button>
+                          </div>
+                        </div>
+                        <div style={{height:'95%', width:'100%', flex:1, minHeight:0}}>
                             
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer key={`trend-${trendChartMode}`} width="100%" height="100%">
                                 <ComposedChart
                                   data={monthlyTrend}
-                                  margin={{ top: 16, right: isMobile ? 38 : 25, bottom: 40, left: isMobile ? 6 : 35 }}
+                                  margin={{ top: 16, right: isMobile ? 10 : 10, bottom: 40, left: isMobile ? 6 : 35 }}
                                   style={{ cursor: 'pointer' }}
                                   onClick={(e) => { if (e && e.activeLabel) { toggleChartFilter(setChartClickMonth, chartClickMonth, e.activeLabel); } }}
                                 >
@@ -4546,22 +4620,32 @@ onDragOver={handleDragOver}
                                   <YAxis yAxisId="left" orientation="left"
                                     tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
                                     width={isMobile ? 34 : 52}
-                                    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                    tickFormatter={trendChartMode==='bdtime' ? (v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1}) : undefined}
+                                    label={{ value: trendChartMode==='bdtime' ? (lang==='TH'?'ชั่วโมง':lang==='JP'?'時間':'hr') : (lang==='TH'?'ครั้ง':lang==='JP'?'件':'count'), angle: -90, position: 'insideLeft', dx: isMobile ? -6 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
                                   />
-                                  <YAxis 
-                                   yAxisId="right" orientation="right"
-                                   tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 11 }}
-                                   width={isMobile ? 42 : 45}
-                                   tickFormatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})}
-                                   label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: 90, position: 'insideRight', offset: isMobile ? -10 : 0, style: { fontSize: isMobile ? 9 : 11, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-                                     />
+
 
    <RechartsTooltip
      cursor={{ fill: 'transparent' }}
      content={({ active, payload, label }) => {
        if (!active || !payload || !payload.length) return null;
        const ct = getChartTheme(isLightMode);
+       const isBdMode = trendChartMode === 'bdtime';
        const unitSuffix = UNIT_SUFFIX[lang] || UNIT_SUFFIX.EN;
+       if (isBdMode) {
+         const timeVal = payload.find(p => p.dataKey === 'time')?.value || 0;
+         const lTotal = lang==='TH' ? 'เวลารวม' : lang==='JP' ? '合計時間' : 'Total Time';
+         const bdFill = isLightMode ? '#1d4ed8' : '#E50914';
+         return (
+           <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)', fontSize: 12, minWidth: 200 }}>
+             <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
+             <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
+               <div style={{ width:8, height:8, borderRadius:'50%', background:bdFill, flexShrink:0 }}/>
+               <div style={{ color:ct.itemColor || ct.labelColor }}>{lTotal}: <b style={{color:ct.itemColor || ct.labelColor}}>{(timeVal / 60).toLocaleString(undefined, {maximumFractionDigits: 2})}{unitSuffix.hr}</b></div>
+             </div>
+           </div>
+         );
+       }
        const done  = payload.find(p => p.dataKey === 'Completed')?.value || 0;
        const temp  = payload.find(p => p.dataKey === 'Temporary')?.value || 0;
        const onproc = payload.find(p => p.dataKey === 'OnProcess')?.value || 0;
@@ -4572,17 +4656,13 @@ onDragOver={handleDragOver}
            <div style={{ fontWeight: 700, marginBottom: 6, color: ct.labelColor }}>{label}</div>
            {payload.map((entry, i) => {
              const sc = entry.payload?.color || entry.stroke || entry.color || entry.fill || ct.paretoBars;
-             const isTimeVal = entry.dataKey === 'time';
-             const unit = isTimeVal ? unitSuffix.hr : unitSuffix.count;
-             const displayVal = isTimeVal
-               ? (entry.value / 60).toLocaleString(undefined, {maximumFractionDigits: 1})
-               : (typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value);
+             const displayVal = typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value;
              return (
                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
                  <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
                  <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
                    <span className="jath-tooltip-name" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 400, marginRight: 4 }}>{entry.name}:</span>
-                   {displayVal}{unit}
+                   {displayVal}{unitSuffix.count}
                  </span>
                </div>
              );
@@ -4600,12 +4680,16 @@ onDragOver={handleDragOver}
      }}
    />
 
+                                  {trendChartMode === 'count' && (
                                   <Legend
                                     wrapperStyle={{ fontSize: 12, fontWeight: 500 }}
                                     formatter={(value) => (
                                       <span style={{color: isLightMode ? "#1c3a5e" : "#e5e7eb"}}>{value}</span>
                                     )}
                                   />
+                                  )}
+                                  {trendChartMode === 'count' ? (
+                                  <>
                                   <Bar
                                     yAxisId="left"
                                     dataKey="Completed"
@@ -4614,15 +4698,17 @@ onDragOver={handleDragOver}
                                     fill={isLightMode ? "#34C759" : "#475569"}
                                     barSize={22}
                                     radius={[0, 0, 0, 0]}
+                                    isAnimationActive={true} animationDuration={800} animationEasing="ease-out"
                                   />
                                   <Bar
                                     yAxisId="left"
                                     dataKey="OnProcess"
                                     stackId="status"
                                     name={lang==='TH' ? 'กำลังดำเนินการ' : lang==='JP' ? '処理中' : 'On Process'}
-                                    fill="#F97316"
+                                    fill="#FACC15"
                                     barSize={22}
                                     radius={[0, 0, 0, 0]}
+                                    isAnimationActive={true} animationDuration={800} animationEasing="ease-out"
                                   />
                                   <Bar
                                     yAxisId="left"
@@ -4632,16 +4718,12 @@ onDragOver={handleDragOver}
                                     fill={isLightMode ? "#FF3B30" : "#E50914"}
                                     barSize={22}
                                     radius={[6, 6, 0, 0]}
+                                    isAnimationActive={true} animationDuration={800} animationEasing="ease-out"
                                   />
-                                  <Line
-                                    yAxisId="right"
-                                    type="monotone"
-                                    dataKey="time"
-                                    name={t.colTime}
-                                    stroke={isLightMode ? "#FFCC00" : "#F59E0B"}
-                                    strokeWidth={3}
-                                    dot={false}
-                                  />
+                                  </>
+                                  ) : (
+                                  <Bar yAxisId="left" dataKey="time" barSize={22} radius={[6,6,0,0]} name={lang==='TH'?'เวลา(ชม.)':lang==='JP'?'タイム(時間)':'Time(hr)'} fill={isLightMode ? '#1d4ed8' : '#E50914'} isAnimationActive={true} animationDuration={800} animationEasing="ease-out" />
+                                  )}
                                 </ComposedChart>
                             </ResponsiveContainer>
                         </div>
@@ -4672,7 +4754,7 @@ onDragOver={handleDragOver}
                           </div>
                         </div>
                         <div style={{height:'336px', width:'100%'}}>
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer key={`line-${lineChartMode}`} width="100%" height="100%">
 <ComposedChart
   data={lineChartMode === 'bdtime' ? [...lineDowntime].sort((a,b) => b.totalBdTime - a.totalBdTime) : lineDowntime}
   margin={{ top: 20, right: isMobile ? 36 : 50, bottom: 20, left: isMobile ? 16 : 10 }}
@@ -4741,7 +4823,7 @@ onDragOver={handleDragOver}
       const lTimes = isBdMode ? (lang==='TH' ? ' ชม.' : lang==='JP' ? ' 時' : ' hr') : (lang==='TH' ? ' ครั้ง' : lang==='JP' ? ' 回' : ' times');
       const compFill = isLightMode ? '#34C759' : '#6B7280';
       const tempFill = isLightMode ? '#E50914' : '#C2410C';
-      const onpFill  = '#F97316';
+      const onpFill  = '#FACC15';
       const bdFill = isLightMode ? '#1d4ed8' : '#E50914';
       return (
         <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter:'blur(16px) saturate(180%)', WebkitBackdropFilter:'blur(16px) saturate(180%)', border:`1px solid ${ct.tooltipBorder}`, borderRadius:12, padding:'10px 14px', fontSize:12, minWidth:160, boxShadow: isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)' }}>
@@ -4801,9 +4883,9 @@ onDragOver={handleDragOver}
           <Cell key={`comp-${i}`} fill={isLightMode ? '#34C759' : '#475569'} opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 0.9} />
         ))}
       </Bar>
-      <Bar yAxisId="left" dataKey="OnProcess" stackId="a" barSize={30} radius={[0,0,0,0]} fill="#F97316" name={lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'}>
+      <Bar yAxisId="left" dataKey="OnProcess" stackId="a" barSize={30} radius={[0,0,0,0]} fill="#FACC15" name={lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'}>
         {lineDowntime.map((entry, i) => (
-          <Cell key={`onp-${i}`} fill="#F97316" opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1} />
+          <Cell key={`onp-${i}`} fill="#FACC15" opacity={chartClickLine && chartClickLine !== entry.name ? 0.2 : 1} />
         ))}
       </Bar>
       <Bar yAxisId="left" dataKey="Temporary" stackId="a" barSize={30} radius={[6,6,0,0]} fill="#E50914" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'}>
@@ -4954,6 +5036,93 @@ onDragOver={handleDragOver}
   </div>
 </div>
 
+{/* === ROW: Failure Category (Full Width) === */}
+<div className="grid grid-cols-1 gap-6 mb-6">
+  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+    <h3 className="text-lg font-bold text-gray-800 mb-4">
+  {t.failureCategoryTitle}
+  {chartClickCategory && (() => {
+    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
+    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
+    if (!sel || total === 0) return null;
+    const pct = ((sel.count / total) * 100).toFixed(1);
+    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
+  })()}
+</h3>
+
+    <div className="h-[320px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={failureCategoryCount}
+          margin={{ top: 20, right: isMobile ? 8 : 15, bottom: 20, left: isMobile ? 0 : 5 }}
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
+        >
+          <CartesianGrid
+            vertical={false}
+            stroke={getChartTheme(isLightMode).grid}
+            strokeDasharray="2 6"
+          />
+          <XAxis
+            dataKey="name"
+            interval={0}
+            angle={-35}
+            textAnchor="end"
+            height={70}
+            tickMargin={16}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
+            tickLine={false}
+          />
+          <YAxis
+            domain={[0, 'dataMax']}
+            tickCount={6}
+            padding={{ top: 0, bottom: 0 }}
+            allowDecimals={false}
+            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
+            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
+            tickLine={false}
+            width={isMobile ? 34 : 42}
+            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+          />
+          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null;
+            const ct = getChartTheme(isLightMode);
+            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+            const entry = payload.find(p => p.dataKey === 'count');
+            const totalVal = entry?.value || 0;
+            const barColor = entry?.payload?.color || ct.paletteFailure?.[0] || '#6366f1';
+            return (
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:130,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
+                <div style={{display:'flex',alignItems:'center',gap:6}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:barColor,flexShrink:0}}/>
+                  <div style={{color:ct.itemColor}}>{lang==='TH'?'จำนวน':lang==='JP'?'件数':'Count'}: <b style={{color:ct.labelColor}}>{totalVal}{cntSuffix}</b></div>
+                </div>
+              </div>
+            );
+          }} />
+
+          <Bar
+            dataKey="count"
+            radius={[6, 6, 0, 0]}
+            barSize={36}
+            maxBarSize={48}
+          >
+            {failureCategoryCount.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
+                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
+              />
+            ))}
+            <LabelList dataKey="count" position="top" style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+</div>
+
 {/* === ROW 5: Frequency vs Breakdown Time + Top 5 Machine === */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     {/* Scatter Plot */}
@@ -5069,11 +5238,31 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
 
    {/* Top 5 Machine */}
                     <div className={`netflix-card p-6 rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickMachine ? ' jath-chart-active-filter' : ''}`}>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">{t.top5Title}</h3>
+                        <div style={{width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16, flexWrap:'wrap', gap:8}}>
+                          <h3 className="text-lg font-bold text-gray-800" style={{margin:0}}>{t.top5Title}</h3>
+                          <div style={{display:'flex', gap:6, alignItems:'center'}}>
+                            <button
+                              onClick={() => setTop5ChartMode('count')}
+                              className={`line-toggle-btn ${top5ChartMode==='count' ? 'active-toggle' : 'inactive-toggle'}`}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'จำนวนครั้ง':lang==='JP'?'件数':'Count'}</button>
+                            <button
+                              onClick={() => setTop5ChartMode('bdtime')}
+                              className={`line-toggle-btn ${top5ChartMode==='bdtime' ? 'active-toggle' : 'inactive-toggle'}`}
+                              style={{
+                                padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:700, cursor:'pointer', transition:'all 0.2s',
+                                fontFamily:'Sarabun, sans-serif'
+                              }}
+                            >{lang==='TH'?'เวลา':lang==='JP'?'タイム':'Time'}</button>
+                          </div>
+                        </div>
                         <div className="h-[320px]">
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer key={`top5-${top5ChartMode}`} width="100%" height="100%">
                                 <BarChart
-                                  data={top5Machines}
+                                  data={top5ChartMode==='bdtime' ? top5MachinesByTime : top5Machines}
                                   margin={{ top: 20, right: isMobile ? 8 : 45, bottom: 20, left: isMobile ? 16 : 10 }}
                                   style={{ cursor: 'pointer' }}
                                   onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.machineNo; toggleChartFilter(setChartClickMachine, chartClickMachine, v); } }}
@@ -5087,7 +5276,8 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     interval={0}
                                     height={isMobile ? 75 : 90}
                                     tick={({ x, y, payload }) => {
-                                      const item = top5Machines.find(d => d.machineNo === payload.value);
+                                      const curData = top5ChartMode==='bdtime' ? top5MachinesByTime : top5Machines;
+                                      const item = curData.find(d => d.machineNo === payload.value);
                                       const ct = getChartTheme(isLightMode);
                                       const name = item?.machineName || '';
                                       const wrapText = (text, maxLen = 14) => {
@@ -5126,18 +5316,19 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
                                     tickLine={false}
                                     width={isMobile ? 38 : 55}
-                                    allowDecimals={false}
-                                    label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
+                                    tickFormatter={top5ChartMode==='bdtime' ? (v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1}) : undefined}
+                                    label={{ value: top5ChartMode==='bdtime' ? (lang==='TH'?'ชั่วโมง':lang==='JP'?'時間':'hr') : (lang==='TH'?'ครั้ง':lang==='JP'?'件':'count'), angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
                                   />
                                   <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
   if (!active || !payload || !payload.length) return null;
   const ct = getChartTheme(isLightMode);
-  const hrSuffix = UNIT_SUFFIX[lang]?.hr || ' hr.';
+  const curData = top5ChartMode==='bdtime' ? top5MachinesByTime : top5Machines;
+  const isBdMode = top5ChartMode === 'bdtime';
   return (
     <div data-jath-tooltip='1' style={{ background: ct.tooltipBg, backdropFilter: 'blur(16px) saturate(180%)', WebkitBackdropFilter: 'blur(16px) saturate(180%)', border: `1px solid ${ct.tooltipBorder}`, borderRadius: 12, padding: '10px 14px', fontSize: 12, minWidth: 160, boxShadow: isLightMode ? '0 8px 32px rgba(60,100,200,0.13)' : '0 12px 40px rgba(0,0,0,0.6)' }}>
       {label !== undefined && <div style={{ fontWeight: 700, marginBottom: 4, color: ct.labelColor }}>{label}</div>}
       {(() => {
-        const machineData = top5Machines.find(m => m.machineNo === label);
+        const machineData = curData.find(m => m.machineNo === label);
         if (machineData?.lineName) {
           return (
             <div style={{ fontSize: 11, color: ct.itemColor, marginBottom: 6, opacity: 0.8 }}>
@@ -5147,28 +5338,39 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
         }
         return null;
       })()}
-      {payload.map((entry, i) => {
-        const machineIdx = top5Machines.findIndex(m => m.machineNo === label);
-        const sc = machineIdx >= 0
-          ? getChartTheme(isLightMode).palettePrimary[machineIdx % 8]
-          : (entry.color || entry.fill || ct.paretoBars);
-        const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
-        return (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
-            <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
-            <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
-              {entry.value}{cntSuffix}
-            </span>
-          </div>
-        );
-      })}
+      {isBdMode ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+          <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: isLightMode ? '#1d4ed8' : '#E50914', flexShrink: 0 }} />
+          <span style={{ color: ct.labelColor, fontWeight: 500 }}>
+            {(payload[0].value / 60).toLocaleString(undefined, {maximumFractionDigits: 2})}{UNIT_SUFFIX[lang]?.hr || ' hr.'}
+          </span>
+        </div>
+      ) : (
+        payload.map((entry, i) => {
+          const machineIdx = curData.findIndex(m => m.machineNo === label);
+          const sc = machineIdx >= 0
+            ? getChartTheme(isLightMode).palettePrimary[machineIdx % 8]
+            : (entry.color || entry.fill || ct.paretoBars);
+          const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
+          return (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2 }}>
+              <span className="jath-swatch" style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: sc, flexShrink: 0 }} />
+              <span className="jath-tooltip-val" style={{ '--jath-c': isLightMode ? sc : ct.labelColor, color: isLightMode ? sc : ct.labelColor, fontWeight: 500 }}>
+                {entry.value}{cntSuffix}
+              </span>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }} />
+                                  {top5ChartMode === 'count' ? (
                                   <Bar
                                     dataKey="count"
                                     radius={[6, 6, 0, 0]}
                                     barSize={30}
+                                    isAnimationActive={true} animationDuration={800} animationEasing="ease-out"
                                   >
                                     {top5Machines.map((entry, index) => (
                                       <Cell
@@ -5179,6 +5381,24 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
                                     ))}
                                     <LabelList dataKey="count" position="top" style={{ fontSize: 11, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
                                   </Bar>
+                                  ) : (
+                                  <Bar
+                                    dataKey="value"
+                                    radius={[6, 6, 0, 0]}
+                                    barSize={30}
+                                    name={lang==='TH'?'เวลา(ชม.)':lang==='JP'?'タイム(時間)':'Time(hr)'}
+                                    isAnimationActive={true} animationDuration={800} animationEasing="ease-out"
+                                  >
+                                    {top5MachinesByTime.map((entry, index) => (
+                                      <Cell
+                                        key={`cell-${index}`}
+                                        fill={isLightMode ? '#1d4ed8' : '#E50914'}
+                                        opacity={chartClickMachine && chartClickMachine !== entry.machineNo ? 0.3 : 1}
+                                      />
+                                    ))}
+                                    <LabelList dataKey="value" position="top" style={{ fontSize: 11, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} formatter={(v) => (v / 60).toLocaleString(undefined, {maximumFractionDigits: 1})} />
+                                  </Bar>
+                                  )}
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
@@ -5392,7 +5612,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
             <span className="jath-tooltip-name" style={{color: isLightMode ? '#4a6a8a' : '#9ca3af'}}>{lang === 'TH' ? 'แก้ไขชั่วคราว' : lang === 'JP' ? '一時対応' : 'Temporary'}</span>
           </span>
           <span className="flex items-center gap-1">
-            <span className="jath-swatch inline-block w-3 h-3 rounded-sm" style={{background: '#F97316'}} />
+            <span className="jath-swatch inline-block w-3 h-3 rounded-sm" style={{background: '#FACC15'}} />
             <span className="jath-tooltip-name" style={{color: isLightMode ? '#4a6a8a' : '#9ca3af'}}>{lang === 'TH' ? 'กำลังดำเนินการ' : lang === 'JP' ? '処理中' : 'On Process'}</span>
           </span>
           <span className="flex items-center gap-1">
@@ -5539,91 +5759,100 @@ return (
 
 </div>
 
-
-{/* 🔹 Failure Category (Half Width) */}
-  <div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickCategory ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
-    <h3 className="text-lg font-bold text-gray-800 mb-4">
-  {t.failureCategoryTitle}
-  {chartClickCategory && (() => {
-    const sel = failureCategoryCount.find(d => d.name === chartClickCategory);
-    const total = failureCategoryCount.reduce((s,d) => s + d.count, 0);
-    if (!sel || total === 0) return null;
-    const pct = ((sel.count / total) * 100).toFixed(1);
-    return <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 10, color: isLightMode ? '#1d4ed8' : '#60a5fa' }}>{sel.count} items · {pct}% of total</span>;
-  })()}
-</h3>
-
-    <div className="h-[320px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={failureCategoryCount}
-          margin={{ top: 20, right: isMobile ? 8 : 15, bottom: 20, left: isMobile ? 0 : 5 }}
-          style={{ cursor: 'pointer' }}
-          onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.name; toggleChartFilter(setChartClickCategory, chartClickCategory, v); } }}
-        >
-          <CartesianGrid
-            vertical={false}
-            stroke={getChartTheme(isLightMode).grid}
-            strokeDasharray="2 6"
-          />
-          <XAxis
-            dataKey="name"
-            interval={0}
-            angle={-35}
-            textAnchor="end"
-            height={70}
-            tickMargin={16}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
-            tickLine={false}
-          />
-          <YAxis
-            domain={[0, 'dataMax']}
-            tickCount={6}
-            padding={{ top: 0, bottom: 0 }}
-            allowDecimals={false}
-            tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 9 : 10 }}
-            axisLine={{ stroke: getChartTheme(isLightMode).axisLine }}
-            tickLine={false}
-            width={isMobile ? 34 : 42}
-            label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }}
-          />
-          <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.06)' }} content={({ active, payload, label }) => {
+{/* 🔹 Repair time breakdown by Problem Detail */}
+<div className={`netflix-card rounded-xl shadow-sm border border-[#2a2a2a] jath-chart-interactive${chartClickRepairDetail ? ' jath-chart-active-filter' : ''} ${isMobile ? 'px-2 py-3' : 'p-6'}`}>
+  <h3 className="text-lg font-bold text-gray-800 mb-4">
+    {lang==='TH'?'รายละเอียดเวลาซ่อมตาม Problem Detail':lang==='JP'?'問題詳細別修理時間内訳':'Repair time breakdown by Problem Detail'}
+  </h3>
+  <div style={{height: isMobile ? 380 : 320}}>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={repairByProblemDetail}
+        layout="vertical"
+        margin={{ top: 10, right: isMobile ? 10 : 30, bottom: 10, left: isMobile ? 10 : 10 }}
+        style={{ cursor: 'pointer' }}
+        onClick={(e) => { if (e && e.activePayload && e.activePayload[0]) { const v = e.activePayload[0].payload.fullName; toggleChartFilter(setChartClickRepairDetail, chartClickRepairDetail, v); } }}
+      >
+        <CartesianGrid stroke={getChartTheme(isLightMode).grid} horizontal={false} />
+        <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${Math.round(v)}%`} ticks={[0, 25, 50, 75, 100]} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 10 }} axisLine={{ stroke: getChartTheme(isLightMode).axisLine }} tickLine={false} />
+        <YAxis type="category" dataKey="name" width={isMobile ? 100 : 160} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 8 : 10 }} axisLine={{ stroke: getChartTheme(isLightMode).axisLine }} tickLine={false} />
+        <RechartsTooltip
+          cursor={{ fill: 'rgba(255,255,255,0.06)' }}
+          content={({ active, payload, label }) => {
             if (!active || !payload || !payload.length) return null;
             const ct = getChartTheme(isLightMode);
-            const cntSuffix = UNIT_SUFFIX[lang]?.count || ' times';
-            const entry = payload.find(p => p.dataKey === 'count');
-            const totalVal = entry?.value || 0;
-            const barColor = entry?.payload?.color || ct.paletteFailure?.[0] || '#6366f1';
+            const d = payload[0]?.payload || {};
+            const palRep = getChartTheme(isLightMode).paletteRepair;
+            const items = [
+              { name: lang==='TH'?'การวินิจฉัย':lang==='JP'?'診断':'Diagnosis', pct: d.diagnosisPct, raw: d.diagnosisRaw, color: palRep[0] },
+              { name: lang==='TH'?'อะไหล่':lang==='JP'?'スペアパーツ':'Spare Part', pct: d.sparePartPct, raw: d.sparePartRaw, color: palRep[1] },
+              { name: lang==='TH'?'เครื่องมือ':lang==='JP'?'工具':'Tools', pct: d.toolsPct, raw: d.toolsRaw, color: palRep[2] },
+              { name: lang==='TH'?'ความสามารถในการทำงาน':lang==='JP'?'作業能力':'Work Ability', pct: d.workAbilityPct, raw: d.workAbilityRaw, color: palRep[3] },
+              { name: lang==='TH'?'ความสามารถในการตั้งค่า':lang==='JP'?'設定能力':'Setting Ability', pct: d.settingAbilityPct, raw: d.settingAbilityRaw, color: palRep[4] },
+              { name: lang==='TH'?'สำรอง':lang==='JP'?'バックアップ':'Back up', pct: d.backUpPct, raw: d.backUpRaw, color: palRep[5] },
+            ];
             return (
-              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:130,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
-                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
-                <div style={{display:'flex',alignItems:'center',gap:6}}>
-                  <div style={{width:8,height:8,borderRadius:'50%',background:barColor,flexShrink:0}}/>
-                  <div style={{color:ct.itemColor}}>{lang==='TH'?'จำนวน':lang==='JP'?'件数':'Count'}: <b style={{color:ct.labelColor}}>{totalVal}{cntSuffix}</b></div>
+              <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:200,maxWidth:320,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
+                <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor,wordBreak:'break-word'}}>{d.fullName || label}</div>
+                {items.filter(it => it.pct > 0).map((it, i) => (
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:3}}>
+                    <div style={{width:8,height:8,borderRadius:'50%',background:it.color,flexShrink:0}}/>
+                    <div style={{color:ct.itemColor || ct.labelColor,flex:1}}>{it.name}</div>
+                    <div style={{color:ct.labelColor,fontWeight:700}}>{Math.round(it.pct)}%</div>
+                    <div style={{color:ct.itemColor || ct.labelColor,fontSize:10,opacity:0.7}}>({(it.raw / 60).toFixed(2)} hr)</div>
+                  </div>
+                ))}
+                <div style={{borderTop:`1px solid ${ct.tooltipBorder}`,marginTop:4,paddingTop:4,color:ct.labelColor,fontWeight:700}}>
+                  {lang==='TH'?'รวม':lang==='JP'?'合計':'Total'}: {(d.total / 60).toFixed(2)} hr
                 </div>
               </div>
             );
-          }} />
-
-          <Bar
-            dataKey="count"
-            radius={[6, 6, 0, 0]}
-            barSize={18}
-            maxBarSize={26}
-          >
-            {failureCategoryCount.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={entry.color || getChartTheme(isLightMode).paletteFailure[index % 10]}
-                opacity={chartClickCategory && chartClickCategory !== entry.name ? 0.3 : 1}
-              />
-            ))}
-            <LabelList dataKey="count" position="top" style={{ fontSize: 10, fontWeight: 700, fill: getChartTheme(isLightMode).axis }} />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+          }}
+        />
+        <Legend
+          wrapperStyle={{ fontSize: 10, fontWeight: 500 }}
+          formatter={(value) => {
+            const map = {
+              diagnosisPct: lang==='TH'?'การวินิจฉัย':lang==='JP'?'診断':'Diagnosis',
+              sparePartPct: lang==='TH'?'อะไหล่':lang==='JP'?'スペアパーツ':'Spare Part',
+              toolsPct: lang==='TH'?'เครื่องมือ':lang==='JP'?'工具':'Tools',
+              workAbilityPct: lang==='TH'?'ความสามารถในการทำงาน':lang==='JP'?'作業能力':'Work Ability',
+              settingAbilityPct: lang==='TH'?'ความสามารถในการตั้งค่า':lang==='JP'?'設定能力':'Setting Ability',
+              backUpPct: lang==='TH'?'สำรอง':lang==='JP'?'バックアップ':'Back up',
+            };
+            return <span style={{color: isLightMode ? '#1c3a5e' : '#e5e7eb'}}>{map[value] || value}</span>;
+          }}
+        />
+        <Bar dataKey="diagnosisPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[0]} barSize={24} name="diagnosisPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`d-${i}`} fill={getChartTheme(isLightMode).paletteRepair[0]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="diagnosisRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+        <Bar dataKey="sparePartPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[1]} name="sparePartPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`s-${i}`} fill={getChartTheme(isLightMode).paletteRepair[1]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="sparePartRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+        <Bar dataKey="toolsPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[2]} name="toolsPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`t-${i}`} fill={getChartTheme(isLightMode).paletteRepair[2]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="toolsRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+        <Bar dataKey="workAbilityPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[3]} name="workAbilityPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`w-${i}`} fill={getChartTheme(isLightMode).paletteRepair[3]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="workAbilityRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+        <Bar dataKey="settingAbilityPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[4]} name="settingAbilityPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`se-${i}`} fill={getChartTheme(isLightMode).paletteRepair[4]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="settingAbilityRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+        <Bar dataKey="backUpPct" stackId="a" fill={getChartTheme(isLightMode).paletteRepair[5]} radius={[0,6,6,0]} name="backUpPct">
+          {repairByProblemDetail.map((entry, i) => <Cell key={`b-${i}`} fill={getChartTheme(isLightMode).paletteRepair[5]} opacity={chartClickRepairDetail && chartClickRepairDetail !== entry.fullName ? 0.2 : 1} />)}
+          <LabelList dataKey="backUpRaw" position="center" style={{ fontSize: 9, fontWeight: 700, fill: '#fff' }} formatter={(v) => v > 0 ? (v / 60).toFixed(1) + 'h' : ''} />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   </div>
+</div>
+
+
 
 </div>
 
@@ -5752,7 +5981,7 @@ return (
             const lTimes = lang==='TH'?' ครั้ง':lang==='JP'?' 回':' times';
             const compClr = isLightMode ? '#007AFF' : '#475569';
             const tempClr = '#E50914';
-            const onpClr  = '#F97316';
+            const onpClr  = '#FACC15';
             return (
               <div data-jath-tooltip='1' style={{background:ct.tooltipBg,backdropFilter:'blur(16px) saturate(180%)',WebkitBackdropFilter:'blur(16px) saturate(180%)',border:`1px solid ${ct.tooltipBorder}`,borderRadius:12,padding:'10px 14px',fontSize:12,minWidth:170,boxShadow:isLightMode?'0 8px 32px rgba(60,100,200,0.13)':'0 12px 40px rgba(0,0,0,0.6)'}}>
                 <div style={{fontWeight:700,marginBottom:6,color:ct.labelColor}}>{label}</div>
@@ -5784,7 +6013,7 @@ return (
         </Bar>
         <Bar dataKey="OnProcess" name={lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'} stackId="a" radius={[0,0,0,0]} barSize={36}>
           {statusByDeptData.map((entry,i) => (
-            <Cell key={`onp-${i}`} fill="#F97316" opacity={chartClickDept && chartClickDept !== entry.dept ? 0.2 : 1} />
+            <Cell key={`onp-${i}`} fill="#FACC15" opacity={chartClickDept && chartClickDept !== entry.dept ? 0.2 : 1} />
           ))}
         </Bar>
         <Bar dataKey="Temporary" name={lang==='TH'?'แก้ไขชั่วคราว':lang==='JP'?'一時対応':'Temporary'} stackId="a" radius={[6,6,0,0]} barSize={36}>
@@ -5813,7 +6042,7 @@ return (
       <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'เสร็จสิ้น':lang==='JP'?'完了':'Completed'}</span>
     </span>
     <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
-      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background:'#F97316',flexShrink:0}} />
+      <span className="jath-swatch" style={{display:'inline-block',width:12,height:12,borderRadius:3,background:'#FACC15',flexShrink:0}} />
       <span className="jath-tooltip-name" style={{'--jath-c': isLightMode ? '#4a6a8a' : '#e5e7eb', color: isLightMode ? '#4a6a8a' : '#e5e7eb'}}>{lang==='TH'?'กำลังดำเนินการ':lang==='JP'?'処理中':'On Process'}</span>
     </span>
     <span style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}>
@@ -6613,7 +6842,7 @@ body:not(.light-mode) input {
   color: var(--netflix-text) !important;
   border-color: var(--netflix-border) !important;
 }
-body:not(.light-mode) button:not(.lang-btn):not(.theme-toggle-btn):not(.jath-focus-btn):not([style]) {
+body:not(.light-mode) button:not(.lang-btn):not(.theme-toggle-btn):not(.jath-focus-btn):not(.line-toggle-btn):not([style]) {
   background-color: #181818 !important;
   color: var(--netflix-text) !important;
   border-color: var(--netflix-border) !important;
