@@ -1,0 +1,610 @@
+{
+  "description": "JATH MC Breakdown Analysis - RP-EPS Production Lines",
+  "data_period": "Sep-25 to Mar-26",
+  "production_lines": [
+    "C-EPS",
+    "Gear Assy",
+    "Gear Sub-Assy",
+    "Housing Assy No.1",
+    "Housing Assy No.2",
+    "Input Shaft Assy",
+    "Nut Machining",
+    "Pinion Machining",
+    "Pulley Sub-Assy",
+    "Rack Machining",
+    "Rack Sub-Assy",
+    "Sensor Assy"
+  ],
+  "total_breakdowns": 367,
+  "breakdowns_by_line": {
+    "Rack Machining": {
+      "count": 91,
+      "total_bd_time_hr": 12062.5,
+      "avg_bd_time_hr": 132.55,
+      "completed": 91,
+      "temporary": 0
+    },
+    "Gear Sub-Assy": {
+      "count": 77,
+      "total_bd_time_hr": 6414.0,
+      "avg_bd_time_hr": 83.3,
+      "completed": 77,
+      "temporary": 0
+    },
+    "Gear Assy": {
+      "count": 50,
+      "total_bd_time_hr": 2026.0,
+      "avg_bd_time_hr": 40.52,
+      "completed": 50,
+      "temporary": 0
+    },
+    "Pinion Machining": {
+      "count": 43,
+      "total_bd_time_hr": 3198.0,
+      "avg_bd_time_hr": 74.37,
+      "completed": 43,
+      "temporary": 0
+    },
+    "Housing Assy No.2": {
+      "count": 26,
+      "total_bd_time_hr": 912.0,
+      "avg_bd_time_hr": 35.08,
+      "completed": 26,
+      "temporary": 0
+    },
+    "Sensor Assy": {
+      "count": 22,
+      "total_bd_time_hr": 1655.0,
+      "avg_bd_time_hr": 75.23,
+      "completed": 22,
+      "temporary": 0
+    },
+    "Housing Assy No.1": {
+      "count": 20,
+      "total_bd_time_hr": 825.0,
+      "avg_bd_time_hr": 41.25,
+      "completed": 20,
+      "temporary": 0
+    },
+    "Pulley Sub-Assy": {
+      "count": 16,
+      "total_bd_time_hr": 382.0,
+      "avg_bd_time_hr": 23.88,
+      "completed": 16,
+      "temporary": 0
+    },
+    "Nut Machining": {
+      "count": 10,
+      "total_bd_time_hr": 290.0,
+      "avg_bd_time_hr": 29.0,
+      "completed": 10,
+      "temporary": 0
+    },
+    "Input Shaft Assy": {
+      "count": 8,
+      "total_bd_time_hr": 340.0,
+      "avg_bd_time_hr": 42.5,
+      "completed": 8,
+      "temporary": 0
+    },
+    "Rack Sub-Assy": {
+      "count": 3,
+      "total_bd_time_hr": 40.0,
+      "avg_bd_time_hr": 13.33,
+      "completed": 3,
+      "temporary": 0
+    },
+    "C-EPS": {
+      "count": 1,
+      "total_bd_time_hr": 60.0,
+      "avg_bd_time_hr": 60.0,
+      "completed": 1,
+      "temporary": 0
+    }
+  },
+  "breakdowns_by_month": {
+    "Dec-25": {
+      "count": 44,
+      "total_bd_time_hr": 3187.33
+    },
+    "Feb-26": {
+      "count": 92,
+      "total_bd_time_hr": 6328.0
+    },
+    "Jan-26": {
+      "count": 40,
+      "total_bd_time_hr": 2225.0
+    },
+    "Mar-26": {
+      "count": 52,
+      "total_bd_time_hr": 2412.5
+    },
+    "Nov-25": {
+      "count": 41,
+      "total_bd_time_hr": 7755.33
+    },
+    "Oct-25": {
+      "count": 63,
+      "total_bd_time_hr": 4549.67
+    },
+    "Sep-25": {
+      "count": 35,
+      "total_bd_time_hr": 1746.67
+    }
+  },
+  "breakdowns_by_failure_category": {
+    "Position NG": 55,
+    "Loose": 49,
+    "Dirty": 26,
+    "Broken": 25,
+    "Abnormal": 23,
+    "Error": 21,
+    "Wear": 20,
+    "Cut": 15,
+    "Not sure": 13,
+    "Short circuit": 12,
+    "Sticky": 8,
+    "Not on": 8,
+    "Bend": 6,
+    "Fall off": 5,
+    "On remain": 5,
+    "Quality NG": 5,
+    "Fins": 5,
+    "Over spec": 5,
+    "Limit NG": 4,
+    "Alignment NG": 3,
+    "Air mix": 3,
+    "Damaged": 3,
+    "Sensor NG": 3,
+    "Hard": 3,
+    "Slack": 3,
+    "Leak": 3,
+    "Full": 2,
+    "Material NG": 2,
+    "Remain": 2,
+    "Hit": 2,
+    "Deteriorate": 2,
+    "Relay NG": 2,
+    "Presess drop": 2,
+    "Tool life": 1,
+    "Tension NG": 1,
+    "Low spec": 1,
+    "Fatigue": 1,
+    "Stuck": 1,
+    "Oil stuck to it": 1,
+    "Retainer NG": 1,
+    "Robot alarm": 1,
+    "Tangled": 1,
+    "Emergency NG": 1,
+    "Scratch": 1,
+    "Jig tight": 1,
+    "Movement": 1,
+    "Noise": 1,
+    "Tuck": 1,
+    "Unspecified": 1,
+    "Clogged": 1,
+    "Thin": 1,
+    "Not supply": 1,
+    "Camera NG": 1,
+    "Abrasion": 1,
+    "not sure": 1
+  },
+  "breakdowns_by_type": {
+    "M": 241,
+    "E": 126
+  },
+  "long_breakdown_reasons": {
+    "Diagnosis": 141,
+    "Work Ability": 119,
+    "Spare Part": 76,
+    "Tools": 12
+  },
+  "root_cause_status": {
+    "Completed": 176,
+    "Temporary": 14,
+    "Pending": 171,
+    "On process": 6
+  },
+  "top_machines": {
+    "HT9006": {
+      "count": 23,
+      "total_bd_time": 4890.0,
+      "line": "Rack Machining",
+      "name": "Ball Screw Side Induction \nHardening And Tempering"
+    },
+    "HT9005": {
+      "count": 17,
+      "total_bd_time": 3003.0,
+      "line": "Rack Machining",
+      "name": "Teeth Side Induction Hardening \nAnd Tempering"
+    },
+    "PR9068": {
+      "count": 13,
+      "total_bd_time": 270.0,
+      "line": "Housing Assy No.2",
+      "name": "Mount Bush Press-fit"
+    },
+    "AM9035": {
+      "count": 13,
+      "total_bd_time": 347.0,
+      "line": "Pulley Sub-Assy",
+      "name": "Pulley Assembly & Blot Tightening"
+    },
+    "MX9021": {
+      "count": 13,
+      "total_bd_time": 494.0,
+      "line": "Pinion Machining",
+      "name": "DMC Leser Marking"
+    },
+    "AM9039": {
+      "count": 12,
+      "total_bd_time": 582.0,
+      "line": "Gear Sub-Assy",
+      "name": "Disk & Plate Assembly"
+    },
+    "MX9022": {
+      "count": 11,
+      "total_bd_time": 430.0,
+      "line": "Housing Assy No.1",
+      "name": "DMC Laser Marking"
+    },
+    "ME9084": {
+      "count": 11,
+      "total_bd_time": 474.0,
+      "line": "Gear Assy",
+      "name": "Yoke clearance adjustment \nand yoke plug caulking"
+    },
+    "ME9082": {
+      "count": 10,
+      "total_bd_time": 1408.0,
+      "line": "Gear Sub-Assy",
+      "name": "Belt Tension Adjustment"
+    },
+    "KJ9136-1": {
+      "count": 9,
+      "total_bd_time": 177.0,
+      "line": "Gear Sub-Assy",
+      "name": "Rack Guide Assembly"
+    },
+    "CV9001": {
+      "count": 8,
+      "total_bd_time": 225.0,
+      "line": "Gear Assy",
+      "name": "Reverse Pallet Conveyance"
+    },
+    "AM9038": {
+      "count": 8,
+      "total_bd_time": 1093.0,
+      "line": "Gear Sub-Assy",
+      "name": "Ball Screw & Plate Greasing"
+    },
+    "KJ9136-2": {
+      "count": 7,
+      "total_bd_time": 133.0,
+      "line": "Gear Sub-Assy",
+      "name": "MCU Assembly & Pre-Tightening"
+    },
+    "PR9067": {
+      "count": 7,
+      "total_bd_time": 177.0,
+      "line": "Housing Assy No.2",
+      "name": "Mount Bush Press-fit"
+    },
+    "LA9068": {
+      "count": 7,
+      "total_bd_time": 340.0,
+      "line": "Rack Machining",
+      "name": "Ends Machining"
+    },
+    "LA9072": {
+      "count": 7,
+      "total_bd_time": 800.0,
+      "line": "Pinion Machining",
+      "name": "I.D. Turning"
+    },
+    "WM9062": {
+      "count": 7,
+      "total_bd_time": 370.0,
+      "line": "Housing Assy No.1",
+      "name": "Washing & Air blow"
+    },
+    "WM9060": {
+      "count": 7,
+      "total_bd_time": 630.0,
+      "line": "Pinion Machining",
+      "name": "Washing & Air blow"
+    },
+    "KJ9135-1": {
+      "count": 6,
+      "total_bd_time": 315.0,
+      "line": "Gear Sub-Assy",
+      "name": "Sensor Sub-Assy Tightening"
+    },
+    "ME9076": {
+      "count": 6,
+      "total_bd_time": 430.0,
+      "line": "Sensor Assy",
+      "name": "Sensor Balancing"
+    }
+  },
+  "operation_time": {
+    "Sep-25|Rack EPS": {
+      "month": "Sep-25",
+      "line": "Rack EPS",
+      "operation_time_hr": 40.5,
+      "num_machines": 31,
+      "total_operation_time_hr": 1255.5
+    },
+    "Sep-25|Nut Ball Screw EPS Rack": {
+      "month": "Sep-25",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 53.7,
+      "num_machines": 5,
+      "total_operation_time_hr": 268.5
+    },
+    "Sep-25|Pinion EPS": {
+      "month": "Sep-25",
+      "line": "Pinion EPS",
+      "operation_time_hr": 54.4,
+      "num_machines": 12,
+      "total_operation_time_hr": 652.8
+    },
+    "Sep-25|Sensor Assy EPS": {
+      "month": "Sep-25",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 45.4,
+      "num_machines": 8,
+      "total_operation_time_hr": 363.2
+    },
+    "Sep-25|Shaft Assy Input": {
+      "month": "Sep-25",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 34.8,
+      "num_machines": 3,
+      "total_operation_time_hr": 104.4
+    },
+    "Sep-25|Gear Assy EPS": {
+      "month": "Sep-25",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 48.0,
+      "num_machines": 46,
+      "total_operation_time_hr": 2208.0
+    },
+    "Oct-25|Rack EPS": {
+      "month": "Oct-25",
+      "line": "Rack EPS",
+      "operation_time_hr": 148.9,
+      "num_machines": 31,
+      "total_operation_time_hr": 4615.9
+    },
+    "Oct-25|Nut Ball Screw EPS Rack": {
+      "month": "Oct-25",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 93.5,
+      "num_machines": 5,
+      "total_operation_time_hr": 467.5
+    },
+    "Oct-25|Pinion EPS": {
+      "month": "Oct-25",
+      "line": "Pinion EPS",
+      "operation_time_hr": 125.7,
+      "num_machines": 12,
+      "total_operation_time_hr": 1508.4
+    },
+    "Oct-25|Sensor Assy EPS": {
+      "month": "Oct-25",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 92.4,
+      "num_machines": 8,
+      "total_operation_time_hr": 739.2
+    },
+    "Oct-25|Shaft Assy Input": {
+      "month": "Oct-25",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 61.2,
+      "num_machines": 3,
+      "total_operation_time_hr": 183.6
+    },
+    "Oct-25|Gear Assy EPS": {
+      "month": "Oct-25",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 124.8,
+      "num_machines": 46,
+      "total_operation_time_hr": 5740.8
+    },
+    "Nov-25|Rack EPS": {
+      "month": "Nov-25",
+      "line": "Rack EPS",
+      "operation_time_hr": 228.4,
+      "num_machines": 31,
+      "total_operation_time_hr": 7080.4
+    },
+    "Nov-25|Nut Ball Screw EPS Rack": {
+      "month": "Nov-25",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 70.8,
+      "num_machines": 5,
+      "total_operation_time_hr": 354.0
+    },
+    "Nov-25|Pinion EPS": {
+      "month": "Nov-25",
+      "line": "Pinion EPS",
+      "operation_time_hr": 116.5,
+      "num_machines": 12,
+      "total_operation_time_hr": 1398.0
+    },
+    "Nov-25|Sensor Assy EPS": {
+      "month": "Nov-25",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 81.9,
+      "num_machines": 8,
+      "total_operation_time_hr": 655.2
+    },
+    "Nov-25|Shaft Assy Input": {
+      "month": "Nov-25",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 57.5,
+      "num_machines": 3,
+      "total_operation_time_hr": 172.5
+    },
+    "Nov-25|Gear Assy EPS": {
+      "month": "Nov-25",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 110.4,
+      "num_machines": 46,
+      "total_operation_time_hr": 5078.4
+    },
+    "Dec-25|Rack EPS": {
+      "month": "Dec-25",
+      "line": "Rack EPS",
+      "operation_time_hr": 260.3,
+      "num_machines": 31,
+      "total_operation_time_hr": 8069.3
+    },
+    "Dec-25|Nut Ball Screw EPS Rack": {
+      "month": "Dec-25",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 70.5,
+      "num_machines": 5,
+      "total_operation_time_hr": 352.5
+    },
+    "Dec-25|Pinion EPS": {
+      "month": "Dec-25",
+      "line": "Pinion EPS",
+      "operation_time_hr": 146.6,
+      "num_machines": 12,
+      "total_operation_time_hr": 1759.2
+    },
+    "Dec-25|Sensor Assy EPS": {
+      "month": "Dec-25",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 115.5,
+      "num_machines": 8,
+      "total_operation_time_hr": 924.0
+    },
+    "Dec-25|Shaft Assy Input": {
+      "month": "Dec-25",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 80.3,
+      "num_machines": 3,
+      "total_operation_time_hr": 240.9
+    },
+    "Dec-25|Gear Assy EPS": {
+      "month": "Dec-25",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 121.1,
+      "num_machines": 46,
+      "total_operation_time_hr": 5570.6
+    },
+    "Jan-26|Rack EPS": {
+      "month": "Jan-26",
+      "line": "Rack EPS",
+      "operation_time_hr": 150.4,
+      "num_machines": 31,
+      "total_operation_time_hr": 4662.4
+    },
+    "Jan-26|Nut Ball Screw EPS Rack": {
+      "month": "Jan-26",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 46.5,
+      "num_machines": 5,
+      "total_operation_time_hr": 232.5
+    },
+    "Jan-26|Pinion EPS": {
+      "month": "Jan-26",
+      "line": "Pinion EPS",
+      "operation_time_hr": 72.9,
+      "num_machines": 12,
+      "total_operation_time_hr": 874.8
+    },
+    "Jan-26|Sensor Assy EPS": {
+      "month": "Jan-26",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 55.4,
+      "num_machines": 8,
+      "total_operation_time_hr": 443.2
+    },
+    "Jan-26|Shaft Assy Input": {
+      "month": "Jan-26",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 42.0,
+      "num_machines": 3,
+      "total_operation_time_hr": 126.0
+    },
+    "Jan-26|Gear Assy EPS": {
+      "month": "Jan-26",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 138.4,
+      "num_machines": 46,
+      "total_operation_time_hr": 6366.4
+    },
+    "Feb-26|Rack EPS": {
+      "month": "Feb-26",
+      "line": "Rack EPS",
+      "operation_time_hr": 257.5,
+      "num_machines": 31,
+      "total_operation_time_hr": 7983.0
+    },
+    "Feb-26|Nut Ball Screw EPS Rack": {
+      "month": "Feb-26",
+      "line": "Nut Ball Screw EPS Rack",
+      "operation_time_hr": 163.9,
+      "num_machines": 5,
+      "total_operation_time_hr": 819.7
+    },
+    "Feb-26|Pinion EPS": {
+      "month": "Feb-26",
+      "line": "Pinion EPS",
+      "operation_time_hr": 171.0,
+      "num_machines": 12,
+      "total_operation_time_hr": 2052.2
+    },
+    "Feb-26|Sensor Assy EPS": {
+      "month": "Feb-26",
+      "line": "Sensor Assy EPS",
+      "operation_time_hr": 189.5,
+      "num_machines": 8,
+      "total_operation_time_hr": 1515.7
+    },
+    "Feb-26|Shaft Assy Input": {
+      "month": "Feb-26",
+      "line": "Shaft Assy Input",
+      "operation_time_hr": 123.7,
+      "num_machines": 3,
+      "total_operation_time_hr": 371.0
+    },
+    "Feb-26|Gear Assy EPS": {
+      "month": "Feb-26",
+      "line": "Gear Assy EPS",
+      "operation_time_hr": 326.6,
+      "num_machines": 46,
+      "total_operation_time_hr": 3919.0
+    }
+  },
+  "faq_context": [
+    {
+      "q": "ช่วงเวลาของข้อมูลนี้คือเมื่อไหร่?",
+      "a": "ข้อมูลครอบคลุมช่วง Sep-25 ถึง Mar-26 มีทั้งหมด 367 ครั้ง"
+    },
+    {
+      "q": "Line ไหนเสียบ่อยที่สุด?",
+      "a": "Line ที่เสียบ่อยที่สุดคือ: Rack Machining (91 ครั้ง), Gear Sub-Assy (77 ครั้ง), Gear Assy (50 ครั้ง), Pinion Machining (43 ครั้ง), Housing Assy No.2 (26 ครั้ง)"
+    },
+    {
+      "q": "ประเภทความเสียหายที่พบบ่อยที่สุดคือ?",
+      "a": "Top 5 Failure Category: Position NG (55 ครั้ง), Loose (49 ครั้ง), Dirty (26 ครั้ง), Broken (25 ครั้ง), Abnormal (23 ครั้ง)"
+    },
+    {
+      "q": "สัดส่วน Mechanical vs Electrical เป็นอย่างไร?",
+      "a": "M (Mechanical): 241 ครั้ง, E (Electrical): 126 ครั้ง"
+    },
+    {
+      "q": "เหตุผลหลักที่ทำให้ซ่อมนาน (Long breakdown reason) คืออะไร?",
+      "a": "สาเหตุที่ทำให้ซ่อมนาน: Diagnosis (141 ครั้ง), Work Ability (119 ครั้ง), Spare Part (76 ครั้ง), Tools (12 ครั้ง)"
+    },
+    {
+      "q": "สถานะ Root cause ปัจจุบันเป็นอย่างไร?",
+      "a": "Root cause status: Completed: 176 รายการ, Temporary: 14 รายการ, Pending: 171 รายการ, On process: 6 รายการ"
+    }
+  ]
+}
