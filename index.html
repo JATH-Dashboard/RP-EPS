@@ -1112,13 +1112,13 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             type: "ประเภท (M/E)",
             paretoTitle: "Pareto Analysis: ปัญหาหลักตามเวลาซ่อม",
             top5Title: "5 อันเดับเครื่องจักรที่ขัดข้องบ่อย (ครั้ง)",
-            lineAnalysisTitle: "เครื่องขัดข้องตามไลน์ & สถานะ & การเกิดซ้ำ",
+            lineAnalysisTitle: "เครื่องจักรขัดข้องตามไลน์ & สถานะ & การเกิดซ้ำ",
             recurrentTitle: "ปัญหาที่เกิดซ้ำ",
             reasonTitle: "สาเหตุที่ใช้เวลาซ่อมนาน",
             failureCategoryTitle: "หมวดหมู่ความล้มเหลว",
             typeTitle: "สัดส่วนประเภทเครื่องจักรขัดข้อง (M/E)",
             scatterTitle: "ความถี่ vs เวลาซ่อม (รายเครื่อง)",
-            trendChartTitle: "เครื่องจักรขัดข้อง & สถานะ",
+            trendChartTitle: "เครื่องจักรขัดข้อง (จำนวน & เวลา) & สถานะ",
             trendTitle: "แนวโน้มประจำวัน (เวลา & จำนวนครั้ง)",
             distTitle: "การกระจายตัวของเวลาซ่อม",
             tableTitle: "ข้อมูลรายละเอียดเครื่องจักรขัดข้อง",
@@ -1162,7 +1162,20 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuKPI: "KPI",
             menuFocus: "Focus Mode",
             menuAnalysis: "Analysis",
+            menuAI: "AI Agent",
             menuTitle: "เมนู",
+            aiTitle: "AI Agent – วิเคราะห์ข้อมูล",
+            aiSubtitle: "วิเคราะห์ข้อมูล Breakdown อัตโนมัติด้วย Rule-based Engine",
+            aiRunBtn: "▶ เริ่มวิเคราะห์",
+            aiNoData: "กรุณาโหลดข้อมูล CSV ก่อน",
+            aiSummaryTitle: "สรุปภาพรวม",
+            aiTopMachineTitle: "🔴 เครื่องจักรที่ต้องให้ความสำคัญสูงสุด",
+            aiInsightTitle: "💡 Insights & ข้อสังเกต",
+            aiRecommendTitle: "🛠 คำแนะนำในการแก้ไข",
+            aiRootCauseTitle: "📋 วิเคราะห์ Root Cause",
+            aiLineTitle: "📦 วิเคราะห์รายไลน์",
+            aiCategoryTitle: "⚙️ Failure Category",
+            aiStatusTitle: "📌 สถานะการแก้ไข",
         },
         EN: {
             title: "Breakdown Analysis Dashboard RP-EPS Updated 2/4/26",
@@ -1184,7 +1197,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             failureCategoryTitle: "Failure Category",
             typeTitle: "Breakdown Type Analysis (M/E)",
             scatterTitle: "Frequency vs Breakdown Time",
-            trendChartTitle: "Breakdown & Status",
+            trendChartTitle: "Breakdown (Count & Time) & Status",
             trendTitle: "Daily Breakdown Trend",
             distTitle: "Breakdown Time Distribution",
             tableTitle: "Detailed Breakdown Data",
@@ -1228,7 +1241,20 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuKPI: "KPI",
             menuFocus: "Focus Mode",
             menuAnalysis: "Analysis",
+            menuAI: "AI Agent",
             menuTitle: "Menu",
+            aiTitle: "AI Agent – Data Analysis",
+            aiSubtitle: "Automated Breakdown Analysis with Rule-based Engine",
+            aiRunBtn: "▶ Run Analysis",
+            aiNoData: "Please upload CSV data first",
+            aiSummaryTitle: "Overview Summary",
+            aiTopMachineTitle: "🔴 Critical Machines",
+            aiInsightTitle: "💡 Insights & Observations",
+            aiRecommendTitle: "🛠 Recommendations",
+            aiRootCauseTitle: "📋 Root Cause Analysis",
+            aiLineTitle: "📦 Line Analysis",
+            aiCategoryTitle: "⚙️ Failure Category",
+            aiStatusTitle: "📌 Action Status",
 
         },
         JP: {
@@ -1251,7 +1277,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             failureCategoryTitle: "故障カテゴリ",
             typeTitle: "故障タイプ分析 (M/E)",
             scatterTitle: "頻度 vs 故障時間",
-            trendChartTitle: "故障 & ステータス",
+            trendChartTitle: "故障（件数 & 時間）& ステータス",
             trendTitle: "日次故障トレンド",
             distTitle: "故障時間の分布",
             tableTitle: "詳細データ一覧",
@@ -1295,7 +1321,20 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuKPI: "KPI",
             menuFocus: "フォーカスモード",
             menuAnalysis: "分析",
+            menuAI: "AIエージェント",
             menuTitle: "メニュー",
+            aiTitle: "AIエージェント – データ分析",
+            aiSubtitle: "ルールベースエンジンによる自動故障分析",
+            aiRunBtn: "▶ 分析開始",
+            aiNoData: "CSVデータをアップロードしてください",
+            aiSummaryTitle: "概要サマリー",
+            aiTopMachineTitle: "🔴 重点対応設備",
+            aiInsightTitle: "💡 インサイト & 所見",
+            aiRecommendTitle: "🛠 改善推奨事項",
+            aiRootCauseTitle: "📋 根本原因分析",
+            aiLineTitle: "📦 ライン別分析",
+            aiCategoryTitle: "⚙️ 故障カテゴリ",
+            aiStatusTitle: "📌 対応ステータス",
         }
         };
 // 🔹 Universal Tooltip Dictionary (ไม่กระทบ logic)
@@ -1847,11 +1886,478 @@ const renderParetoTick = ({ x, y, payload }) => {
         // ═══════════════════════════════════════════
         // 🍔 HAMBURGER MENU COMPONENT
         // ═══════════════════════════════════════════
+        // ═══════════════════════════════════════════════════
+        // 🤖 AI AGENT PAGE – Rule-based Analysis Engine
+        // ═══════════════════════════════════════════════════
+        const AIAgentPage = ({ data, operationData, t, lang, isLightMode, isMobile }) => {
+          const [result, setResult] = React.useState(null);
+          const [isRunning, setIsRunning] = React.useState(false);
+          const [progress, setProgress] = React.useState(0);
+          const [step, setStep] = React.useState('');
+
+          // Theme
+          const accent    = isLightMode ? '#1d4ed8' : '#E50914';
+          const accentSoft= isLightMode ? 'rgba(29,78,216,0.08)' : 'rgba(229,9,20,0.10)';
+          const accentBdr = isLightMode ? 'rgba(29,78,216,0.25)' : 'rgba(229,9,20,0.35)';
+          const cardBg    = isLightMode ? '#ffffff' : '#1c1c1c';
+          const borderCol = isLightMode ? 'rgba(180,210,240,0.55)' : '#2a2a2a';
+          const textMain  = isLightMode ? '#0f172a' : '#f1f5f9';
+          const textSub   = isLightMode ? '#334155' : '#d1d5db';
+          const textMuted = isLightMode ? '#64748b' : '#9ca3af';
+          const rowBg     = isLightMode ? 'rgba(241,245,249,0.80)' : '#151515';
+          const warnBg    = isLightMode ? 'rgba(245,158,11,0.07)' : 'rgba(245,158,11,0.10)';
+          const warnBdr   = isLightMode ? 'rgba(245,158,11,0.30)' : 'rgba(245,158,11,0.35)';
+          const dangerBg  = isLightMode ? 'rgba(239,68,68,0.06)' : 'rgba(239,68,68,0.10)';
+          const dangerBdr = isLightMode ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.30)';
+          const goodBg    = isLightMode ? 'rgba(16,185,129,0.06)' : 'rgba(16,185,129,0.10)';
+          const goodBdr   = isLightMode ? 'rgba(16,185,129,0.25)' : 'rgba(16,185,129,0.30)';
+
+          const txUnit = lang==='TH'?'ครั้ง':lang==='JP'?'回':'times';
+          const L = (th,en,jp) => lang==='TH'?th:lang==='JP'?jp:en;
+
+          const runAnalysis = () => {
+            if (!data||data.length===0) return;
+            setIsRunning(true); setProgress(0); setResult(null);
+            const steps=[
+              [10,  L('โหลดข้อมูล...','Loading data...','データ読込...')],
+              [25,  L('วิเคราะห์ Failure Category...','Analyzing Failure Category...','故障カテゴリ分析...')],
+              [45,  L('ตรวจหาปัญหาที่เกิดซ้ำ...','Detecting Recurrent Issues...','再発問題検出...')],
+              [62,  L('วิเคราะห์ Status Temporary...','Analyzing Temporary Fixes...','一時対応分析...')],
+              [80,  L('ประเมินความเสี่ยง...','Assessing risks...','リスク評価...')],
+              [95,  L('สร้างคำแนะนำ...','Generating recommendations...','推奨事項生成...')],
+              [100, L('เสร็จสิ้น ✓','Complete ✓','完了 ✓')],
+            ];
+            let i=0;
+            const tick=setInterval(()=>{
+              setProgress(steps[i][0]); setStep(steps[i][1]); i++;
+              if(i>=steps.length){ clearInterval(tick); setTimeout(()=>{ setResult(compute(data)); setIsRunning(false); },350); }
+            },320);
+          };
+
+          const compute = (rows) => {
+            const total = rows.length;
+
+            // ── Failure Category (นับครั้ง) ──
+            const catMap={};
+            rows.forEach(r=>{
+              const k=(r.failureCategory||'Unspecified').trim();
+              if(!catMap[k]) catMap[k]={count:0,tempCount:0,machines:new Set()};
+              catMap[k].count++;
+              catMap[k].machines.add(r.machineNo||'?');
+              const st=(r.statusRC||'').trim().toLowerCase();
+              if(st!=='completed'&&st!=='on process') catMap[k].tempCount++;
+            });
+            const catRank=Object.entries(catMap)
+              .map(([name,v])=>({name,count:v.count,tempCount:v.tempCount,machineCount:v.machines.size,pct:((v.count/total)*100).toFixed(1)}))
+              .sort((a,b)=>b.count-a.count);
+            const catTop3 = catRank.slice(0,3);
+            const catOtherCount = catRank.slice(3).reduce((s,c)=>s+c.count,0);
+
+            // ── Recurrent (นับครั้ง) ──
+            const recMap={};
+            rows.forEach(r=>{
+              const k=`${r.machineNo||'?'}||${(r.repairDetail||'').substring(0,60)}`;
+              if(!recMap[k]) recMap[k]={machineNo:r.machineNo||'?',lineName:r.lineName||'?',repairDetail:r.repairDetail||'',count:0,tempCount:0};
+              recMap[k].count++;
+              const st=(r.statusRC||'').trim().toLowerCase();
+              if(st!=='completed'&&st!=='on process') recMap[k].tempCount++;
+            });
+            const recurrents=Object.values(recMap).filter(d=>d.count>1).sort((a,b)=>b.count-a.count);
+            const recTop=recurrents.slice(0,6);
+            const totalRecCount=recurrents.reduce((s,d)=>s+d.count,0);
+
+            // ── Status Temporary (นับครั้ง) ──
+            const tempRows=rows.filter(r=>{ const st=(r.statusRC||'').trim().toLowerCase(); return st!=='completed'&&st!=='on process'; });
+            const doneRows=rows.filter(r=>(r.statusRC||'').trim().toLowerCase()==='completed');
+            const onProcRows=rows.filter(r=>(r.statusRC||'').trim().toLowerCase()==='on process');
+            const tempPct=total>0?((tempRows.length/total)*100).toFixed(1):'0.0';
+            const donePct=total>0?((doneRows.length/total)*100).toFixed(1):'0.0';
+
+            // top machines with temp fixes
+            const tmpMMap={};
+            tempRows.forEach(r=>{ const k=r.machineNo||'?'; if(!tmpMMap[k])tmpMMap[k]={count:0,line:r.lineName||'?'}; tmpMMap[k].count++; });
+            const tempMachTop=Object.entries(tmpMMap).map(([n,v])=>({name:n,...v})).sort((a,b)=>b.count-a.count).slice(0,4);
+
+            // ── Risk score (นับครั้ง) ──
+            const riskMap={};
+            rows.forEach(r=>{
+              const k=r.machineNo||'?';
+              if(!riskMap[k]) riskMap[k]={machine:k,line:r.lineName||'?',score:0,tempCount:0,recCount:0,totalCount:0};
+              riskMap[k].totalCount++;
+              const st=(r.statusRC||'').trim().toLowerCase();
+              if(st!=='completed'&&st!=='on process') riskMap[k].tempCount++;
+            });
+            recurrents.forEach(d=>{ if(riskMap[d.machineNo]) riskMap[d.machineNo].recCount+=d.count; });
+            Object.values(riskMap).forEach(m=>{ m.score = m.tempCount*3 + m.recCount*2 + m.totalCount; });
+            const riskRank=Object.values(riskMap).sort((a,b)=>b.score-a.score).slice(0,5);
+
+            // ── Line analysis ──
+            const lMap={};
+            rows.forEach(r=>{ const k=r.lineName||'?'; if(!lMap[k])lMap[k]={count:0}; lMap[k].count++; });
+            const lineRank=Object.entries(lMap).map(([n,v])=>({name:n,...v})).sort((a,b)=>b.count-a.count);
+
+            // ── Insights & Recs ──
+            const insights=[]; const recs=[];
+
+            // Cat
+            if(catTop3.length>0){
+              const c1=catTop3[0];
+              insights.push({level:'critical',icon:'⚙️',
+                text:L(`[Failure Category] "${c1.name}" พบบ่อยที่สุด ${c1.count} ครั้ง (${c1.pct}%) — ยังแก้ชั่วคราว ${c1.tempCount} ครั้ง`,
+                  `[Failure Category] "${c1.name}" is top: ${c1.count} events (${c1.pct}%) — ${c1.tempCount} still temporary`,
+                  `[故障カテゴリ] "${c1.name}"が最多 ${c1.count}回 (${c1.pct}%) — ${c1.tempCount}件が一時対応`)});
+              recs.push({priority:'HIGH',icon:'🎯',tag:'Failure Category',
+                text:L(`วางมาตรการป้องกัน "${c1.name}" เร่งด่วน — จัดทำ Standard Repair Procedure และแก้ไขถาวร ${c1.tempCount} รายการที่ค้างอยู่`,
+                  `Implement prevention for "${c1.name}" urgently — create Standard Repair Procedures and close ${c1.tempCount} pending temporary fixes`,
+                  `"${c1.name}"への予防策を緊急実施 — 修理標準書を作成し、${c1.tempCount}件の一時対応を恒久化`)});
+            }
+
+            // Recurrent
+            if(recurrents.length>0){
+              const r1=recurrents[0];
+              insights.push({level:'critical',icon:'🔁',
+                text:L(`[Recurrent] เครื่อง ${r1.machineNo} (${r1.lineName}) เกิดซ้ำ ${r1.count} ครั้ง: "${(r1.repairDetail||'').substring(0,45)}" — ยังชั่วคราว ${r1.tempCount} ครั้ง`,
+                  `[Recurrent] Machine ${r1.machineNo} (${r1.lineName}) repeated ${r1.count}x: "${(r1.repairDetail||'').substring(0,45)}" — ${r1.tempCount} still temporary`,
+                  `[再発] 設備${r1.machineNo} (${r1.lineName}) ${r1.count}回再発: "${(r1.repairDetail||'').substring(0,40)}" — ${r1.tempCount}件一時対応`)});
+              insights.push({level:'warning',icon:'🔁',
+                text:L(`[Recurrent] พบปัญหาซ้ำทั้งหมด ${recurrents.length} รายการ รวม ${totalRecCount} ครั้ง — Root Cause ยังไม่ได้รับการแก้ไขถาวร`,
+                  `[Recurrent] ${recurrents.length} recurring issues, ${totalRecCount} total events — Root Causes not permanently fixed`,
+                  `[再発] ${recurrents.length}件の再発問題、計${totalRecCount}回 — 根本原因未解決`)});
+              recs.push({priority:'HIGH',icon:'🔁',tag:'Recurrent',
+                text:L(`ทำ RCA เชิงลึกสำหรับ ${recurrents.length} รายการปัญหาซ้ำ เริ่มจาก "${r1.machineNo}" — วาง Permanent Countermeasure ให้ครบ`,
+                  `Conduct deep RCA for ${recurrents.length} recurring issues, starting with "${r1.machineNo}" — define permanent countermeasures`,
+                  `${recurrents.length}件の再発問題にRCAを実施、"${r1.machineNo}"から優先対応 — 恒久対策を確立`)});
+            }
+
+            // Temp
+            if(tempRows.length>0){
+              insights.push({level:'critical',icon:'⚠️',
+                text:L(`[Status Temporary] แก้ไขชั่วคราว ${tempRows.length} ครั้ง (${tempPct}%) — ยังมีความเสี่ยง Breakdown ซ้ำสูง`,
+                  `[Status Temporary] ${tempRows.length} temporary fixes (${tempPct}%) — high risk of recurring breakdown`,
+                  `[一時対応] ${tempRows.length}件の一時対応 (${tempPct}%) — 再発リスクが残存`)});
+              recs.push({priority:'HIGH',icon:'⚠️',tag:'Temporary Fix',
+                text:L(`จัดทำ Action Plan "ชั่วคราว → ถาวร" ทั้ง ${tempRows.length} รายการ กำหนด Deadline + PIC และติดตามทุกสัปดาห์`,
+                  `Create "Temporary → Permanent" Action Plan for all ${tempRows.length} items — set deadlines, PICs, weekly tracking`,
+                  `${tempRows.length}件の"一時→恒久"アクションプランを策定 — 期限と担当者設定、週次追跡`)});
+            }
+
+            // Overlap risk
+            const overlap=recurrents.filter(r=>r.tempCount>0);
+            if(overlap.length>0){
+              insights.push({level:'critical',icon:'🚨',
+                text:L(`[ความเสี่ยงสูงสุด] ${overlap.length} รายการที่ทั้ง "เกิดซ้ำ" AND "ยังชั่วคราว" — โอกาส Breakdown ครั้งถัดไปสูงมาก`,
+                  `[HIGHEST RISK] ${overlap.length} issues are BOTH recurrent AND still temporary — very high chance of next breakdown`,
+                  `[最高リスク] ${overlap.length}件が再発かつ一時対応中 — 次回故障の最高リスク`)});
+              recs.push({priority:'HIGH',icon:'🚨',tag:L('ความเสี่ยงสูงสุด','Highest Risk','最高リスク'),
+                text:L(`${overlap.length} รายการที่เกิดซ้ำ + ยังชั่วคราว ต้องแก้ถาวรก่อนทุกอย่าง — Emergency Action Plan ทันที`,
+                  `${overlap.length} issues that are both recurrent and temporary must be permanently fixed first — Emergency Action Plan now`,
+                  `再発かつ一時対応の${overlap.length}件を最優先で恒久対策化 — 緊急アクションプランを即時策定`)});
+            }
+
+            if(riskRank.length>0){
+              recs.push({priority:'MED',icon:'📊',tag:'Risk Score',
+                text:L(`เครื่อง ${riskRank[0].machine} Risk Score สูงสุด (ชั่วคราว: ${riskRank[0].tempCount} + ซ้ำ: ${riskRank[0].recCount} + BD รวม: ${riskRank[0].totalCount} ครั้ง) — วาง PM พิเศษ`,
+                  `Machine ${riskRank[0].machine} has highest Risk Score (Temp: ${riskRank[0].tempCount}, Recurrent: ${riskRank[0].recCount}, Total BD: ${riskRank[0].totalCount}) — plan special PM`,
+                  `設備${riskRank[0].machine}のリスクスコアが最高 (一時:${riskRank[0].tempCount}、再発:${riskRank[0].recCount}、合計BD:${riskRank[0].totalCount}回) — 特別PM計画を策定`)});
+            }
+
+            return {total,catRank,catTop3,catOtherCount,recurrents,recTop,totalRecCount,tempRows,tempPct,donePct,doneRows,onProcRows,tempMachTop,riskRank,lineRank,insights,recs};
+          };
+
+          // ── Mini UI components ──
+          const Card=({children,accentColor,style={}})=>React.createElement('div',{
+            style:{background:cardBg,border:`1px solid ${borderCol}`,borderLeft:accentColor?`4px solid ${accentColor}`:'none',borderRadius:16,padding:isMobile?'16px 14px':'20px 22px',...style}
+          },children);
+
+          const SecTitle=({emoji,title,sub})=>React.createElement('div',{style:{marginBottom:14}},
+            React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8}},
+              emoji&&React.createElement('span',{style:{fontSize:17}},emoji),
+              React.createElement('span',{style:{fontSize:14,fontWeight:800,color:textMain}},title)
+            ),
+            sub&&React.createElement('div',{style:{fontSize:12,color:textMuted,marginTop:3,marginLeft:emoji?25:0}},sub)
+          );
+
+          const MiniBar=({pct,max,color})=>React.createElement('div',{style:{background:isLightMode?'#e2e8f0':'#2a2a2a',borderRadius:999,height:5,overflow:'hidden',marginTop:4}},
+            React.createElement('div',{style:{width:`${max>0?Math.min(100,(pct/max)*100):0}%`,height:'100%',background:color||accent,borderRadius:999,transition:'width 0.55s ease'}})
+          );
+
+          const Pill=({label,color})=>React.createElement('span',{
+            style:{fontSize:10,fontWeight:700,padding:'2px 7px',borderRadius:999,background:`${color}22`,color,border:`1px solid ${color}44`,whiteSpace:'nowrap',flexShrink:0}
+          },label);
+
+          const r=result;
+
+          return React.createElement('div',{style:{padding:isMobile?'10px 4px':'22px 0',fontFamily:"'Sarabun',sans-serif"}},
+
+            // ── Header ──
+            React.createElement('div',{style:{background:isLightMode?'linear-gradient(135deg,rgba(29,78,216,0.09),rgba(99,102,241,0.05))':'linear-gradient(135deg,rgba(229,9,20,0.12),rgba(120,20,20,0.08))',border:`1px solid ${accentBdr}`,borderRadius:16,padding:isMobile?'16px':'22px 26px',marginBottom:20}},
+              React.createElement('div',{style:{display:'flex',gap:12,alignItems:'center',marginBottom:14,flexWrap:'wrap'}},
+                React.createElement('div',{style:{width:44,height:44,borderRadius:12,background:accentSoft,display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,flexShrink:0}},'🤖'),
+                React.createElement('div',null,
+                  React.createElement('div',{style:{fontSize:isMobile?16:19,fontWeight:800,color:textMain}},t.aiTitle||L('AI Agent – วิเคราะห์ข้อมูล','AI Agent – Data Analysis','AIエージェント')),
+                  React.createElement('div',{style:{fontSize:12,color:textMuted,marginTop:3}},L('โฟกัส: Failure Category → Recurrent → Temporary → ภาพรวม','Focus: Failure Category → Recurrent → Temporary → Overview','フォーカス: 故障カテゴリ → 再発 → 一時対応 → 概要'))
+                )
+              ),
+              React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10,flexWrap:'wrap'}},
+                React.createElement('button',{
+                  onClick:runAnalysis,
+                  disabled:isRunning||!data||data.length===0,
+                  style:{padding:'10px 24px',borderRadius:10,border:'none',background:(!data||data.length===0)?'#555':accent,color:'#fff',fontSize:13,fontWeight:700,cursor:(!data||data.length===0)?'not-allowed':'pointer',fontFamily:"'Sarabun',sans-serif",opacity:isRunning?0.75:1,transition:'all 0.2s',boxShadow:(!data||data.length===0)?'none':`0 3px 14px ${accent}50`}
+                },isRunning?L('⏳ กำลังวิเคราะห์...','⏳ Analyzing...','⏳ 分析中...'):(r?L('🔄 วิเคราะห์ใหม่','🔄 Re-Analyze','🔄 再分析'):(t.aiRunBtn||L('▶ เริ่มวิเคราะห์','▶ Run Analysis','▶ 分析開始')))),
+                data&&data.length>0?React.createElement('span',{style:{fontSize:12,color:textMuted}},L(`ข้อมูล ${data.length} รายการ`,`${data.length} records`,`${data.length} 件`)):React.createElement('span',{style:{fontSize:12,color:'#ef4444'}},t.aiNoData||L('กรุณาโหลดข้อมูล CSV ก่อน','Please upload CSV first','CSVをアップロードしてください'))
+              ),
+              isRunning&&React.createElement('div',{style:{marginTop:12}},
+                React.createElement('div',{style:{background:isLightMode?'#e2e8f0':'#2a2a2a',borderRadius:999,height:6,overflow:'hidden',marginBottom:5}},
+                  React.createElement('div',{style:{width:`${progress}%`,height:'100%',background:`linear-gradient(90deg,${accent},${accent}bb)`,borderRadius:999,transition:'width 0.4s ease'}})
+                ),
+                React.createElement('div',{style:{display:'flex',justifyContent:'space-between',fontSize:11,color:textMuted}},React.createElement('span',null,step),React.createElement('span',null,`${progress}%`))
+              )
+            ),
+
+            // ── Empty state ──
+            !r&&!isRunning&&data&&data.length>0&&React.createElement('div',{style:{textAlign:'center',padding:'48px 24px',color:textMuted}},
+              React.createElement('div',{style:{fontSize:46,marginBottom:10}},'🤖'),
+              React.createElement('div',{style:{fontSize:15,fontWeight:600,color:textSub,marginBottom:4}},L('พร้อมวิเคราะห์','Ready to Analyze','分析準備完了')),
+              React.createElement('div',{style:{fontSize:13}},L('กดปุ่ม "เริ่มวิเคราะห์"','Click "Run Analysis"','「分析開始」をクリック'))
+            ),
+
+            r&&React.createElement(React.Fragment,null,
+
+              // ── Quick KPI (5 boxes) ──
+              React.createElement('div',{style:{display:'grid',gridTemplateColumns:isMobile?'repeat(2,1fr)':'repeat(5,1fr)',gap:10,marginBottom:20}},
+                [
+                  {icon:'💥',val:r.total,          lbl:L('BD ทั้งหมด','Total BD','総故障'),       color:accent,     bg:rowBg},
+                  {icon:'🔁',val:r.recurrents.length,lbl:L('ปัญหาซ้ำ','Recurrent','再発問題'),   color:'#8b5cf6',  bg:r.recurrents.length>0?warnBg:rowBg},
+                  {icon:'⚠️',val:r.tempRows.length,  lbl:L('แก้ชั่วคราว','Temp Fixes','一時対応'), color:'#f59e0b',  bg:parseFloat(r.tempPct)>20?warnBg:rowBg, sub:`${r.tempPct}%`},
+                  {icon:'✅',val:r.doneRows.length,   lbl:L('แก้ถาวรแล้ว','Resolved','解決済み'),   color:'#10b981',  bg:goodBg},
+                  {icon:'📊',val:`${r.donePct}%`,    lbl:L('อัตราสำเร็จ','Resolution','解決率'),   color:parseFloat(r.donePct)>=70?'#10b981':'#f59e0b', bg:parseFloat(r.donePct)>=70?goodBg:warnBg},
+                ].map((k,i)=>React.createElement('div',{key:i,style:{background:k.bg,border:`1px solid ${borderCol}`,borderRadius:12,padding:'14px 10px',textAlign:'center'}},
+                  React.createElement('div',{style:{fontSize:18,marginBottom:3}},k.icon),
+                  React.createElement('div',{style:{fontSize:isMobile?20:24,fontWeight:800,color:k.color,lineHeight:1}},k.val),
+                  React.createElement('div',{style:{fontSize:11,color:textMuted,marginTop:1}},txUnit),
+                  React.createElement('div',{style:{fontSize:11,color:textSub,marginTop:5,fontWeight:600}},k.lbl),
+                  k.sub&&React.createElement('div',{style:{fontSize:10,color:textMuted,marginTop:1}},k.sub)
+                ))
+              ),
+
+              // ══════════════════════════════
+              // P1: FAILURE CATEGORY — Top 3 + Others
+              // ══════════════════════════════
+              React.createElement(Card,{accentColor:'#8b5cf6',style:{marginBottom:18}},
+                React.createElement(SecTitle,{emoji:'⚙️',
+                  title:L('Priority 1 — Failure Category (Top 3)','Priority 1 — Failure Category (Top 3)','Priority 1 — 故障カテゴリ (Top 3)'),
+                  sub:L(`แสดง 3 อันดับแรกที่พบบ่อยที่สุด (นับจำนวนครั้ง)`,`Showing top 3 most frequent (by count)`,`最多3カテゴリを表示（件数）`)
+                }),
+                // Top 3 category cards
+                React.createElement('div',{style:{display:'grid',gridTemplateColumns:isMobile?'1fr':'repeat(3,1fr)',gap:10,marginBottom:12}},
+                  r.catTop3.map((c,i)=>{
+                    const colors=['#ef4444','#f59e0b','#8b5cf6'];
+                    const col=colors[i]||'#6b7280';
+                    const bgs=[dangerBg,warnBg,rowBg];
+                    const bdrs=[dangerBdr,warnBdr,borderCol];
+                    return React.createElement('div',{key:c.name,
+                      style:{background:bgs[i],border:`1px solid ${bdrs[i]}`,borderTop:`3px solid ${col}`,borderRadius:12,padding:'14px 14px'}
+                    },
+                      React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}},
+                        React.createElement('span',{style:{fontSize:11,fontWeight:800,color:col}},`#${i+1}`),
+                        c.tempCount>0&&React.createElement(Pill,{label:`⚠ ${c.tempCount} ชั่วคราว`,color:'#f59e0b'})
+                      ),
+                      React.createElement('div',{style:{fontSize:13,fontWeight:700,color:textMain,marginBottom:6,lineHeight:1.4}},c.name),
+                      React.createElement('div',{style:{display:'flex',alignItems:'baseline',gap:4}},
+                        React.createElement('span',{style:{fontSize:24,fontWeight:800,color:col}},c.count),
+                        React.createElement('span',{style:{fontSize:12,color:textMuted}},txUnit)
+                      ),
+                      React.createElement('div',{style:{fontSize:11,color:textMuted,marginTop:2}},`${c.pct}% ของทั้งหมด`),
+                      React.createElement(MiniBar,{pct:c.count,max:r.catTop3[0].count,color:col})
+                    );
+                  })
+                ),
+                // Others summary
+                r.catRank.length>3&&React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 14px',background:rowBg,border:`1px solid ${borderCol}`,borderRadius:10,fontSize:13}},
+                  React.createElement('span',{style:{color:textMuted}},L(`อื่นๆ อีก ${r.catRank.length-3} หมวด`,`Other ${r.catRank.length-3} categories`,`その他 ${r.catRank.length-3} カテゴリ`)),
+                  React.createElement('span',{style:{fontWeight:700,color:textSub}},`${r.catOtherCount} ${txUnit}`)
+                )
+              ),
+
+              // ══════════════════════════════
+              // P2: RECURRENT
+              // ══════════════════════════════
+              React.createElement(Card,{accentColor:'#8b5cf6',style:{marginBottom:18}},
+                React.createElement(SecTitle,{emoji:'🔁',
+                  title:L('Priority 2 — ปัญหาที่เกิดซ้ำ (Recurrent)','Priority 2 — Recurrent Problems','Priority 2 — 再発問題'),
+                  sub:r.recurrents.length>0
+                    ?L(`พบ ${r.recurrents.length} รายการซ้ำ รวม ${r.totalRecCount} ครั้ง — Root Cause ยังไม่แก้ถาวร`,`${r.recurrents.length} recurring issues, ${r.totalRecCount} total events — Root Causes not permanently fixed`,`${r.recurrents.length}件の再発、計${r.totalRecCount}回 — 根本原因未解決`)
+                    :L('ไม่พบปัญหาที่เกิดซ้ำ ✓','No recurrent issues ✓','再発問題なし ✓')
+                }),
+                r.recurrents.length===0
+                  ?React.createElement('div',{style:{textAlign:'center',padding:'16px',color:'#10b981',fontSize:14,fontWeight:600}},'✓ '+L('ไม่พบปัญหาซ้ำ','No recurrent issues found','再発問題なし'))
+                  :React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:6}},
+                    r.recTop.map((rec,i)=>{
+                      const isTop=i===0; const hasTmp=rec.tempCount>0;
+                      const borderL=isTop?'3px solid #ef4444':hasTmp?'3px solid #f59e0b':'3px solid #4b5563';
+                      const bg=isTop?dangerBg:hasTmp?warnBg:rowBg;
+                      const bdr=isTop?dangerBdr:hasTmp?warnBdr:borderCol;
+                      return React.createElement('div',{key:i,style:{background:bg,border:`1px solid ${bdr}`,borderLeft:borderL,borderRadius:10,padding:'10px 13px'}},
+                        React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:8}},
+                          React.createElement('div',{style:{minWidth:0,flex:1}},
+                            React.createElement('div',{style:{display:'flex',alignItems:'center',gap:7,marginBottom:3,flexWrap:'wrap'}},
+                              React.createElement('span',{style:{fontSize:13,fontWeight:800,color:accent,flexShrink:0}},rec.machineNo),
+                              React.createElement('span',{style:{fontSize:11,color:textMuted,flexShrink:0}},`(${rec.lineName})`),
+                              hasTmp&&React.createElement(Pill,{label:`⚠ ชั่วคราว ${rec.tempCount}`,color:'#f59e0b'})
+                            ),
+                            React.createElement('div',{style:{fontSize:12,color:textSub,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},
+                              (rec.repairDetail||'').substring(0,65)||(L('ไม่ระบุ','Unknown','不明'))
+                            )
+                          ),
+                          React.createElement('div',{style:{textAlign:'right',flexShrink:0}},
+                            React.createElement('div',{style:{fontSize:18,fontWeight:800,color:isTop?'#ef4444':'#8b5cf6'}},`${rec.count}×`),
+                            React.createElement('div',{style:{fontSize:10,color:textMuted}},txUnit)
+                          )
+                        )
+                      );
+                    })
+                  )
+              ),
+
+              // ══════════════════════════════
+              // P3: STATUS TEMPORARY
+              // ══════════════════════════════
+              React.createElement(Card,{accentColor:'#f59e0b',style:{marginBottom:18}},
+                React.createElement(SecTitle,{emoji:'⚠️',
+                  title:L('Priority 3 — Status Temporary','Priority 3 — Status Temporary','Priority 3 — 一時対応ステータス'),
+                  sub:L(`${r.tempRows.length} รายการยังแก้ชั่วคราว (${r.tempPct}%) — ความเสี่ยง Breakdown ซ้ำสูง`,`${r.tempRows.length} items on temporary fix (${r.tempPct}%) — high recurrence risk`,`${r.tempRows.length}件が一時対応 (${r.tempPct}%) — 再発リスク高`)
+                }),
+
+                // 3 status boxes
+                React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:14}},
+                  [
+                    {label:L('แก้ถาวร','Completed','完了'),       count:r.doneRows.length,  color:'#10b981', bg:goodBg,  bdr:goodBdr},
+                    {label:L('กำลังดำเนินการ','In Process','対応中'), count:r.onProcRows.length, color:'#3b82f6', bg:rowBg,   bdr:borderCol},
+                    {label:L('ชั่วคราว','Temporary','一時対応'),   count:r.tempRows.length,  color:'#f59e0b', bg:warnBg,  bdr:warnBdr},
+                  ].map((s,i)=>React.createElement('div',{key:i,style:{background:s.bg,border:`1px solid ${s.bdr}`,borderRadius:11,padding:'12px 10px',textAlign:'center'}},
+                    React.createElement('div',{style:{fontSize:26,fontWeight:800,color:s.color}},s.count),
+                    React.createElement('div',{style:{fontSize:10,color:textMuted,marginTop:1}},txUnit),
+                    React.createElement('div',{style:{fontSize:11,color:textSub,marginTop:5,fontWeight:600}},s.label),
+                    React.createElement('div',{style:{fontSize:10,color:textMuted,marginTop:1}},`${r.total>0?((s.count/r.total)*100).toFixed(0):0}%`)
+                  ))
+                ),
+
+                // Resolution progress bar
+                React.createElement('div',{style:{marginBottom:14}},
+                  React.createElement('div',{style:{display:'flex',justifyContent:'space-between',fontSize:12,marginBottom:4}},
+                    React.createElement('span',{style:{color:textSub,fontWeight:600}},L('อัตราแก้ไขถาวร','Permanent Resolution Rate','恒久解決率')),
+                    React.createElement('span',{style:{fontWeight:800,color:parseFloat(r.donePct)>=70?'#10b981':'#f59e0b'}},`${r.donePct}%`)
+                  ),
+                  React.createElement('div',{style:{background:isLightMode?'#e2e8f0':'#2a2a2a',borderRadius:999,height:10,overflow:'hidden'}},
+                    React.createElement('div',{style:{width:`${r.total>0?(r.doneRows.length/r.total)*100:0}%`,height:'100%',background:parseFloat(r.donePct)>=70?'#10b981':'#f59e0b',borderRadius:999,transition:'width 0.7s ease'}})
+                  ),
+                  React.createElement('div',{style:{display:'flex',justifyContent:'space-between',fontSize:10,color:textMuted,marginTop:3}},
+                    React.createElement('span',null,'0%'),
+                    React.createElement('span',null,L('เป้าหมาย ≥ 70%','Target ≥ 70%','目標 ≥ 70%')),
+                    React.createElement('span',null,'100%')
+                  )
+                ),
+
+                // Top machines with temp fixes
+                r.tempMachTop.length>0&&React.createElement('div',null,
+                  React.createElement('div',{style:{fontSize:11,fontWeight:700,color:textMuted,marginBottom:6}},L('เครื่องที่ยังแก้ชั่วคราว:','Machines with most temporary fixes:','一時対応件数の多い設備:')),
+                  React.createElement('div',{style:{display:'grid',gridTemplateColumns:isMobile?'1fr 1fr':'repeat(4,1fr)',gap:8}},
+                    r.tempMachTop.map((m,i)=>React.createElement('div',{key:m.name,
+                      style:{background:i===0?warnBg:rowBg,border:`1px solid ${i===0?warnBdr:borderCol}`,borderRadius:9,padding:'10px 10px',textAlign:'center'}
+                    },
+                      React.createElement('div',{style:{fontSize:14,fontWeight:800,color:i===0?'#f59e0b':textMain}},m.name),
+                      React.createElement('div',{style:{fontSize:11,color:textMuted,margin:'2px 0'}},m.line),
+                      React.createElement('div',{style:{fontSize:18,fontWeight:800,color:i===0?'#f59e0b':'#8b5cf6'}},m.count),
+                      React.createElement('div',{style:{fontSize:10,color:textMuted}},txUnit)
+                    ))
+                  )
+                )
+              ),
+
+              // ══════════════════════════════
+              // INSIGHTS + RECS side by side
+              // ══════════════════════════════
+              React.createElement('div',{style:{display:'grid',gridTemplateColumns:isMobile?'1fr':'1fr 1fr',gap:16,marginBottom:18}},
+                React.createElement(Card,null,
+                  React.createElement(SecTitle,{emoji:'💡',title:L('สิ่งที่พบจากข้อมูล','Key Insights','インサイト')}),
+                  r.insights.map((ins,i)=>{
+                    const cs={critical:'#ef4444',warning:'#f59e0b',info:'#3b82f6',good:'#10b981'};
+                    const c=cs[ins.level]||'#6b7280';
+                    return React.createElement('div',{key:i,style:{display:'flex',gap:9,padding:'9px 11px',background:rowBg,border:`1px solid ${c}22`,borderLeft:`3px solid ${c}`,borderRadius:9,marginBottom:7}},
+                      React.createElement('span',{style:{fontSize:15,flexShrink:0,lineHeight:1.6}},ins.icon),
+                      React.createElement('span',{style:{fontSize:12,color:textSub,lineHeight:1.6}},ins.text)
+                    );
+                  })
+                ),
+                React.createElement(Card,null,
+                  React.createElement(SecTitle,{emoji:'🛠',title:L('คำแนะนำในการแก้ไข','Recommendations','改善推奨')}),
+                  r.recs.map((rec,i)=>{
+                    const pc={HIGH:'#ef4444',MED:'#f59e0b',LOW:'#10b981'};const c=pc[rec.priority]||'#6b7280';
+                    const pl={HIGH:L('สูง','HIGH','高'),MED:L('กลาง','MED','中'),LOW:L('ต่ำ','LOW','低')}[rec.priority]||rec.priority;
+                    return React.createElement('div',{key:i,style:{display:'flex',gap:9,padding:'9px 11px',background:rowBg,border:`1px solid ${borderCol}`,borderRadius:9,marginBottom:7}},
+                      React.createElement('div',{style:{flexShrink:0,paddingTop:1}},React.createElement(Pill,{label:pl,color:c})),
+                      React.createElement('div',{style:{minWidth:0}},
+                        rec.tag&&React.createElement('div',{style:{fontSize:10,color:accent,fontWeight:700,marginBottom:2}},'['+rec.tag+']'),
+                        React.createElement('div',{style:{fontSize:12,color:textSub,lineHeight:1.6}},React.createElement('span',{style:{marginRight:4}},rec.icon),rec.text)
+                      )
+                    );
+                  })
+                )
+              ),
+
+              // ══════════════════════════════
+              // SUPPORT: Risk Score + Line
+              // ══════════════════════════════
+              React.createElement('div',{style:{display:'grid',gridTemplateColumns:isMobile?'1fr':'1fr 1fr',gap:16,marginBottom:18}},
+                React.createElement(Card,null,
+                  React.createElement(SecTitle,{emoji:'🎯',
+                    title:L('Risk Score — เครื่องจักรเสี่ยงสูง','Risk Score — High Risk Machines','リスクスコア'),
+                    sub:L('Temp×3 + Recurrent×2 + BD รวม','Temp×3 + Recurrent×2 + Total BD','Temp×3 + 再発×2 + 合計BD')
+                  }),
+                  r.riskRank.map((m,i)=>React.createElement('div',{key:m.machine,
+                    style:{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'9px 11px',background:i===0?dangerBg:rowBg,border:`1px solid ${i===0?dangerBdr:borderCol}`,borderLeft:`3px solid ${i===0?'#ef4444':'#4b5563'}`,borderRadius:8,marginBottom:6}
+                  },
+                    React.createElement('div',null,
+                      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:2}},
+                        React.createElement('span',{style:{fontSize:11,fontWeight:800,color:i===0?'#ef4444':textMuted,width:16}},`${i+1}.`),
+                        React.createElement('span',{style:{fontSize:13,fontWeight:700,color:textMain}},m.machine),
+                        React.createElement('span',{style:{fontSize:11,color:textMuted}},`(${m.line})`)
+                      ),
+                      React.createElement('div',{style:{fontSize:11,color:textMuted,marginLeft:22}},
+                        `⚠ ${m.tempCount} · 🔁 ${m.recCount} · BD ${m.totalCount}${txUnit}`
+                      )
+                    ),
+                    React.createElement('div',{style:{fontSize:20,fontWeight:800,color:i===0?'#ef4444':'#8b5cf6'}},m.score)
+                  ))
+                ),
+                React.createElement(Card,null,
+                  React.createElement(SecTitle,{emoji:'📦',title:L('วิเคราะห์รายไลน์','Line Analysis','ライン別分析'),sub:L('นับจำนวนครั้ง','By event count','件数')}),
+                  r.lineRank.slice(0,5).map((l,i)=>React.createElement('div',{key:l.name,style:{marginBottom:9}},
+                    React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:3}},
+                      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6,minWidth:0}},
+                        React.createElement('span',{style:{fontSize:11,fontWeight:700,color:i===0?accent:textMuted,flexShrink:0,width:16}},`${i+1}.`),
+                        React.createElement('span',{style:{fontSize:12,color:textMain,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},l.name)
+                      ),
+                      React.createElement('div',{style:{display:'flex',alignItems:'baseline',gap:4,flexShrink:0}},
+                        React.createElement('span',{style:{fontSize:14,fontWeight:800,color:i===0?accent:textSub}},l.count),
+                        React.createElement('span',{style:{fontSize:10,color:textMuted}},txUnit)
+                      )
+                    ),
+                    React.createElement(MiniBar,{pct:l.count,max:r.lineRank[0].count,color:i===0?accent:(isLightMode?'#60a5fa':'#374151')})
+                  ))
+                )
+              )
+
+            ) // end r&&
+          );
+        };
+
         const HamburgerMenu = ({ isOpen, onClose, currentPage, setCurrentPage, t, isLightMode }) => {
           const menuItems = [
             { key: 'KPI', icon: '📊', label: t.menuKPI },
             { key: 'FOCUS', icon: '🎯', label: t.menuFocus },
             { key: 'ANALYSIS', icon: '🔬', label: t.menuAnalysis },
+            { key: 'AI', icon: '🤖', label: t.menuAI || 'AI Agent' },
           ];
 
           return React.createElement(React.Fragment, null,
@@ -3755,17 +4261,14 @@ const makeTooltip = (isLight, unitKey, lang) => ({ active, payload, label }) => 
 
 
 // Tooltip สำหรับ FDR/MTBF/MTTR — filter เฉพาะ line ที่ถูก select (ถ้ามี)
-const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine, selectedLines) => ({ active, payload, label }) => {
+const makeTrendTooltip = (isLight, unitKey, lang, chartClickLine) => ({ active, payload, label }) => {
   if (!active || !payload || !payload.length) return null;
   const ct = getChartTheme(isLight);
   const suffix = unitKey && lang ? (UNIT_SUFFIX[lang]?.[unitKey] || '') : '';
   // กรองเฉพาะ line ที่ select ถ้ามี filter อยู่
-  let filtered = payload;
-  if (chartClickLine) {
-    filtered = payload.filter(e => e.dataKey === chartClickLine);
-  } else if (selectedLines && selectedLines.length > 0) {
-    filtered = payload.filter(e => selectedLines.includes(e.dataKey));
-  }
+  const filtered = chartClickLine
+    ? payload.filter(e => e.dataKey === chartClickLine)
+    : payload;
   if (!filtered.length) return null;
   return (
     <div data-jath-tooltip="1" style={{
@@ -4305,7 +4808,7 @@ onDragOver={handleDragOver}
           <CartesianGrid strokeDasharray="2 6" vertical={false} stroke={getChartTheme(isLightMode).grid} />
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis unit="%" width={isMobile ? 38 : 52} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'pct', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" align="center"
             wrapperStyle={{ paddingTop: 10, fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }}
@@ -4381,7 +4884,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis allowDecimals={false} width={isMobile ? 30 : 40} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ครั้ง':lang==='JP'?'件':'Count', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'count', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'count', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {OVER1H_LINES.map((line) => {
@@ -4465,7 +4968,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 11 : 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map(line => {
@@ -4546,7 +5049,7 @@ onDragOver={handleDragOver}
           <XAxis dataKey="month" tick={{ fill: getChartTheme(isLightMode).axis, fontSize: isMobile ? 10 : 11 }} interval={0} minTickGap={isMobile ? 30 : 0} />
           <YAxis width={isMobile ? 38 : 55} tick={{ fill: getChartTheme(isLightMode).axis, fontSize: 11 }} tickMargin={8}
             label={{ value: lang==='TH'?'ชม.':lang==='JP'?'時間':'hr', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: getChartTheme(isLightMode).axis }, textAnchor: 'middle' }} />
-          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine, selectedLines)} cursor={{ fill: 'transparent' }} />
+          <RechartsTooltip content={makeTrendTooltip(isLightMode, 'hr', lang, chartClickLine)} cursor={{ fill: 'transparent' }} />
           <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: isMobile ? 10 : 13, cursor: 'pointer' }}
             onClick={(e) => { if (e && e.dataKey) toggleChartFilter(setChartClickLine, chartClickLine, e.dataKey); }} />
           {['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy','Gear Assy'].map((line) => {
@@ -6109,6 +6612,11 @@ return (
                     </div>
 
                 </React.Fragment>)}
+
+{/* ═══ PAGE: AI AGENT ═══ */}
+{currentPage === 'AI' && (<React.Fragment>
+  <AIAgentPage data={filteredData} operationData={operationData} t={t} lang={lang} isLightMode={isLightMode} isMobile={isMobile} />
+</React.Fragment>)}
 
                 {/* Scroll to Top Button */}
                 {currentPage === 'ANALYSIS' && showScrollTop && (
