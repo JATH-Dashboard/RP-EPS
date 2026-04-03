@@ -6077,7 +6077,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
               {paretoData.map((entry, index) => {
                 const st = (entry.status || '').trim().toLowerCase();
                 const fill = st === 'completed' ? getChartTheme(isLightMode).paretoBars
-                           : st === 'on process' ? '#F97316'
+                           : st === 'on process' ? '#FACC15'
                            : getChartTheme(isLightMode).paretoTempColor;
                 return (
                   <Cell key={`pareto-${index}`} fill={fill}
@@ -6156,7 +6156,7 @@ opacity={chartClickMachine && chartClickMachine !== entry.id ? 0.15 : 1}
           {paretoData.map((entry, index) => {
             const st = (entry.status || '').trim().toLowerCase();
             const fill = st === 'completed' ? getChartTheme(isLightMode).paretoBars
-                       : st === 'on process' ? '#F97316'
+                       : st === 'on process' ? '#FACC15'
                        : getChartTheme(isLightMode).paretoTempColor;
             return (
               <Cell key={`pareto-${index}`} fill={fill}
