@@ -3192,7 +3192,7 @@ const failureCategoryCount = useMemo(() => {
 
 const repairTimeBreakdown = useMemo(() => {
 
-  const over1h = filteredData.filter(d => d.bdTime >= 60);
+  const targetData = filteredData;
 
   const result = {
     Diagnosis: 0,
@@ -3203,7 +3203,7 @@ const repairTimeBreakdown = useMemo(() => {
     "Back up": 0
   };
 
-  over1h.forEach(d => {
+  targetData.forEach(d => {
     result.Diagnosis += d.diagnosis || 0;
     result["Spare Part"] += d["Spare Part"] || 0;
     result.Tools += d.Tools || 0;
