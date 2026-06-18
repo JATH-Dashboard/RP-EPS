@@ -1099,7 +1099,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 12/06/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 18/06/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1179,7 +1179,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             aiStatusTitle: "📌 สถานะการแก้ไข",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 12/06/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 18/06/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1260,7 +1260,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年6月12日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年6月18日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -6818,42 +6818,66 @@ return (
                         <h3 className="text-lg font-bold text-gray-800">{t.tableTitle}</h3>
                         <span className="text-sm text-gray-500 px-3 py-1 rounded border" style={{background: isLightMode ? '#ffffff' : '#2a2a2a', borderColor: isLightMode ? undefined : '#3a3a3a'}}>{filteredData.length} records</span>
                     </div>
-                    <div className="overflow-x-auto custom-scrollbar">
-                        <table className="w-full text-sm text-left text-gray-600">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-100">
+                    <div style={{overflowX:'auto', overflowY:'auto', maxHeight:'604px'}} className="custom-scrollbar">
+                        <table className="w-full text-sm text-left text-gray-600" style={{borderCollapse:'separate', borderSpacing:0}}>
+                            <thead className="text-xs text-gray-700 uppercase" style={{position:'sticky', top:0, zIndex:10, background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>
                                 <tr>
-                                <th className="px-6 py-3 sticky left-0 bg-gray-100 shadow-sm">{t.colMachine}</th>
-                                <th className="px-6 py-3">{t.colDate}</th>
-                                <th className="px-6 py-3">{t.colLine}</th>
-                                <th className="px-6 py-3 text-right text-blue-700">{t.colTime}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colRepair}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colImplement}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colRoot}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colCMRC}</th>
-                                <th className="px-6 py-3 min-w-[130px]">{t.colStatusRC}</th>
-                                <th className="px-6 py-3 min-w-[110px]">{t.colPicRC}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colOver}</th>
-                                <th className="px-6 py-3 min-w-[200px]">{t.colAction}</th>
-                                <th className="px-6 py-3 min-w-[130px]">{t.colStatusLT}</th>
-                                <th className="px-6 py-3 min-w-[110px]">{t.colPicLT}</th>
+                                <th className="px-6 py-3" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colMachine}</th>
+                                <th className="px-6 py-3" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colDate}</th>
+                                <th className="px-6 py-3 whitespace-nowrap" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colLine}</th>
+                                <th className="px-6 py-3 text-right text-blue-700" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colTime}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colRepair}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colImplement}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colRoot}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colCMRC}</th>
+                                <th className="px-6 py-3 min-w-[130px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colStatusRC}</th>
+                                <th className="px-6 py-3 min-w-[110px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colPicRC}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colOver}</th>
+                                <th className="px-6 py-3 min-w-[200px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colAction}</th>
+                                <th className="px-6 py-3 min-w-[130px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colStatusLT}</th>
+                                <th className="px-6 py-3 min-w-[110px]" style={{background: isLightMode ? '#f3f4f6' : '#1a1a1a'}}>{t.colPicLT}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {filteredData.slice().sort((a,b) => b.bdTime - a.bdTime).map((row, i) => (
                                 <tr key={i} className="hover:bg-blue-50 transition-colors">
-                                    <td className="px-6 py-4 font-medium text-gray-900 sticky left-0 bg-white hover:bg-blue-50 border-r">{row.machineNo}</td>
+                                    <td className="px-6 py-4 font-medium text-gray-900">{row.machineNo}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{row.startDate}</td>
-                                    <td className="px-6 py-4">{row.lineName}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{row.lineName}</td>
                                     <td className="px-6 py-4 text-right font-bold text-blue-600">{row.bdTime}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.repairDetail}>{row.repairDetail}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.implementation}>{row.implementation}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.rootCause}>{row.rootCause}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.countermeasureRC}>{row.countermeasureRC}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap" style={{color: row.statusRC==='Completed'?'#16A34A':row.statusRC==='Temporary'?'#F59E0B':undefined}}>{row.statusRC}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      {row.statusRC && (() => {
+                                        const st = (row.statusRC||'').trim().toLowerCase();
+                                        const sqColor = st==='completed'?(isLightMode?'#007AFF':'#475569'):st==='on process'?'#FACC15':'#E50914';
+                                        const txtColor = isLightMode ? sqColor : undefined;
+                                        return (
+                                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: isLightMode ? 700 : 500, color: txtColor }}>
+                                            <svg width="12" height="12" style={{flexShrink:0}}><rect width="12" height="12" rx="2" fill={sqColor} /></svg>
+                                            {row.statusRC}
+                                          </span>
+                                        );
+                                      })()}
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap">{row.picRC}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.longReason}>{row.longReason}</td>
                                     <td className="px-6 py-4 truncate max-w-xs" title={row.over1H}>{row.over1H}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap" style={{color: row.statusLT==='Completed'?'#16A34A':row.statusLT==='Temporary'?'#F59E0B':undefined}}>{row.statusLT}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      {row.statusLT && (() => {
+                                        const st = (row.statusLT||'').trim().toLowerCase();
+                                        const sqColor = st==='completed'?(isLightMode?'#007AFF':'#475569'):st==='on process'?'#FACC15':'#E50914';
+                                        const txtColor = isLightMode ? sqColor : undefined;
+                                        return (
+                                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: isLightMode ? 700 : 500, color: txtColor }}>
+                                            <svg width="12" height="12" style={{flexShrink:0}}><rect width="12" height="12" rx="2" fill={sqColor} /></svg>
+                                            {row.statusLT}
+                                          </span>
+                                        );
+                                      })()}
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap">{row.picLT}</td>
                                 </tr>
                                 ))}
@@ -7870,6 +7894,14 @@ body:not(.light-mode) thead {
 body:not(.light-mode) tbody tr:hover {
   background-color: #1a1a1a !important;
 }
+
+/* ===== Status Indicator Squares ===== */
+body:not(.light-mode) .st-sq-completed { color: #475569 !important; }
+body:not(.light-mode) .st-sq-onprocess { color: #FACC15 !important; }
+body:not(.light-mode) .st-sq-temporary { color: #E50914 !important; }
+body.light-mode .st-sq-completed { color: #007AFF !important; }
+body.light-mode .st-sq-onprocess { color: #FACC15 !important; }
+body.light-mode .st-sq-temporary { color: #E50914 !important; }
 
 /* ===== Inputs / Dropdown ===== */
 body:not(.light-mode) select,
