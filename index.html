@@ -1099,7 +1099,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
         // Translations
         const TRANSLATIONS = {
         TH: {
-            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 18/06/26",
+            title: "แดชบอร์ดวิเคราะห์การขัดข้องไลน์ RP-EPS อัปเดท 29/6/26",
             uploadBtn: "อัปโหลดไฟล์ CSV",
             uploadDesc: "ลากและวางไฟล์ หรือคลิกเพื่อเลือก (รองรับ CSV)",
             totalCount: "จำนวนครั้งที่เสีย",
@@ -1164,7 +1164,17 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuAnalysis: "Analysis",
             menuAI: "AI Agent",
             menuWeakpoint: "Weak Point Analysis",
+            menuTableAnalysis: "Table Analysis",
             menuTitle: "เมนู",
+            tableAnalysisTitle: "การวิเคราะห์ตารางข้อมูล",
+            tableMatrixLabel: "Matrix Table",
+            tableDetailLabel: "Detail Table",
+            tableSearchPlaceholder: "ค้นหา...",
+            tableExportCSV: "ส่งออก CSV",
+            tableTotalBD: "Breakdown รวม",
+            tableFilterClear: "ล้างตัวกรอง",
+            tableNoData: "ไม่พบข้อมูล",
+            tableClickHint: "คลิก Cell เพื่อกรองข้อมูล",
             aiTitle: "AI Agent – วิเคราะห์ข้อมูล",
             aiSubtitle: "วิเคราะห์ข้อมูล Breakdown อัตโนมัติด้วย Rule-based Engine",
             aiRunBtn: "▶ เริ่มวิเคราะห์",
@@ -1179,7 +1189,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             aiStatusTitle: "📌 สถานะการแก้ไข",
         },
         EN: {
-            title: "Breakdown Analysis Dashboard RP-EPS Updated 18/06/26",
+            title: "Breakdown Analysis Dashboard RP-EPS Updated 29/6/26",
             uploadBtn: "Upload CSV File",
             uploadDesc: "Drag & drop or click to select (CSV supported)",
             totalCount: "Total Breakdown Count",
@@ -1244,7 +1254,17 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuAnalysis: "Analysis",
             menuAI: "AI Agent",
             menuWeakpoint: "Weak Point Analysis",
+            menuTableAnalysis: "Table Analysis",
             menuTitle: "Menu",
+            tableAnalysisTitle: "Table Analysis",
+            tableMatrixLabel: "Matrix Table",
+            tableDetailLabel: "Detail Table",
+            tableSearchPlaceholder: "Search...",
+            tableExportCSV: "Export CSV",
+            tableTotalBD: "Total Breakdown",
+            tableFilterClear: "Clear Filter",
+            tableNoData: "No Data Found",
+            tableClickHint: "Click cell to filter",
             aiTitle: "AI Agent – Data Analysis",
             aiSubtitle: "Automated Breakdown Analysis with Rule-based Engine",
             aiRunBtn: "▶ Run Analysis",
@@ -1260,7 +1280,7 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
 
         },
         JP: {
-            title: "RP-EPS 故障解析ダッシュボード（2026年6月18日更新)",
+            title: "RP-EPS 故障解析ダッシュボード（2026年6月29日更新)",
             uploadBtn: "CSVファイルをアップロード",
             uploadDesc: "ドラッグ＆ドロップまたはクリックして選択",
             totalCount: "総故障回数",
@@ -1325,7 +1345,17 @@ body.light-mode button.line-toggle-btn.inactive-toggle {
             menuAnalysis: "分析",
             menuAI: "AIエージェント",
             menuWeakpoint: "弱点分析",
+            menuTableAnalysis: "テーブル分析",
             menuTitle: "メニュー",
+            tableAnalysisTitle: "テーブル分析",
+            tableMatrixLabel: "マトリクス表",
+            tableDetailLabel: "詳細テーブル",
+            tableSearchPlaceholder: "検索...",
+            tableExportCSV: "CSV出力",
+            tableTotalBD: "故障合計",
+            tableFilterClear: "フィルター解除",
+            tableNoData: "データなし",
+            tableClickHint: "セルをクリックしてフィルター",
             aiTitle: "AIエージェント – データ分析",
             aiSubtitle: "ルールベースエンジンによる自動故障分析",
             aiRunBtn: "▶ 分析開始",
@@ -2355,12 +2385,588 @@ const renderParetoTick = ({ x, y, payload }) => {
           );
         };
 
+        // ══════════════════════════════════════════════════════════
+        // 📋 TABLE ANALYSIS PAGE COMPONENT (Power BI Matrix Style)
+        // ══════════════════════════════════════════════════════════
+        const TableAnalysisPage = ({ data, t, lang, isLightMode, isMobile }) => {
+          const [matrixFilter, setMatrixFilter] = React.useState(null);
+          const [expandedTypes, setExpandedTypes] = React.useState({ E: true, M: true });
+          const [sortKey, setSortKey] = React.useState('isoDate');
+          const [sortDir, setSortDir] = React.useState('desc');
+
+          const ct = getChartTheme(isLightMode);
+          const accent = isLightMode ? '#1d4ed8' : '#E50914';
+          const tealBar = isLightMode ? '#14b8a6' : '#2dd4bf';
+          const cardBg = isLightMode ? '#ffffff' : '#1a1a2e';
+          const cardBorder = isLightMode ? '#d6e4f0' : '#2a2a3e';
+          const textMain = isLightMode ? '#0f172a' : '#e2e8f0';
+          const textMuted = isLightMode ? '#6b7280' : '#94a3b8';
+          const headBg = isLightMode ? '#e2e8f0' : '#0f172a';
+          const headBg2 = isLightMode ? '#f1f5f9' : '#1e293b';
+          const rowHover = isLightMode ? 'rgba(219,234,254,0.45)' : 'rgba(45,212,191,0.06)';
+          const cellBorder = isLightMode ? '#d6e4f0' : '#1e2340';
+          const stickyBg = isLightMode ? '#e2e8f0' : '#0f172a';
+          const leftAxisBg = isLightMode ? '#f1f5f9' : '#1e293b';
+
+          // ── Line Group classification (same as Dashboard) ──
+          const ASSY_LINES = ['Gear Assy','Gear Sub-Assy','Housing Assy No.1','Housing Assy No.2','Pulley Sub-Assy','Rack Sub-Assy','C-EPS'];
+          const MACHINING_LINES = ['Rack Machining','Nut Machining','Pinion Machining','Sensor Assy','Input Shaft Assy'];
+
+          const getLineGroupName = (lineName) => {
+            if (ASSY_LINES.includes(lineName)) return 'Assy line';
+            if (MACHINING_LINES.includes(lineName)) return 'Machining line';
+            return 'Assy line'; // default fallback
+          };
+
+          // ── Build Matrix Data: Row = M/E + Failure Category, Col = Line Group + Machine No ──
+          const matrixData = React.useMemo(() => {
+            // 1. Collect all unique machines, categorize by line group
+            const machineGroupMap = {};   // machineNo -> 'Assy line' | 'Machining line'
+            const machineCountMap = {};   // machineNo -> count
+            const cellMap = {};           // `${type}||${cat}||${machineNo}` -> count
+            const typeCatSet = { E: new Set(), M: new Set() };
+
+            data.forEach(d => {
+              const machine = d.machineNo || 'N/A';
+              const type = d.type || 'M';
+              const cat = d.failureCategory || 'Unspecified';
+              const lineGroup = getLineGroupName(d.lineName);
+
+              machineGroupMap[machine] = lineGroup;
+              machineCountMap[machine] = (machineCountMap[machine] || 0) + 1;
+              typeCatSet[type]?.add(cat);
+
+              const cellKey = `${type}||${cat}||${machine}`;
+              cellMap[cellKey] = (cellMap[cellKey] || 0) + 1;
+            });
+
+            // 2. Sort machines by group, then by machine name
+            const assyMachines = Object.keys(machineGroupMap)
+              .filter(m => machineGroupMap[m] === 'Assy line')
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            const machiningMachines = Object.keys(machineGroupMap)
+              .filter(m => machineGroupMap[m] === 'Machining line')
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+            // 3. Get sorted categories for E and M
+            const eCats = [...(typeCatSet.E || [])].sort();
+            const mCats = [...(typeCatSet.M || [])].sort();
+
+            // 4. Compute type subtotals per machine
+            const typeSubtotals = {};  // `${type}||${machine}` -> count
+            data.forEach(d => {
+              const key = `${d.type}||${d.machineNo}`;
+              typeSubtotals[key] = (typeSubtotals[key] || 0) + 1;
+            });
+
+            // 5. Max value for bar scaling
+            const allVals = Object.values(cellMap);
+            const maxVal = Math.max(1, ...allVals);
+
+            return {
+              assyMachines, machiningMachines,
+              allMachines: [...assyMachines, ...machiningMachines],
+              eCats, mCats,
+              cellMap, typeSubtotals, maxVal,
+              machineGroupMap, machineCountMap
+            };
+          }, [data]);
+
+          const toggleType = (type) => {
+            setExpandedTypes(prev => ({ ...prev, [type]: !prev[type] }));
+          };
+
+          // ── Filtered detail data ──
+          const filteredRows = React.useMemo(() => {
+            let rows = data;
+            if (matrixFilter) {
+              const [ft, fc, fm] = matrixFilter.split('||');
+              rows = rows.filter(d =>
+                d.type === ft &&
+                (d.failureCategory || 'Unspecified') === fc &&
+                d.machineNo === fm
+              );
+            }
+            if (sortKey) {
+              rows = [...rows].sort((a, b) => {
+                const va = a[sortKey] ?? '';
+                const vb = b[sortKey] ?? '';
+                if (typeof va === 'number') return sortDir === 'asc' ? va - vb : vb - va;
+                return sortDir === 'asc' ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+              });
+            }
+            return rows;
+          }, [data, matrixFilter, sortKey, sortDir]);
+
+          const handleSort = (key) => {
+            if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+            else { setSortKey(key); setSortDir('desc'); }
+          };
+
+          const formatDateDDMMYY = (isoStr) => {
+            if (!isoStr || typeof isoStr !== 'string') return isoStr;
+            const parts = isoStr.split('-');
+            if (parts.length === 3) {
+              return `${parts[2]}-${parts[1]}-${parts[0].slice(-2)}`;
+            }
+            return isoStr;
+          };
+
+
+          // ── Heatmap cell renderer ──
+          const renderHeatmapCell = (val, maxVal, machine, type, cat, mi) => {
+            const cellKey = `${type}||${cat}||${machine}`;
+            const isActive = matrixFilter === cellKey;
+            const isLastAssy = mi === matrixData.assyMachines.length - 1 && matrixData.assyMachines.length > 0;
+            const rightBorder = isLastAssy ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : `1px solid ${cellBorder}`;
+
+            if (!val) return (
+              <td key={machine} style={{
+                padding: '3px 4px', borderRight: rightBorder,
+                borderBottom: `1px solid ${cellBorder}`,
+                background: isActive ? accent+'22' : 'transparent',
+                minWidth: isMobile ? 50 : 62,
+              }}/>
+            );
+            
+            const intensity = val / maxVal;
+            const bgAlpha = intensity * 0.85 + 0.15;
+            const bgColor = isLightMode 
+                ? `rgba(220, 38, 38, ${bgAlpha})` 
+                : `rgba(239, 68, 68, ${bgAlpha})`;
+
+            return (
+              <td key={machine}
+                onClick={() => setMatrixFilter(isActive ? null : cellKey)}
+                style={{
+                  padding: '3px 4px',
+                  borderRight: rightBorder,
+                  borderBottom: `1px solid ${cellBorder}`,
+                  cursor: 'pointer',
+                  minWidth: isMobile ? 50 : 62,
+                  textAlign: 'center',
+                  outline: isActive ? `2px solid ${accent}` : 'none',
+                  background: isActive ? accent+'44' : bgColor,
+                  color: (intensity > 0.3 || !isLightMode) ? '#ffffff' : textMain,
+                  fontWeight: 700,
+                  fontSize: 12,
+                  transition: 'background 0.12s',
+                }}
+              >
+                {val}
+              </td>
+            );
+          };
+
+          // ── Subtotal row for E / M ──
+          const renderTypeSubtotalRow = (type, allMachines) => {
+            const isMRow = type === 'M';
+            const mBorderTop = isMRow ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : 'none';
+            return (
+              <tr key={`sub-${type}`} style={{
+                background: isLightMode ? 'rgba(219,234,254,0.55)' : 'rgba(45,212,191,0.08)',
+                cursor: 'pointer',
+              }}
+                onClick={() => toggleType(type)}
+              >
+                <td style={{
+                  padding: isMobile ? '5px 6px' : '7px 10px',
+                  fontWeight: 800, fontSize: isMobile ? 12 : 13,
+                  color: type === 'E' ? (isLightMode ? '#2563eb' : '#60a5fa') : (isLightMode ? '#ea580c' : '#fb923c'),
+                  borderRight: `2px solid ${cellBorder}`,
+                  borderBottom: `1px solid ${cellBorder}`,
+                  borderTop: mBorderTop,
+                  position: 'sticky', left: 0, zIndex: 2,
+                  width: isMobile ? 46 : 60, minWidth: isMobile ? 46 : 60, maxWidth: isMobile ? 46 : 60, boxSizing: 'border-box',
+                  background: stickyBg,
+                  whiteSpace: 'nowrap',
+                }}>
+                  <span style={{ marginRight: 6, fontSize: 11, userSelect: 'none' }}>
+                    {expandedTypes[type] ? '⊟' : '⊞'}
+                  </span>
+                  {type}
+                </td>
+                <td style={{
+                  padding: isMobile ? '5px 6px' : '7px 10px',
+                  fontWeight: 400, fontSize: 11, color: textMuted,
+                  borderRight: `2px solid ${cellBorder}`,
+                  borderBottom: `1px solid ${cellBorder}`,
+                  borderTop: mBorderTop,
+                  position: 'sticky', left: isMobile ? 45 : 59, zIndex: 2,
+                  width: isMobile ? 100 : 140, minWidth: isMobile ? 100 : 140, maxWidth: isMobile ? 100 : 140, boxSizing: 'border-box',
+                  background: stickyBg,
+                }}/>
+                {allMachines.map((machine, mi) => {
+                  const val = matrixData.typeSubtotals[`${type}||${machine}`] || 0;
+                  const isLastAssy = mi === matrixData.assyMachines.length - 1 && matrixData.assyMachines.length > 0;
+                  return (
+                    <td key={machine} style={{
+                      textAlign: 'center', padding: '4px 3px',
+                      borderRight: isLastAssy ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : `1px solid ${cellBorder}`,
+                      borderBottom: `1px solid ${cellBorder}`,
+                      borderTop: mBorderTop,
+                      fontWeight: val > 0 ? 700 : 400,
+                      fontSize: 12,
+                      color: val > 0 ? textMain : 'transparent',
+                      background: val > 0
+                        ? (isLightMode ? 'rgba(20,184,166,0.15)' : 'rgba(45,212,191,0.10)')
+                        : 'transparent',
+                    }}>{val > 0 ? val : ''}</td>
+                  );
+                })}
+              </tr>
+            );
+          };
+
+          // ── Category rows under each type ──
+          const renderCategoryRow = (type, cat, allMachines) => {
+            return (
+              <tr key={`${type}-${cat}`}
+                onMouseEnter={e => { e.currentTarget.style.background = rowHover; }}
+                onMouseLeave={e => { e.currentTarget.style.background = ''; }}
+                style={{ transition: 'background 0.12s' }}
+              >
+                {/* M/E column (empty — type shown in subtotal row) */}
+                <td style={{
+                  padding: isMobile ? '4px 6px' : '5px 10px',
+                  borderRight: `2px solid ${cellBorder}`,
+                  borderBottom: `1px solid ${cellBorder}`,
+                  position: 'sticky', left: 0, zIndex: 1,
+                  background: leftAxisBg,
+                  width: isMobile ? 46 : 60, minWidth: isMobile ? 46 : 60, maxWidth: isMobile ? 46 : 60, boxSizing: 'border-box',
+                }}/>
+                {/* Failure Category */}
+                <td style={{
+                  padding: isMobile ? '4px 6px' : '5px 10px',
+                  fontWeight: 600, fontSize: isMobile ? 11 : 12,
+                  color: textMain,
+                  borderRight: `2px solid ${cellBorder}`,
+                  borderBottom: `1px solid ${cellBorder}`,
+                  position: 'sticky', left: isMobile ? 45 : 59, zIndex: 1,
+                  background: leftAxisBg,
+                  whiteSpace: 'nowrap',
+                  width: isMobile ? 100 : 140, minWidth: isMobile ? 100 : 140, maxWidth: isMobile ? 100 : 140, boxSizing: 'border-box',
+                  overflow: 'hidden', textOverflow: 'ellipsis',
+                }}>{cat}</td>
+                {/* Data cells for each machine */}
+                {allMachines.map((machine, mi) => {
+                  const val = matrixData.cellMap[`${type}||${cat}||${machine}`] || 0;
+                  return renderHeatmapCell(val, matrixData.maxVal, machine, type, cat, mi);
+                })}
+              </tr>
+            );
+          };
+
+          const thStyle = (key) => ({
+            padding: isMobile ? '7px 6px' : '11px 14px',
+            textAlign: 'left', fontWeight: 700, fontSize: isMobile ? 11 : 12,
+            color: textMain, background: headBg, whiteSpace: 'nowrap',
+            cursor: 'pointer', userSelect: 'none',
+            borderBottom: `2px solid ${accent}33`,
+            transition: 'background 0.15s',
+          });
+
+          const tdStyle = {
+            padding: isMobile ? '6px 6px' : '10px 14px',
+            fontSize: isMobile ? 11 : 12,
+            color: textMuted, borderBottom: `1px solid ${cardBorder}`,
+            whiteSpace: 'nowrap', maxWidth: 200,
+            overflow: 'hidden', textOverflow: 'ellipsis',
+          };
+
+          const sortIcon = (key) => {
+            if (sortKey !== key) return ' ↕';
+            return sortDir === 'asc' ? ' ↑' : ' ↓';
+          };
+
+          const detailCols = [
+            { key: 'isoDate',       label: 'Date' },
+            { key: 'machineNo',       label: 'Machine No' },
+            { key: 'machineName',     label: 'Machine name' },
+            { key: 'lineName',        label: 'Line name' },
+            { key: 'bdTime',          label: 'BD time' },
+            { key: 'repairDetail',    label: 'Problem detail' },
+            { key: 'implementation',  label: 'Implementation detail' },
+            { key: 'rootCause',       label: 'Root cause' },
+          ];
+
+          const { allMachines, assyMachines, machiningMachines, eCats, mCats } = matrixData;
+
+          return (
+            <div style={{ padding: isMobile ? '8px 4px' : '0 0 40px' }}>
+
+              {/* ── PAGE HEADER ── */}
+              <div style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                marginBottom: 20, flexWrap: 'wrap', gap: 10,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    width: 40, height: 40, borderRadius: 12,
+                    background: isLightMode ? 'rgba(219,234,254,0.90)' : 'rgba(45,212,191,0.15)',
+                    fontSize: 20,
+                  }}>📋</span>
+                  <div>
+                    <h2 style={{ margin: 0, fontSize: isMobile ? 16 : 22, fontWeight: 800, color: textMain }}>
+                      {t.tableAnalysisTitle || 'Table Analysis'}
+                    </h2>
+                    <p style={{ margin: 0, fontSize: 12, color: textMuted, marginTop: 2 }}>
+                      {lang==='TH' ? `แสดงข้อมูลทั้งหมด ${data.length.toLocaleString()} รายการ`
+                        : lang==='JP' ? `全 ${data.length.toLocaleString()} 件表示`
+                        : `Showing ${data.length.toLocaleString()} records`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* ── KPI STRIP ── */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(5,1fr)',
+                gap: 10, marginBottom: 18,
+              }}>
+                {[
+                  { label: t.tableTotalBD || 'Total BD', value: data.length.toLocaleString(), icon: '🔧', color: accent },
+                  { label: 'Mechanical (M)', value: mCats.length > 0 ? data.filter(d=>d.type==='M').length.toLocaleString() : '0', icon: '⚙️', color: isLightMode ? '#f97316' : '#fb923c' },
+                  { label: 'Electrical (E)', value: eCats.length > 0 ? data.filter(d=>d.type==='E').length.toLocaleString() : '0', icon: '⚡', color: isLightMode ? '#3b82f6' : '#60a5fa' },
+                  { label: 'Assy line', value: assyMachines.length.toLocaleString() + (lang==='TH'?' เครื่อง':lang==='JP'?' 台':' machines'), icon: '🧩', color: '#14b8a6' },
+                  { label: 'Machining line', value: machiningMachines.length.toLocaleString() + (lang==='TH'?' เครื่อง':lang==='JP'?' 台':' machines'), icon: '⚙️', color: '#8b5cf6' },
+                ].map((kpi, i) => (
+                  <div key={i} style={{
+                    background: cardBg, border: `1px solid ${cardBorder}`,
+                    borderRadius: 12, padding: isMobile ? '10px 12px' : '14px 16px',
+                    display: 'flex', alignItems: 'center', gap: 10,
+                  }}>
+                    <span style={{ fontSize: isMobile ? 20 : 24 }}>{kpi.icon}</span>
+                    <div>
+                      <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 800, color: kpi.color, lineHeight: 1.1 }}>
+                        {kpi.value}
+                      </div>
+                      <div style={{ fontSize: 11, color: textMuted, marginTop: 3 }}>{kpi.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ══════════════════════════════════════════
+                  MATRIX TABLE (Power BI Style)
+                  Row: M/E → Failure Category
+                  Col: Line Group → Machine No
+              ══════════════════════════════════════════ */}
+              <div style={{
+                  background: cardBg, border: `1px solid ${cardBorder}`,
+                  borderRadius: 14, overflow: 'hidden', marginBottom: 20,
+                  boxShadow: isLightMode
+                    ? '0 4px 24px rgba(50,80,130,0.10)'
+                    : '0 4px 24px rgba(0,0,0,0.4)',
+                }}>
+                  <div style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: 600 }}>
+                    <table style={{
+                      borderCollapse: 'separate', borderSpacing: 0, width: 'max-content', minWidth: '100%',
+                      fontFamily: "'Sarabun', sans-serif",
+                    }}>
+                      {/* ═══ HEADER ROW 1: Line Group ═══ */}
+                      <thead style={{ position: 'sticky', top: 0, zIndex: 5, background: headBg }}>
+                        <tr>
+                          {/* Corner: "Line Group" */}
+                          <th colSpan={2} style={{
+                            padding: isMobile ? '6px 8px' : '8px 12px',
+                            fontSize: isMobile ? 10 : 11,
+                            fontWeight: 600, color: textMuted,
+                            background: headBg,
+                            borderRight: `2px solid ${cellBorder}`,
+                            borderBottom: `1px solid ${cellBorder}`,
+                            position: 'sticky', left: 0, zIndex: 6,
+                            width: isMobile ? 146 : 200, minWidth: isMobile ? 146 : 200, maxWidth: isMobile ? 146 : 200, boxSizing: 'border-box',
+                            textAlign: 'left',
+                            letterSpacing: '0.03em',
+                          }}>
+                            <span style={{ color: isLightMode ? '#6b7280' : '#64748b' }}>Line Group</span>
+                          </th>
+                          {/* Assy line group header */}
+                          {assyMachines.length > 0 && (
+                            <th colSpan={assyMachines.length} style={{
+                              padding: isMobile ? '6px 8px' : '8px 14px',
+                              fontSize: isMobile ? 11 : 12,
+                              fontWeight: 800, color: isLightMode ? '#0f766e' : '#2dd4bf',
+                              background: headBg,
+                              borderRight: `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}`,
+                              borderBottom: `1px solid ${cellBorder}`,
+                              textAlign: 'left',
+                              letterSpacing: '0.02em',
+                            }}>Assy line</th>
+                          )}
+                          {/* Machining line group header */}
+                          {machiningMachines.length > 0 && (
+                            <th colSpan={machiningMachines.length} style={{
+                              padding: isMobile ? '6px 8px' : '8px 14px',
+                              fontSize: isMobile ? 11 : 12,
+                              fontWeight: 800, color: isLightMode ? '#7c3aed' : '#a78bfa',
+                              background: headBg,
+                              borderBottom: `1px solid ${cellBorder}`,
+                              textAlign: 'left',
+                              letterSpacing: '0.02em',
+                            }}>Machining line</th>
+                          )}
+                        </tr>
+
+                        {/* ═══ HEADER ROW 2: M/E | Failure Category | Machine No. ═══ */}
+                        <tr>
+                          <th style={{
+                            padding: isMobile ? '6px 6px' : '8px 10px',
+                            fontSize: isMobile ? 10 : 11,
+                            fontWeight: 800, color: textMain,
+                            background: headBg2,
+                            borderRight: `1px solid ${cellBorder}`,
+                            borderBottom: `2px solid ${accent}33`,
+                            position: 'sticky', left: 0, zIndex: 6,
+                            width: isMobile ? 46 : 60, minWidth: isMobile ? 46 : 60, maxWidth: isMobile ? 46 : 60, boxSizing: 'border-box',
+                            textAlign: 'left',
+                          }}>M/E</th>
+                          <th style={{
+                            padding: isMobile ? '6px 6px' : '8px 10px',
+                            fontSize: isMobile ? 10 : 11,
+                            fontWeight: 800, color: textMain,
+                            background: headBg2,
+                            borderRight: `2px solid ${cellBorder}`,
+                            borderBottom: `2px solid ${accent}33`,
+                            position: 'sticky', left: isMobile ? 45 : 59, zIndex: 6,
+                            width: isMobile ? 100 : 140, minWidth: isMobile ? 100 : 140, maxWidth: isMobile ? 100 : 140, boxSizing: 'border-box',
+                            textAlign: 'left',
+                          }}>Failure category</th>
+                          {allMachines.map((machine, mi) => {
+                            const isLastAssy = mi === assyMachines.length - 1 && assyMachines.length > 0;
+                            return (
+                              <th key={machine} style={{
+                                padding: isMobile ? '5px 3px' : '7px 5px',
+                                fontSize: isMobile ? 9 : 10,
+                                fontWeight: 700, color: textMain,
+                                background: headBg2,
+                                borderRight: isLastAssy
+                                  ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}`
+                                  : `1px solid ${cellBorder}`,
+                                borderBottom: `2px solid ${accent}33`,
+                                textAlign: 'center',
+                                whiteSpace: 'nowrap',
+                                minWidth: isMobile ? 50 : 62,
+                                letterSpacing: '-0.02em',
+                              }}>{machine}</th>
+                            );
+                          })}
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {/* ═══ E SECTION ═══ */}
+                        {eCats.length > 0 && renderTypeSubtotalRow('E', allMachines)}
+                        {expandedTypes.E && eCats.map(cat => renderCategoryRow('E', cat, allMachines))}
+
+                        {/* ═══ M SECTION ═══ */}
+                        {mCats.length > 0 && renderTypeSubtotalRow('M', allMachines)}
+                        {expandedTypes.M && mCats.map(cat => renderCategoryRow('M', cat, allMachines))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              {/* ── DETAIL TABLE ── */}
+              <div style={{
+                background: cardBg, border: `1px solid ${cardBorder}`,
+                borderRadius: 14, overflow: 'hidden',
+                boxShadow: isLightMode
+                  ? '0 4px 20px rgba(50,80,130,0.08)'
+                  : '0 4px 20px rgba(0,0,0,0.3)',
+              }}>
+                <div style={{
+                  padding: isMobile ? '12px 14px' : '16px 20px',
+                  borderBottom: `1px solid ${cardBorder}`,
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                }}>
+                  <span style={{ fontWeight: 700, fontSize: 15, color: textMain }}>
+                    📄 {lang==='TH' ? `รายละเอียด (${filteredRows.length.toLocaleString()} รายการ)` : lang==='JP' ? `詳細 (${filteredRows.length.toLocaleString()} 件)` : `Detail Table (${filteredRows.length.toLocaleString()} records)`}
+                  </span>
+                  {matrixFilter && (
+                    <button onClick={() => setMatrixFilter(null)}
+                      style={{
+                        padding: '5px 14px', borderRadius: 999, fontSize: 12, fontWeight: 700,
+                        background: 'transparent', border: `1px solid ${accent}55`,
+                        color: accent, cursor: 'pointer', fontFamily: "'Sarabun', sans-serif",
+                      }}>
+                      ✕ {t.tableFilterClear || 'Clear'}
+                    </button>
+                  )}
+                </div>
+                <div style={{ overflowX: 'auto', maxHeight: 500, overflowY: 'auto' }}>
+                  <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 900 }}>
+                    <thead style={{ position: 'sticky', top: 0, zIndex: 2 }}>
+                      <tr>
+                        {detailCols.map(col => (
+                          <th key={col.key} onClick={() => handleSort(col.key)}
+                            style={thStyle(col.key)}>
+                            {col.label}{sortIcon(col.key)}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredRows.length === 0 ? (
+                        <tr>
+                          <td colSpan={detailCols.length} style={{
+                            textAlign: 'center', padding: '40px 20px',
+                            color: isLightMode ? textMuted : '#ffffff', fontSize: 14,
+                          }}>
+                            {t.tableNoData || 'No Data Found'}
+                          </td>
+                        </tr>
+                      ) : filteredRows.slice(0, 500).map((row, ri) => (
+                        <tr key={ri}
+                          onMouseEnter={e => { e.currentTarget.style.background = rowHover; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = ''; }}
+                          style={{ transition: 'background 0.12s' }}
+                        >
+                          {detailCols.map(col => (
+                            <td key={col.key} style={{
+                              ...tdStyle,
+                              color: isLightMode 
+                                ? (col.key === 'machineNo' ? textMain : tdStyle.color)
+                                : '#ffffff',
+                              fontWeight: col.key === 'machineNo' ? 700 : 400,
+                              whiteSpace: ['repairDetail', 'implementation', 'rootCause', 'machineName'].includes(col.key) ? 'normal' : 'nowrap',
+                              minWidth: col.key === 'implementation' ? 250 : col.key === 'repairDetail' ? 200 : col.key === 'machineName' ? 150 : 'auto',
+                            }}>
+                              {col.key === 'isoDate'
+                                ? formatDateDDMMYY(row[col.key])
+                                : col.key === 'bdTime'
+                                  ? <span style={{ fontWeight: 600, color: (row[col.key] || 0) >= 60 ? '#ef4444' : (isLightMode ? textMuted : '#ffffff') }}>
+                                      {row[col.key]}
+                                    </span>
+                                  : (row[col.key] || '—')}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {filteredRows.length > 500 && (
+                    <div style={{ textAlign: 'center', padding: '12px', color: textMuted, fontSize: 12 }}>
+                      {lang==='TH' ? `แสดง 500 จาก ${filteredRows.length} รายการ` : lang==='JP' ? `${filteredRows.length} 件中 500 件表示` : `Showing 500 of ${filteredRows.length} rows`}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          );
+        };
+
         const HamburgerMenu = ({ isOpen, onClose, currentPage, setCurrentPage, t, isLightMode }) => {
           const menuItems = [
             { key: 'KPI', icon: '📊', label: t.menuKPI },
             { key: 'FOCUS', icon: '🎯', label: t.menuFocus },
             { key: 'ANALYSIS', icon: '🔬', label: t.menuAnalysis },
             { key: 'WEAKPOINT', icon: '⚠️', label: t.menuWeakpoint || 'Weak Point Analysis' },
+            { key: 'TABLE_ANALYSIS', icon: '📋', label: t.menuTableAnalysis || 'Table Analysis' },
             { key: 'AI', icon: '🤖', label: t.menuAI || 'AI Agent' },
           ];
 
@@ -7153,6 +7759,11 @@ return (
 
 </div>
 
+</React.Fragment>)}
+
+{/* ═══ PAGE: TABLE ANALYSIS ═══ */}
+{currentPage === 'TABLE_ANALYSIS' && (<React.Fragment>
+  <TableAnalysisPage data={filteredData} t={t} lang={lang} isLightMode={isLightMode} isMobile={isMobile} />
 </React.Fragment>)}
 
 {/* ═══ PAGE: AI AGENT ═══ */}
