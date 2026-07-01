@@ -327,6 +327,13 @@ body.light-mode td {
   border-color: var(--lm-separator) !important;
 }
 
+body.light-mode .jath-thick-right {
+  border-right-color: #0f172a !important;
+}
+body.light-mode .jath-thick-top {
+  border-top-color: #0f172a !important;
+}
+
 body.light-mode td.sticky,
 body.light-mode .bg-white.hover\:bg-blue-50 {
   background: rgba(245,251,255,0.92) !important;
@@ -2393,6 +2400,7 @@ const renderParetoTick = ({ x, y, payload }) => {
           const [expandedTypes, setExpandedTypes] = React.useState({ E: true, M: true });
           const [sortKey, setSortKey] = React.useState('isoDate');
           const [sortDir, setSortDir] = React.useState('desc');
+          const [zoomLevel, setZoomLevel] = React.useState(1);
 
           const ct = getChartTheme(isLightMode);
           const accent = isLightMode ? '#1d4ed8' : '#E50914';
@@ -2518,10 +2526,10 @@ const renderParetoTick = ({ x, y, payload }) => {
             const cellKey = `${type}||${cat}||${machine}`;
             const isActive = matrixFilter === cellKey;
             const isLastAssy = mi === matrixData.assyMachines.length - 1 && matrixData.assyMachines.length > 0;
-            const rightBorder = isLastAssy ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : `1px solid ${cellBorder}`;
+            const rightBorder = isLastAssy ? `3px solid ${isLightMode ? '#0f172a' : '#94a3b8'}` : `1px solid ${cellBorder}`;
 
             if (!val) return (
-              <td key={machine} style={{
+              <td key={machine} className={isLastAssy ? 'jath-thick-right' : ''} style={{
                 padding: '3px 4px', borderRight: rightBorder,
                 borderBottom: `1px solid ${cellBorder}`,
                 background: isActive ? accent+'22' : 'transparent',
@@ -2537,6 +2545,7 @@ const renderParetoTick = ({ x, y, payload }) => {
 
             return (
               <td key={machine}
+                className={isLastAssy ? 'jath-thick-right' : ''}
                 onClick={() => setMatrixFilter(isActive ? null : cellKey)}
                 style={{
                   padding: '3px 4px',
@@ -2561,7 +2570,7 @@ const renderParetoTick = ({ x, y, payload }) => {
           // ── Subtotal row for E / M ──
           const renderTypeSubtotalRow = (type, allMachines) => {
             const isMRow = type === 'M';
-            const mBorderTop = isMRow ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : 'none';
+            const mBorderTop = isMRow ? `3px solid ${isLightMode ? '#0f172a' : '#94a3b8'}` : 'none';
             return (
               <tr key={`sub-${type}`} style={{
                 background: isLightMode ? 'rgba(219,234,254,0.55)' : 'rgba(45,212,191,0.08)',
@@ -2569,7 +2578,7 @@ const renderParetoTick = ({ x, y, payload }) => {
               }}
                 onClick={() => toggleType(type)}
               >
-                <td style={{
+                <td className={isMRow ? 'jath-thick-top' : ''} style={{
                   padding: isMobile ? '5px 6px' : '7px 10px',
                   fontWeight: 800, fontSize: isMobile ? 12 : 13,
                   color: type === 'E' ? (isLightMode ? '#2563eb' : '#60a5fa') : (isLightMode ? '#ea580c' : '#fb923c'),
@@ -2586,7 +2595,7 @@ const renderParetoTick = ({ x, y, payload }) => {
                   </span>
                   {type}
                 </td>
-                <td style={{
+                <td className={isMRow ? 'jath-thick-top' : ''} style={{
                   padding: isMobile ? '5px 6px' : '7px 10px',
                   fontWeight: 400, fontSize: 11, color: textMuted,
                   borderRight: `2px solid ${cellBorder}`,
@@ -2600,9 +2609,9 @@ const renderParetoTick = ({ x, y, payload }) => {
                   const val = matrixData.typeSubtotals[`${type}||${machine}`] || 0;
                   const isLastAssy = mi === matrixData.assyMachines.length - 1 && matrixData.assyMachines.length > 0;
                   return (
-                    <td key={machine} style={{
+                    <td key={machine} className={`${isLastAssy ? 'jath-thick-right' : ''} ${isMRow ? 'jath-thick-top' : ''}`} style={{
                       textAlign: 'center', padding: '4px 3px',
-                      borderRight: isLastAssy ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}` : `1px solid ${cellBorder}`,
+                      borderRight: isLastAssy ? `3px solid ${isLightMode ? '#0f172a' : '#94a3b8'}` : `1px solid ${cellBorder}`,
                       borderBottom: `1px solid ${cellBorder}`,
                       borderTop: mBorderTop,
                       fontWeight: val > 0 ? 700 : 400,
@@ -2718,6 +2727,16 @@ const renderParetoTick = ({ x, y, payload }) => {
                     </p>
                   </div>
                 </div>
+
+                {/* ── ZOOM CONTROLS ── */}
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <span style={{ fontSize: 12, color: textMuted, fontWeight: 600 }}>Zoom:</span>
+                  <button onClick={() => setZoomLevel(z => Math.max(0.1, z - 0.1))} 
+                          style={{ background: cardBg, border: `1px solid ${cardBorder}`, color: textMain, width: 32, height: 32, borderRadius: 6, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>-</button>
+                  <span style={{ fontSize: 13, color: textMain, minWidth: 40, textAlign: 'center', fontWeight: 600 }}>{Math.round(zoomLevel * 100)}%</span>
+                  <button onClick={() => setZoomLevel(z => Math.min(2, z + 0.1))} 
+                          style={{ background: cardBg, border: `1px solid ${cardBorder}`, color: textMain, width: 32, height: 32, borderRadius: 6, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>+</button>
+                </div>
               </div>
 
               {/* ── KPI STRIP ── */}
@@ -2765,6 +2784,7 @@ const renderParetoTick = ({ x, y, payload }) => {
                     <table style={{
                       borderCollapse: 'separate', borderSpacing: 0, width: 'max-content', minWidth: '100%',
                       fontFamily: "'Sarabun', sans-serif",
+                      zoom: zoomLevel,
                     }}>
                       {/* ═══ HEADER ROW 1: Line Group ═══ */}
                       <thead style={{ position: 'sticky', top: 0, zIndex: 5, background: headBg }}>
@@ -2786,12 +2806,12 @@ const renderParetoTick = ({ x, y, payload }) => {
                           </th>
                           {/* Assy line group header */}
                           {assyMachines.length > 0 && (
-                            <th colSpan={assyMachines.length} style={{
+                            <th colSpan={assyMachines.length} className="jath-thick-right" style={{
                               padding: isMobile ? '6px 8px' : '8px 14px',
                               fontSize: isMobile ? 11 : 12,
                               fontWeight: 800, color: isLightMode ? '#0f766e' : '#2dd4bf',
                               background: headBg,
-                              borderRight: `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}`,
+                              borderRight: `3px solid ${isLightMode ? '#0f172a' : '#94a3b8'}`,
                               borderBottom: `1px solid ${cellBorder}`,
                               textAlign: 'left',
                               letterSpacing: '0.02em',
@@ -2838,13 +2858,13 @@ const renderParetoTick = ({ x, y, payload }) => {
                           {allMachines.map((machine, mi) => {
                             const isLastAssy = mi === assyMachines.length - 1 && assyMachines.length > 0;
                             return (
-                              <th key={machine} style={{
+                              <th key={machine} className={isLastAssy ? 'jath-thick-right' : ''} style={{
                                 padding: isMobile ? '5px 3px' : '7px 5px',
                                 fontSize: isMobile ? 9 : 10,
                                 fontWeight: 700, color: textMain,
                                 background: headBg2,
                                 borderRight: isLastAssy
-                                  ? `3px solid ${isLightMode ? '#64748b' : '#94a3b8'}`
+                                  ? `3px solid ${isLightMode ? '#0f172a' : '#94a3b8'}`
                                   : `1px solid ${cellBorder}`,
                                 borderBottom: `2px solid ${accent}33`,
                                 textAlign: 'center',
